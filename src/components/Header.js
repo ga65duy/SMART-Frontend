@@ -66,14 +66,14 @@ class Header extends React.Component {
 
                             <Breadcrumbs separator="›" aria-label="Breadcrumb">
                                 <Link color="inherit" href="/" onClick={this.handleClick()}>
-                                    Material-UI
+                                   Home
                                 </Link>
                                 <Link color="inherit" href="/getting-started/installation/" onClick={this.handleClick()}>
                                     Core
                                 </Link>
                                 <Typography color="textPrimary">Breadcrumb</Typography>
                             </Breadcrumbs>
-                        
+
 
                         <Typography style={{flex:1}}/>
 
