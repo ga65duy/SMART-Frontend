@@ -1,6 +1,7 @@
 "use strict";
 
 import React from 'react';
+
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import { MovieListView } from './views/MovieListView';
@@ -18,7 +19,7 @@ export default class App extends React.Component {
         super(props);
 
         this.state = {
-            title: 'Movie Example App',
+            title: 'SMART',
             routes: [
                 { component: MovieListView , path: '/', exact: true},
                 { component: MovieDetailView , path: '/show/:id'},
