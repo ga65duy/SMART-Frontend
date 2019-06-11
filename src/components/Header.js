@@ -10,8 +10,15 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+
 import MenuIcon from '@material-ui/icons/Menu';
 import CardMedia from '@material-ui/core/CardMedia';
+
+import Paper from '@material-ui/core/Paper';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+
 
 //import logo from './src/Smart.jpg';
 
@@ -26,7 +33,7 @@ const useStyles = makeStyles(theme => ({
         marginRight: theme.spacing(2),
     },
     title: {
-        flexGrow: 1,
+        flex: 1,
     },
 }));
 
@@ -38,7 +45,9 @@ class Header extends React.Component {
     }
 
 
+ handleClick(){
 
+ }
 
 
 
@@ -49,14 +58,33 @@ class Header extends React.Component {
             <div className={classes.root}>
                 <AppBar position="static">
                     <Toolbar>
-                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="Menu">
-                            <MenuIcon/>
+                        <Button >
+                            <img src={require('../Smart.jpg')}/>
+                        </Button>
+
+
+
+                            <Breadcrumbs separator="›" aria-label="Breadcrumb">
+                                <Link color="inherit" href="/" onClick={this.handleClick()}>
+                                    Material-UI
+                                </Link>
+                                <Link color="inherit" href="/getting-started/installation/" onClick={this.handleClick()}>
+                                    Core
+                                </Link>
+                                <Typography color="textPrimary">Breadcrumb</Typography>
+                            </Breadcrumbs>
+                        
+
+                        <Typography style={{flex:1}}/>
+
+
+                        <Button edge="start" color="inherit">Login</Button>
+
+                        <IconButton>
+                             <AccountCircle />
                         </IconButton>
-                        <Typography variant="h6" className={classes.title}>
-                            News
-                        </Typography>
-                        <Button color="inherit">Login</Button>
-                        <CardMedia image={require('../Smart.jpg')}/>
+
+
                     </Toolbar>
                 </AppBar>
             </div>
