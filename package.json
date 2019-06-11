@@ -1,18 +1,18 @@
 {
-  "name": "sebamaster-movie-frontend",
+  "name": "sebamaster-smart-frontend",
   "version": "0.0.1",
-  "description": "SEBAMaster Movie Frontend Application React",
+  "description": "SEBAMaster SMART Frontend Application React",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/sebischair/sebamaster-movie-frontend"
+    "url": "https://github.com/GeSchwab/Team19Frontend"
   },
   "author": "sebis",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sebischair/sebamaster-movie-frontend/issues"
+    "url": "https://github.com/GeSchwab/Team19Frontend/issues"
   },
-  "homepage": "https://github.com/sebischair/sebamaster-movie-frontend#readme",
+  "homepage": "https://github.com/GeSchwab/Team19Frontend#readme",
   "engines": {
     "node": ">=4.3"
   },
@@ -33,17 +33,20 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.1.0",
+    "@material-ui/icons": "^4.1.0",
+    "file-loader": "^4.0.0",
     "react": "16.8.4",
     "react-dom": "16.8.4",
     "react-md": "1.2.11",
     "react-router-dom": "4.2.2",
     "styled-components": "3.1.6",
     "typeface-roboto": "0.0.54",
+    "url-loader": "^2.0.0",
     "webfontloader": "1.6.28"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.prod.js",
-    "start": "webpack-dev-server --open 'Google Chrome' --config webpack.dev.js"
+    "start": "webpack-dev-server --open chrome --config webpack.dev.js"
   }
 }
