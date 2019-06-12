@@ -20,6 +20,7 @@ export default class App extends React.Component {
 
         this.state = {
             title: 'SMART',
+
             routes: [
                 { component: MovieListView , path: '/', exact: true},
                 { component: MovieDetailView , path: '/show/:id'},
@@ -38,7 +39,7 @@ export default class App extends React.Component {
                         return (<Redirect to={'/login'}/>)
                     }}, path: '/add',},
                 { component: UserLoginView, path: '/login'},
-                { component: UserSignupView, path: '/register'}
+                { component: UserSignupView, path: '/register/test'}
             ]
         };
     }

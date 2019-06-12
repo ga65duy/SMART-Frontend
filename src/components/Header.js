@@ -53,6 +53,10 @@ class Header extends React.Component {
 
     render() {
         const classes = useStyles;
+        console.log(this.props.location.pathname.split('/'));
+        const pathway = this.props.location.pathname.split('/').slice(1,-1);
+        const lastLink = this.props.location.pathname.split('/').slice(-1);
+        console.log(lastLink);
 
         return (
             <div className={classes.root}>
@@ -65,22 +69,34 @@ class Header extends React.Component {
 
 
                             <Breadcrumbs separator="›" aria-label="Breadcrumb">
-                                <Link color="inherit" href="/" onClick={this.handleClick()}>
+                                <Link color="inherit" href="/" to="/">
                                    Home
                                 </Link>
-                                <Link color="inherit" href="/getting-started/installation/" onClick={this.handleClick()}>
-                                    Core
-                                </Link>
-                                <Typography color="textPrimary">Breadcrumb</Typography>
+
+
+
+                                {pathway.map((p) => <Link key={p} color="inherit" href={p}> {p}</Link>)}
+                                <Typography color="textPrimary">{lastLink}</Typography>
+
+
                             </Breadcrumbs>
+
 
 
                         <Typography style={{flex:1}}/>
 
 
-                        <Button edge="start" color="inherit">Login</Button>
+                        <Button edge="start" color="inherit" href="/">Home</Button>
+                        <Typography color="inherit">|</Typography>
+                        {<Button edge="start" color="inherit" href="/user/studyplans">Studyplans</Button> //if user =university change to courses, if user unregistered send to login/register}
+                        }
+                        <Typography color="inherit">|</Typography>
+                        <Button edge="start" color="inherit" href="/#/register/test">Profile</Button>
+                        <Typography color="inherit">|</Typography>
+                        <Button edge="start" color="inherit" href="/Contact">Contact</Button>
+                        <Typography color="inherit">|</Typography>
 
-                        <IconButton>
+                        <IconButton href="/user">
                              <AccountCircle />
                         </IconButton>
 
