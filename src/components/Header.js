@@ -19,11 +19,25 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
-
 //import logo from './src/Smart.jpg';
 
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: "#11175e",
+        },
+        secondary: {
+            main: "#ffffff",
+        },
+        error: {
+            main: "#d32f2f",
+        },
+    }
+});
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -59,51 +73,35 @@ class Header extends React.Component {
         console.log(lastLink);
 
         return (
+            <ThemeProvider theme={theme}>
             <div className={classes.root}>
-                <AppBar position="static">
+                <AppBar position="static" color = "secondary">
                     <Toolbar>
-                        <Button >
-                            <img src={require('../Smart.jpg')}/>
-                        </Button>
-
-
-
-                            <Breadcrumbs separator="›" aria-label="Breadcrumb">
-                                <Link color="inherit" href="/" to="/">
-                                   Home
-                                </Link>
-
-
-
-                                {pathway.map((p) => <Link key={p} color="inherit" href={p}> {p}</Link>)}
-                                <Typography color="textPrimary">{lastLink}</Typography>
-
-
-                            </Breadcrumbs>
-
-
-
+                        <img src={require('../Smart.jpg')}/>
+                        <Breadcrumbs separator="›" aria-label="Breadcrumb" color="primary">
+                            <Link color="primary" href="/" to="/">
+                               Home
+                            </Link>
+                            {pathway.map((p) => <Link key={p} color="primary" href={p}> {p}</Link>)}
+                            <Typography color="primary">{lastLink}</Typography>
+                        </Breadcrumbs>
                         <Typography style={{flex:1}}/>
-
-
-                        <Button edge="start" color="inherit" href="/">Home</Button>
-                        <Typography color="inherit">|</Typography>
-                        {<Button edge="start" color="inherit" href="/user/studyplans">Studyplans</Button> //if user =university change to courses, if user unregistered send to login/register}
+                        <Button edge="start" color="primary" href="/">Home</Button>
+                        <Typography color="primary">|</Typography>
+                        {<Button edge="start" color="primary" href="/user/studyplans">Studyplans</Button> //if user =university change to courses, if user unregistered send to login/register}
                         }
-                        <Typography color="inherit">|</Typography>
-                        <Button edge="start" color="inherit" href="/#/register/test">Profile</Button>
-                        <Typography color="inherit">|</Typography>
-                        <Button edge="start" color="inherit" href="/Contact">Contact</Button>
-                        <Typography color="inherit">|</Typography>
-
-                        <IconButton href="/user">
+                        <Typography color="primary">|</Typography>
+                        <Button edge="start" color="primary" href="/#/register/test">Profile</Button>
+                        <Typography color="primary">|</Typography>
+                        <Button edge="start" color="primary" href="/Contact">Contact</Button>
+                        <Typography color="primary">|</Typography>
+                        <IconButton href="/user" color="primary">
                              <AccountCircle />
                         </IconButton>
-
-
                     </Toolbar>
                 </AppBar>
             </div>
+            </ThemeProvider>
         );
     }
 

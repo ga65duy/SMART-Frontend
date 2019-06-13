@@ -7,6 +7,8 @@ import App from './App';
 import WebFontLoader from 'webfontloader';
 import 'react-md/dist/react-md.indigo-pink.min.css'
 
+
+
 WebFontLoader.load({
     google: {
         families: ['Roboto:300,400,500,700', 'Material Icons'],
