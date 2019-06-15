@@ -104,12 +104,8 @@ class Header extends React.Component {
             </ThemeProvider>
         );
     }
-
-
 }
 
 
 export default withRouter(Header);
-
-
 
