@@ -5,7 +5,7 @@ import React from 'react';
 import Header from './Header';
 import { Footer } from './Footer';
 import SideBar from "./SideBar";
-import StudyplanListRow from "./StudyplanListRow"
+import StudyplanList from "./StudyplanList"
 
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -45,7 +45,7 @@ export default class Page extends React.Component {
             <section>
                 <Header title={this.state.title} />
                 <SideBar/>
-                <StudyplanListRow/>
+                <StudyplanList/>
                 {this.props.children}
                 <Footer />
             </section>
