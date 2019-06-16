@@ -1,6 +1,7 @@
 import React from "react"
 
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from "prop-types";
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -9,19 +10,23 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
-const useStyles = makeStyles(theme => ({
+const sideBar = theme => ({
     root: {
         width: '100%',
-        maxWidth: 360,
+        maxWidth: 200,
         backgroundColor: theme.palette.background.paper,
     },
     nested: {
         paddingLeft: theme.spacing(4),
     },
-}));
+    nestedSecondLevel: {
+        paddingLeft: theme.spacing(6)
+
+    }
+});
 
 
-export default class SideBar extends React.Component {
+class SideBar extends React.Component {
 
     constructor(props){
         super(props);
@@ -61,24 +66,42 @@ export default class SideBar extends React.Component {
         }
     }
     render() {
+        const {classes} = this.props;
         return (
-            <List >
+            <List className={classes.root}>
                 <ListItem button >
-                    <ListItemText primary="Home"/>
+                    <ListItemText color="primary" primary="Home"/>
                 </ListItem>
                 <ListItem button onClick={() => this.handleClick("Profile")}>
-                    <ListItemText primary="Profile" />
+                    <ListItemText color="primary" primary="Profile" />
                     {this.state.openProfile ? <ExpandLess />: <ExpandMore/>}
                 </ListItem>
-                <Collapse in={this.state.openProfile} timeout="auto" unmountOnExit>
+                <Collapse in={this.state.openProfile}>
                     <List component="div" disablePadding>
-                        <ListItem button onClick={() => this.handleClick("Studyplans")} className={useStyles.nested} >
-                            <ListItemText primary="Studyplans"/>
+                        <ListItem button onClick={() => this.handleClick("Studyplans")} className={classes.nested} >
+                            <ListItemText color="primary" primary="Studyplans"/>
                             {this.state.openStudyplan ? <ExpandLess />: <ExpandMore/>}
                         </ListItem>
-                        <ListItem button onClick={() => this.handleClick("Ranking")} className={useStyles.nested} >
-                            <ListItemText primary="Ranking"/>
+                        <Collapse in={this.state.openStudyplan}>
+                            <List component="div" disablePadding>
+                                <ListItem button className={classes.nestedSecondLevel}>
+                                    <ListItemText primary="ExampleStudyplan"/>
+                                </ListItem>
+                            </List>
+                        </Collapse>
+                        <ListItem button onClick={() => this.handleClick("Ranking")} className={classes.nested} >
+                            <ListItemText color="primary" primary="Ranking"/>
                             {this.state.openRanking ? <ExpandLess /> : <ExpandMore />}
+                        </ListItem>
+                        <Collapse in={this.state.openRanking}>
+                            <List component="div" disablePadding>
+                                <ListItem button className={classes.nestedSecondLevel}>
+                                    <ListItemText primary="ExampleRanking"/>
+                                </ListItem>
+                            </List>
+                        </Collapse>
+                        <ListItem button className={classes.nested}>
+                            <ListItemText> Account</ListItemText>
                         </ListItem>
                     </List>
                 </Collapse>
@@ -86,9 +109,9 @@ export default class SideBar extends React.Component {
                     <ListItemText primary="Courses"/>
                     {this.state.openCourse ? <ExpandLess />: <ExpandMore/>}
                 </ListItem>
-                <Collapse in={this.state.openCourse} timeout="auto" unmountOnExit>
+                <Collapse in={this.state.openCourse}>
                     <List component="div" disablePadding>
-                        <ListItem button className={useStyles.nested}>
+                        <ListItem button className={classes.nested}>
                             <ListItemText primary="ExampleCourse"/>
                         </ListItem>
                     </List>
@@ -102,3 +125,8 @@ export default class SideBar extends React.Component {
     }
 }
 
+SideBar.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(sideBar)(SideBar);

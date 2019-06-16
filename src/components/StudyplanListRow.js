@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -9,12 +8,9 @@ import {withStyles} from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
 const styles = theme => ({
-    root: {
-        flexGrow: 1,
-    },
     paper: {
         padding: theme.spacing(2),
-        margin: 'auto',
+        margin: "10px",
         maxWidth: 800,
         textAlign: "center",
     },
@@ -31,20 +27,22 @@ const styles = theme => ({
 });
 
 class StudyplanListRow extends React.Component{
+    constructor(props){
+        super(props);
+    }
 
     render () {
         const {classes} = this.props;
     return (
-        <div className={classes.root}>
             <Paper className={classes.paper}>
                 <Grid container alignItems={"center"} xs={12}>
                     <Grid item xs={2}>
                         <Typography>
-                            StudyplanName
+                            {this.props.name}
                         </Typography>
                     </Grid>
                     <Grid item xs={8}>
-                        <Typography >DisplayStudyplanImage</Typography>
+                        <Typography>{this.props.img}</Typography>
                     </Grid>
                     <Grid item xs={2} container>
                         <Grid item container direction="column" >
@@ -58,7 +56,6 @@ class StudyplanListRow extends React.Component{
                     </Grid>
                 </Grid>
             </Paper>
-        </div>
     )};
 }
 StudyplanListRow.propTypes = {

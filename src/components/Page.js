@@ -5,7 +5,8 @@ import React from 'react';
 import Header from './Header';
 import { Footer } from './Footer';
 import SideBar from "./SideBar";
-import StudyplanListRow from "./StudyplanListRow"
+import StudyplanList from "./StudyplanList";
+import SearchBar from "./SearchBar";
 
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -50,6 +51,7 @@ export default class Page extends React.Component {
                     justify="flex-start"
                     alignItems="flex-start"
                 >
+                    <SearchBar/>
                     <SideBar/>
                     <StudyplanListRow/>
 
