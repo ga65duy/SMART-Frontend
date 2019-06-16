@@ -16,14 +16,14 @@ export default class StudyplanList extends React.Component {
 
     getStudyplanListItems(studyplanItems) {
         return studyplanItems.map(item => {
-            return <StudyplanListRow name={item["studyplan"]} img={item["img"]}/>
+            return <StudyplanListRow name={item["name"]} img={"test_backend"}/>
         })
     }
 
     render() {
         return (
                 <Grid>
-                    {this.getStudyplanListItems(studyplanItems)}
+                    {this.getStudyplanListItems(this.props.studyplans)}
                 </Grid>
         )
     }
