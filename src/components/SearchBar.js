@@ -1,15 +1,29 @@
 import React from "react";
-import TextField from '@material-ui/core/TextField';
 
-export default class SearchBar extends React.Component {
+import TextField from '@material-ui/core/TextField';
+import PropTypes from "prop-types";
+import {withStyles} from "@material-ui/core";
+
+const searchBar = theme => ({
+    root: {
+        width: '100%',
+    },
+});
+
+class SearchBar extends React.Component {
     render() {
+        const {classes} = this.props;
         return (
-            <TextField
-                style={{width: 800}}
+            <TextField className = {classes.root}
                 placeholder="Search studyplan"
-                margin="normal"
-                variant="outlined"
+                variant="outlined" margin="dense"
             />
         )
     }
 }
+
+SearchBar.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(searchBar)(SearchBar);

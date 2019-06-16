@@ -3,6 +3,7 @@ import React from "react"
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from "prop-types";
 
+import Paper from  "@material-ui/core/Paper"
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -13,6 +14,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 const sideBar = theme => ({
     root: {
         width: '100%',
+        margin:"10px",
         maxWidth: 200,
         backgroundColor: theme.palette.background.paper,
     },
@@ -68,6 +70,7 @@ class SideBar extends React.Component {
     render() {
         const {classes} = this.props;
         return (
+            <Paper>
             <List className={classes.root}>
                 <ListItem button >
                     <ListItemText color="primary" primary="Home"/>
@@ -121,6 +124,7 @@ class SideBar extends React.Component {
                     <ListItemText> Contact</ListItemText>
                 </ListItem>
             </List>
+            </Paper>
         )
     }
 }

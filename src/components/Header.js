@@ -35,7 +35,7 @@ const styles = theme => ({
     },
     paper: {
         padding: theme.spacing(2),
-        margin: 'auto',
+        margin: '10px',
         maxWidth: 800,
         textAlign: "center",
     },
