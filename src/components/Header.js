@@ -21,9 +21,39 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 //import logo from './src/Smart.jpg';
 
+
+
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
+
+
+
+const styles = theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing(2),
+        margin: 'auto',
+        maxWidth: 800,
+        textAlign: "center",
+    },
+    image: {
+        width: 128,
+        height: 128,
+
+    },
+    img: {
+        margin: 'auto',
+        display: 'block',
+        maxWidth: '100%',
+        maxHeight: '100%',
+    },
+    red:{
+        color:'red',
+    }
+});
 
 const theme = createMuiTheme({
     palette: {
@@ -107,5 +137,7 @@ class Header extends React.Component {
 }
 
 
+export{styles, theme};
 export default withRouter(Header);
+
 

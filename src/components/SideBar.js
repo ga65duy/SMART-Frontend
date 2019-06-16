@@ -62,7 +62,7 @@ export default class SideBar extends React.Component {
     }
     render() {
         return (
-            <List className={useStyles.root}>
+            <List >
                 <ListItem button >
                     <ListItemText primary="Home"/>
                 </ListItem>

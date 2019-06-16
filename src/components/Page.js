@@ -9,7 +9,7 @@ import StudyplanListRow from "./StudyplanListRow"
 
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
-
+import Grid, { GridSpacing } from '@material-ui/core/Grid';
 const theme = createMuiTheme({
     palette: {
         primary: {
@@ -44,8 +44,16 @@ export default class Page extends React.Component {
         return (
             <section>
                 <Header title={this.state.title} />
-                <SideBar/>
-                <StudyplanListRow/>
+                <Grid
+                    container
+                    direction="row"
+                    justify="flex-start"
+                    alignItems="flex-start"
+                >
+                    <SideBar/>
+                    <StudyplanListRow/>
+
+                </Grid>
                 {this.props.children}
                 <Footer />
             </section>
