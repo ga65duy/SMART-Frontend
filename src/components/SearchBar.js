@@ -6,7 +6,6 @@ import {withStyles} from "@material-ui/core";
 
 const searchBar = theme => ({
     root: {
-        width: '100%',
     },
 });
 
@@ -14,7 +13,7 @@ class SearchBar extends React.Component {
     render() {
         const {classes} = this.props;
         return (
-            <TextField className = {classes.root}
+            <TextField
                 placeholder="Search studyplan"
                 variant="outlined" margin="dense"
             />

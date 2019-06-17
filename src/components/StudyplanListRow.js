@@ -32,18 +32,18 @@ class StudyplanListRow extends React.Component{
 
     render () {
         const {classes} = this.props;
-    return (
+   /* return (
             <Paper className={classes.paper}>
-                <Grid container alignItems={"center"} xs={12}>
-                    <Grid item xs={2}>
+                <Grid container alignItems={"center"} >
+                    <Grid item >
                         <Typography>
                             {this.props.name}
                         </Typography>
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item >
                         <Typography>{this.props.img}</Typography>
                     </Grid>
-                    <Grid item xs={2} container>
+                    <Grid item  container>
                         <Grid item container direction="column" >
                             <Grid item>
                                 <Button>Load</Button>
@@ -55,8 +55,32 @@ class StudyplanListRow extends React.Component{
                     </Grid>
                 </Grid>
             </Paper>
-    )};
-}
+    )};*/
+
+   return(
+
+       <Paper style={{flex:1}}>
+           <Grid container direction="row" alignItems="center">
+               <div>
+               <Typography> {this.props.name}</Typography>
+               </div>
+               <div>
+               <Typography> {this.props.img} </Typography>
+               </div>
+               <div>
+               <Grid container direction="column" >
+                   <Button> Load </Button>
+                   <Button> Delete </Button>
+               </Grid>
+               </div>
+
+           </Grid>
+
+       </Paper>
+
+    );
+    }
+};
 StudyplanListRow.propTypes = {
     classes: PropTypes.object.isRequired,
 };

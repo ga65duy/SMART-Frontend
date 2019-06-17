@@ -9,6 +9,7 @@ import { MovieDetailView }   from './views/MovieDetailView';
 import { MovieFormView }   from './views/MovieFormView';
 import { UserLoginView } from "./views/UserLoginView";
 import { UserSignupView } from "./views/UserSignupView";
+import {LoadStudyplanView} from './views/LoadStudyplanView';
 
 import UserService from "./services/UserService";
 
@@ -22,7 +23,8 @@ export default class App extends React.Component {
             title: 'SMART',
 
             routes: [
-                { component: MovieListView , path: '/', exact: true},
+                { component: LoadStudyplanView, path: '/', exact:true},
+                { component: MovieListView , path: '/home'},
                 { component: MovieDetailView , path: '/show/:id'},
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
@@ -39,7 +41,8 @@ export default class App extends React.Component {
                         return (<Redirect to={'/login'}/>)
                     }}, path: '/add',},
                 { component: UserLoginView, path: '/login'},
-                { component: UserSignupView, path: '/register/test'}
+                { component: UserSignupView, path: '/register/test'},
+
             ]
         };
     }

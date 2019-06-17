@@ -7,6 +7,11 @@ import { Footer } from './Footer';
 
 import LoadStudyplanView from "../views/LoadStudyplanView"
 import { createMuiTheme } from '@material-ui/core/styles';
+import SideBar from "../components/SideBar";
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+
+
 const theme = createMuiTheme({
     palette: {
         primary: {
@@ -41,8 +46,27 @@ export default class Page extends React.Component {
         return (
             <section>
                 <Header title={this.state.title} />
-                <LoadStudyplanView/>
+                <Typography/>
+                <Grid  container
+                       direction="row"
+                       justify="space-between"
+                       alignItems="flex-start"
+                >
+                    <div>
+                        <Grid container direction="column">
+
+                            <SideBar />
+                            <div style={{width: "200px", height: "200px", background: "#428bca", color: "#fff" }}>RECTANGLE</div>
+
+                           
+                        </Grid>
+                    </div>
+                    <div style={{flexGrow:1}}>
                 {this.props.children}
+                    </div>
+                    <div style={{width: "160px", height: "600px", background: "#428bca", color: "#fff" }}>SKYSCRAPER</div>
+                </Grid>
+
                 <Footer />
             </section>
         );

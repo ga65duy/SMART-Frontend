@@ -15,8 +15,8 @@ const sideBar = theme => ({
     root: {
         width: '100%',
         margin:"10px",
-        maxWidth: 200,
-        backgroundColor: theme.palette.background.paper,
+        //maxWidth: 200,
+        //backgroundColor: theme.palette.background.paper,
     },
     nested: {
         paddingLeft: theme.spacing(4),
@@ -70,8 +70,8 @@ class SideBar extends React.Component {
     render() {
         const {classes} = this.props;
         return (
-            <Paper>
-            <List className={classes.root}>
+            <Paper square={true} children="SideBarListID">
+            <List className={classes.root} id="SideBarListID">
                 <ListItem button >
                     <ListItemText color="primary" primary="Home"/>
                 </ListItem>

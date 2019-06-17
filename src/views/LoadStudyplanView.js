@@ -3,39 +3,48 @@ import StudyplanList from "../components/StudyplanList";
 import SearchBar from "../components/SearchBar";
 import SideBar from "../components/SideBar";
 import Grid from '@material-ui/core/Grid';
+import Page from '../components/Page';
 
 import StudyplanService from '../services/StudyplanService';
 
-export default class LoadStudyplanView extends React.Component {
+
+export class LoadStudyplanView extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            loading:false,
             studyplans: []
-        }
+
+        };
     }
 
-    componentWillMount() {
-        StudyplanService.getStudyplan().then(studyplans => {
-            this.setState(
-                {studyplans: studyplans}
-            )
-        })
+
+
+    componentWillMount(){
+        this.setState({
+            loading: true
+        });
+
+        StudyplanService.getStudyplan().then((studyplans) => {
+            this.setState({
+                studyplans: [...studyplans],
+                loading: false
+            });
+        }).catch((e) => {
+            console.error(e);
+        });
     }
 
     render() {
-        return (
-            <Grid container direction="row">
-                <Grid item xs={2}>
-                    <SideBar/>
-                </Grid>
-                <Grid item xs={8}>
-                    <StudyplanList studyplans={this.state.studyplans}/>
-                </Grid>
-                <Grid item xs={2}>
-                    <SearchBar/>
-                </Grid>
-            </Grid>
-        )
+        if (this.state.loading) {
+            return (<h2>Loading...</h2>);
+        }
+        else {
+            return (
+                <StudyplanList studyplans={this.state.studyplans}/>
+
+            )
+        }
     }
 }
