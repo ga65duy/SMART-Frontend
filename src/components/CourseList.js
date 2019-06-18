@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import StudyplanListRow from "./StudyplanListRow";
+//import StudyplanListRow from "./StudyplanListRow";
 import Page from "./Page";
 import SearchBar from "./SearchBar";
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
@@ -12,7 +12,7 @@ const studyplanItems = [
     {"name": "studyplan1", "img": "img1"},
     {"name": "studyplan2","img": "img2"},
     {"name": "studyplan3","img": "img3"}
-    ];
+];
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default class StudyplanList extends React.Component {
+export default class CourseList extends React.Component {
     constructor(props) {
         super(props);
 
@@ -51,12 +51,12 @@ export default class StudyplanList extends React.Component {
 
 
 
-                        <Grid
-                            container
-                            direction ="row"
-                            justify="space-around"
-                            spacing ={0}
-                        >
+                    <Grid
+                        container
+                        direction ="row"
+                        justify="space-around"
+                        spacing ={0}
+                    >
                         <Grid
                             container
                             direction="column"
@@ -68,7 +68,7 @@ export default class StudyplanList extends React.Component {
                             {this.getStudyplanListItems(studyplanItems)}
 
                         </Grid>
-                        </Grid>
+                    </Grid>
 
 
 
