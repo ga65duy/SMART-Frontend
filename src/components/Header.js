@@ -73,10 +73,8 @@ class Header extends React.Component {
 
     render() {
         const classes = useStyles;
-        console.log(this.props.location.pathname.split('/'));
         const pathway = this.props.location.pathname.split('/').slice(1,-1);
         const lastLink = this.props.location.pathname.split('/').slice(-1);
-        console.log(lastLink);
 
         return (
             <ThemeProvider theme={theme}>
@@ -94,13 +92,13 @@ class Header extends React.Component {
                         <Typography style={{flex:1}}/>
                         <Button edge="start" color="primary" href="/">Home</Button>
                         <Typography color="primary">|</Typography>
-                        {<Button edge="start" color="primary" href="/user/studyplans">Studyplans</Button> //if user =university change to courses, if user unregistered send to login/register}
+                        {<Button edge="start" color="primary" href="/#/profile/studyplans">Studyplans</Button> //if user =university change to courses, if user unregistered send to login/register}
                         }
                         <Typography color="primary">|</Typography>
-                        <Button edge="start" color="primary" href="/#/register/test">Profile</Button>
+                        <Button edge="start" color="primary" href="/#/contact">Contact</Button>
                         <Typography color="primary">|</Typography>
-                        <Button edge="start" color="primary" href="/Contact">Contact</Button>
-                        <Typography color="primary">|</Typography>
+                        <Button edge="start" color="primary" href="/user">Profile</Button>
+
                         <IconButton href="/user" color="primary">
                              <AccountCircle />
                         </IconButton>

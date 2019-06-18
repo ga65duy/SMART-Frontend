@@ -69,7 +69,7 @@ class StudyplanListRow extends React.Component{
                </div>
                <div>
                <Grid container direction="column" >
-                   <Button> Load </Button>
+                   <Button> Edit </Button>
                    <Button> Delete </Button>
                </Grid>
                </div>

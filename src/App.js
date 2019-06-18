@@ -26,9 +26,26 @@ export default class App extends React.Component {
             fieldOfStudy:'',
 
             routes: [
-                { component: LoadStudyplanView, path: '/', exact:true},
+                { component: StudyplanView, path: '/', exact:true},
                 { component: MovieListView , path: '/home'},
                 { component: MovieDetailView , path: '/show/:id'},
+                //studyplanList
+                { render: (props) => {
+                        if(UserService.isAuthenticated()) {
+                            return (<LoadStudyplanView {... props} />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'}/>)
+                        }} , path: '/profile/studyplans'},
+
+                //loaded single studyplan
+                { render: (props) => {
+                        if(UserService.isAuthenticated()) {
+                            return (<StudyplanView {... props} />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'}/>)
+                        }} , path: '/:id'},
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
                             return (<MovieFormView {... props} />)
@@ -67,6 +84,7 @@ export default class App extends React.Component {
     }
 
     render() {
+        UserService
         return(
             <div>
                 <Router>
