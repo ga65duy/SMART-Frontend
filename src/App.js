@@ -10,7 +10,8 @@ import { MovieFormView }   from './views/MovieFormView';
 import { UserLoginView } from "./views/UserLoginView";
 import { UserSignupView } from "./views/UserSignupView";
 import {LoadStudyplanView} from './views/LoadStudyplanView';
-import {StudyplanView} from './views/StudyplanView';
+import {CreateStudyplanView} from './views/CreateStudyplanView';
+import StudyplanView from './views/StudyplanView';
 
 import UserService from "./services/UserService";
 
@@ -27,7 +28,7 @@ export default class App extends React.Component {
 
             routes: [
                 { component: LoadStudyplanView, path: '/', exact:true},
-                { component: StudyplanView , path: '/home'},
+                { component: CreateStudyplanView , path: '/home'},
                 { component: MovieDetailView , path: '/show/:id'},
 
 

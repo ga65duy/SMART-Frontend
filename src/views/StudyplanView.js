@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { MovieList } from '../components/MovieList';
+import StudyplanPreQuery from '../components/StudyplanPreQuery';
 
 import StudyplanService from '../services/StudyplanService';
 import UserService from '../services/UserService';
@@ -70,7 +70,7 @@ export class StudyplanView extends React.Component {
         }
 
         return (
-            <MovieList data={this.state.data} onDelete={(id) => this.deleteMovie(id)}/>
+            <StudyplanPreQuery data={this.state.data} onDelete={(id) => this.deleteMovie(id)}/>
         );
     }
 }
