@@ -97,9 +97,9 @@ class Header extends React.Component {
                         <Typography color="primary">|</Typography>
                         <Button edge="start" color="primary" href="/#/contact">Contact</Button>
                         <Typography color="primary">|</Typography>
-                        <Button edge="start" color="primary" href="/user">Profile</Button>
+                        <Button edge="start" color="primary" href="/#/profile">Profile</Button>
 
-                        <IconButton href="/user" color="primary">
+                        <IconButton href="/#/profile" color="primary">
                              <AccountCircle />
                         </IconButton>
                     </Toolbar>

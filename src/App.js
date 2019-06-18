@@ -32,7 +32,7 @@ export default class App extends React.Component {
 
 
                 { component: UserLoginView, path: '/login'},
-                { component: UserSignupView, path: '/register/test'},
+                { component: UserSignupView, path: '/register'},
                 { component: StudyplanView, path:'/studyplanView'},
 
                 { render: (props) => {
@@ -66,6 +66,14 @@ export default class App extends React.Component {
                         else {
                             return (<Redirect to={'/login'}/>)
                         }}, path: '/add',},
+
+                { render: (props) => {
+                        if(UserService.isAuthenticated()) {
+                            return (<MovieListView {... props} />)//Dummy for ProfileView
+                        }
+                        else {
+                            return (<Redirect to={'/login'}/>)
+                        }}, path: '/profile',},
 
             ]
         };
