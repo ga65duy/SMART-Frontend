@@ -59,8 +59,8 @@ class StudyplanListRow extends React.Component{
 
    return(
 
-       <Paper style={{flex:1}}>
-           <Grid container direction="row" alignItems="center" justify="space-between">
+       <Paper >
+           <Grid container direction="row" alignItems="center" justify="space-between" >
                <div>
                <Typography> {this.props.name}</Typography>
                </div>
