@@ -10,6 +10,7 @@ import { MovieFormView }   from './views/MovieFormView';
 import { UserLoginView } from "./views/UserLoginView";
 import { UserSignupView } from "./views/UserSignupView";
 import {LoadStudyplanView} from './views/LoadStudyplanView';
+import {StudyplanView} from './views/StudyplanView';
 
 import UserService from "./services/UserService";
 
@@ -21,6 +22,8 @@ export default class App extends React.Component {
 
         this.state = {
             title: 'SMART',
+            university: '',
+            fieldOfStudy:'',
 
             routes: [
                 { component: LoadStudyplanView, path: '/', exact:true},
@@ -42,9 +45,21 @@ export default class App extends React.Component {
                     }}, path: '/add',},
                 { component: UserLoginView, path: '/login'},
                 { component: UserSignupView, path: '/register/test'},
+                { component: StudyplanView, path:'/studyplanView'},
 
             ]
         };
+        //bind  set University & fieldofStudy
+    }
+
+    setUniversity( uni)
+    {
+        this.setState(this.state.university=uni);
+    }
+
+    setFieldOfStudy(fos)
+    {
+        this.setState(this.state.fieldOfStudy=fos);
     }
 
     componentDidMount(){

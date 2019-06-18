@@ -58,7 +58,7 @@ export default class Page extends React.Component {
                             <SideBar />
                             <div style={{width: "200px", height: "200px", background: "#428bca", color: "#fff" }}>RECTANGLE</div>
 
-                           
+
                         </Grid>
                     </div>
                     <div style={{flexGrow:1}}>

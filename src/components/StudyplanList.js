@@ -9,9 +9,9 @@ import Typography from '@material-ui/core/Typography';
 
 
 const studyplanItems = [
-    {"studyplan": "studyplan1", "img": "img1"},
-    {"studyplan": "studyplan2","img": "img2"},
-    {"studyplan": "studyplan3","img": "img3"}
+    {"name": "studyplan1", "img": "img1"},
+    {"name": "studyplan2","img": "img2"},
+    {"name": "studyplan3","img": "img3"}
     ];
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -48,20 +48,16 @@ export default class StudyplanList extends React.Component {
             <Page >
 
                 <div className={classes.root}>
-                    <Grid
-                        container
-                        direction="row"
-                        justify="space-between"
-                        alignItems="flex-start"
-                    >
 
 
-                        <div>
+
+                        <Grid item style={{flexGrow:1}} >
                         <Grid
                             container
                             direction="column"
                             justify="flex-start"
-                            alignItems="flex-start"
+                            alignItems="stretch"
+
 
                         >
 
@@ -69,17 +65,10 @@ export default class StudyplanList extends React.Component {
                             {this.getStudyplanListItems(studyplanItems)}
 
                         </Grid>
-                        </div>
+                        </Grid>
 
 
 
-
-                        <div>
-                        <SearchBar/>
-                        </div>
-
-
-                    </Grid>
                 </div>
             </Page>
 
