@@ -26,8 +26,8 @@ export default class App extends React.Component {
             fieldOfStudy:'',
 
             routes: [
-                { component: StudyplanView, path: '/', exact:true},
-                { component: MovieListView , path: '/home'},
+                { component: LoadStudyplanView, path: '/', exact:true},
+                { component: StudyplanView , path: '/home'},
                 { component: MovieDetailView , path: '/show/:id'},
                 //studyplanList
                 { render: (props) => {
@@ -84,6 +84,7 @@ export default class App extends React.Component {
     }
 
     render() {
+console.log(UserService.isAuthenticated());
 
         return(
             <div>
