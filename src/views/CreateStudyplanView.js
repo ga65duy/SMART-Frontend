@@ -35,7 +35,7 @@ export class CreateStudyplanView extends React.Component {
             }).catch((e) => {
                 console.error(e);
             });*/
-           
+
            this.setState({loading:false});
 
 

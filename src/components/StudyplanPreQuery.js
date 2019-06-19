@@ -3,6 +3,7 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
+import MediaQuery from 'react-responsive';
 
 import { AlertMessage } from './AlertMessage';
 import Page from './Page';
@@ -49,10 +50,34 @@ class StudyplanPreQuery extends React.Component {
     render() {
         return (
             <Page>
-                <Paper square={true}>
 
 
-                </Paper>
+
+                <div>
+                    <div>Device Test!</div>
+                    <MediaQuery query="(min-device-width: 1224px)">
+                        <div>You are a desktop or laptop</div>
+                        <MediaQuery query="(min-device-width: 1824px)">
+                            <div>You also have a huge screen</div>
+                        </MediaQuery>
+                        <MediaQuery query="(max-width: 1224px)">
+                            <div>You are sized like a tablet or mobile phone though</div>
+                        </MediaQuery>
+                    </MediaQuery>
+                    <MediaQuery query="(max-device-width: 1224px)">
+                        <div>You are a tablet or mobile phone</div>
+                    </MediaQuery>
+                    <MediaQuery query="(orientation: portrait)">
+                        <div>You are portrait</div>
+                    </MediaQuery>
+                    <MediaQuery query="(orientation: landscape)">
+                        <div>You are landscape</div>
+                    </MediaQuery>
+                    <MediaQuery query="(min-resolution: 2dppx)">
+                        <div>You are retina</div>
+                    </MediaQuery>
+                </div>
+
             </Page>
         );
     }
