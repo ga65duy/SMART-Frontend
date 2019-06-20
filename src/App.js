@@ -10,7 +10,8 @@ import { MovieFormView }   from './views/MovieFormView';
 import { UserLoginView } from "./views/UserLoginView";
 import { UserSignupView } from "./views/UserSignupView";
 import {LoadStudyplanView} from './views/LoadStudyplanView';
-import {StudyplanView} from './views/StudyplanView';
+import {CreateStudyplanView} from './views/CreateStudyplanView';
+import StudyplanView from './views/StudyplanView';
 
 import UserService from "./services/UserService";
 
@@ -27,9 +28,14 @@ export default class App extends React.Component {
 
             routes: [
                 { component: LoadStudyplanView, path: '/', exact:true},
-                { component: StudyplanView , path: '/home'},
+                { component: CreateStudyplanView , path: '/home'},
                 { component: MovieDetailView , path: '/show/:id'},
-                //studyplanList
+
+
+                { component: UserLoginView, path: '/login'},
+                { component: UserSignupView, path: '/register'},
+                { component: StudyplanView, path:'/studyplanView'},
+
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
                             return (<LoadStudyplanView {... props} />)
@@ -38,14 +44,15 @@ export default class App extends React.Component {
                             return (<Redirect to={'/login'}/>)
                         }} , path: '/profile/studyplans'},
 
-                //loaded single studyplan
+
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
                             return (<StudyplanView {... props} />)
                         }
                         else {
                             return (<Redirect to={'/login'}/>)
-                        }} , path: '/:id'},
+                        }} , path: '/studyplan/:id'},
+
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
                             return (<MovieFormView {... props} />)
@@ -54,15 +61,20 @@ export default class App extends React.Component {
                             return (<Redirect to={'/login'}/>)
                         }} , path: '/edit/:id'},
                 { render: (props) => {
-                    if(UserService.isAuthenticated()) {
-                        return (<MovieFormView {... props} />)
-                    }
-                    else {
-                        return (<Redirect to={'/login'}/>)
-                    }}, path: '/add',},
-                { component: UserLoginView, path: '/login'},
-                { component: UserSignupView, path: '/register/test'},
-                { component: StudyplanView, path:'/studyplanView'},
+                        if(UserService.isAuthenticated()) {
+                            return (<MovieFormView {... props} />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'}/>)
+                        }}, path: '/add',},
+
+                { render: (props) => {
+                        if(UserService.isAuthenticated()) {
+                            return (<MovieListView {... props} />)//Dummy for ProfileView
+                        }
+                        else {
+                            return (<Redirect to={'/login'}/>)
+                        }}, path: '/profile',},
 
             ]
         };

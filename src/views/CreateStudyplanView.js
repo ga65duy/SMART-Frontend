@@ -6,6 +6,7 @@ import { MovieList } from '../components/MovieList';
 
 import StudyplanService from '../services/StudyplanService';
 import UserService from '../services/UserService';
+import StudyplanPreQuery from '../components/StudyplanPreQuery';
 
 
 export class CreateStudyplanView extends React.Component {
@@ -34,6 +35,8 @@ export class CreateStudyplanView extends React.Component {
             }).catch((e) => {
                 console.error(e);
             });*/
+
+           this.setState({loading:false});
 
 
         }
@@ -70,7 +73,7 @@ export class CreateStudyplanView extends React.Component {
         }
 
         return (
-            <CreateStudyplan data={this.state.data} createStudyplan={(id) => this.createStudyplan(id)}/>
+            <StudyplanPreQuery data={this.state.data} createStudyplan={(id) => this.createStudyplan(id)}/>
         );
     }
 }
