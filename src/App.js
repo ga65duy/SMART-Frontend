@@ -35,6 +35,7 @@ export default class App extends React.Component {
                 { component: UserLoginView, path: '/login'},
                 { component: UserSignupView, path: '/register'},
                 { component: StudyplanView, path:'/studyplanView'},
+                { component: CourseListView, path:'/courselistView'},
 
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {

@@ -1,6 +1,7 @@
 import React from "react";
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
 import StudyplanListRow from "./StudyplanListRow";
 import Page from "./Page";
 import SearchBar from "./SearchBar";
@@ -47,32 +48,32 @@ export default class StudyplanList extends React.Component {
 
             <Page >
 
-                <div className={classes.root}>
+                <Box className={classes.root}>
+
 
 
 
                         <Grid
                             container
-                            direction ="row"
-                            justify="space-around"
-                            spacing ={0}
-                        >
-                        <Grid
-                            container
+
                             direction="column"
-                            justify="space-around"
+                            justify="flex-start"
                             alignItems="stretch"
+
+
+
+
                         >
 
 
                             {this.getStudyplanListItems(studyplanItems)}
 
                         </Grid>
-                        </Grid>
 
 
 
-                </div>
+
+                </Box>
             </Page>
 
 

@@ -1,6 +1,7 @@
 import React from "react";
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
 //import StudyplanListRow from "./StudyplanListRow";
 import Page from "./Page";
 import SearchBar from "./SearchBar";
@@ -8,10 +9,10 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
 
-const studyplanItems = [
-    {"name": "studyplan1", "img": "img1"},
-    {"name": "studyplan2","img": "img2"},
-    {"name": "studyplan3","img": "img3"}
+const Courses = [
+    {"name": "Course1", "img": "img1"},
+    {"name": "Course2","img": "img2"},
+    {"name": "Course3","img": "img3"}
 ];
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -33,9 +34,9 @@ export default class CourseList extends React.Component {
 
     }
 
-    getStudyplanListItems(studyplanItems) {
-        return studyplanItems.map(item => {
-            return <StudyplanListRow name={item["name"]} img={"test_backend"}/>
+    getCourses(Courses) {
+        return Courses.map(item => {
+            return <CourseRow name={item["name"]} img={"test_backend"}/>
         })
     }
 
@@ -47,32 +48,32 @@ export default class CourseList extends React.Component {
 
             <Page >
 
-                <div className={classes.root}>
+                <Box className={classes.root}>
+
 
 
 
                     <Grid
                         container
-                        direction ="row"
-                        justify="space-around"
-                        spacing ={0}
+
+                        direction="column"
+                        justify="flex-start"
+                        alignItems="stretch"
+
+
+
+
                     >
-                        <Grid
-                            container
-                            direction="column"
-                            justify="space-around"
-                            alignItems="stretch"
-                        >
 
 
-                            {this.getStudyplanListItems(studyplanItems)}
+                        {this.getCourses(Courses)}
 
-                        </Grid>
                     </Grid>
 
 
 
-                </div>
+
+                </Box>
             </Page>
 
 
