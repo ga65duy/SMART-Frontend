@@ -12,6 +12,7 @@ import { UserSignupView } from "./views/UserSignupView";
 import {LoadStudyplanView} from './views/LoadStudyplanView';
 import {CreateStudyplanView} from './views/CreateStudyplanView';
 import StudyplanView from './views/StudyplanView';
+import { CourseListView } from './views/CourseListView';
 
 import UserService from "./services/UserService";
 
@@ -53,6 +54,13 @@ export default class App extends React.Component {
                         else {
                             return (<Redirect to={'/login'}/>)
                         }} , path: '/studyplan/:id'},
+                { render: (props) => {
+                        if(UserService.isAuthenticated()) {
+                            return (<CourseListView {... props} />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'}/>)
+                        }}, path: '/courseListView',},
 
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
