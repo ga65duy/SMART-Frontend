@@ -2,18 +2,18 @@ import React from "react";
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
-import StudyplanListRow from "./StudyplanListRow";
+//import StudyplanListRow from "./StudyplanListRow";
 import Page from "./Page";
 import SearchBar from "./SearchBar";
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
 
-const studyplanItems = [
-    {"name": "studyplan1", "img": "img1"},
-    {"name": "studyplan2","img": "img2"},
-    {"name": "studyplan3","img": "img3"}
-    ];
+const Courses = [
+    {"name": "Course1", "img": "img1"},
+    {"name": "Course2","img": "img2"},
+    {"name": "Course3","img": "img3"}
+];
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -28,15 +28,15 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default class StudyplanList extends React.Component {
+export default class CourseList extends React.Component {
     constructor(props) {
         super(props);
 
     }
 
-    getStudyplanListItems(studyplanItems) {
-        return studyplanItems.map(item => {
-            return <StudyplanListRow name={item["name"]} img={"test_backend"}/>
+    getCourses(Courses) {
+        return Courses.map(item => {
+            return <CourseRow name={item["name"]} img={"test_backend"}/>
         })
     }
 
@@ -53,22 +53,22 @@ export default class StudyplanList extends React.Component {
 
 
 
-                        <Grid
-                            container
+                    <Grid
+                        container
 
-                            direction="column"
-                            justify="flex-start"
-                            alignItems="stretch"
-
-
+                        direction="column"
+                        justify="flex-start"
+                        alignItems="stretch"
 
 
-                        >
 
 
-                            {this.getStudyplanListItems(studyplanItems)}
+                    >
 
-                        </Grid>
+
+                        {this.getCourses(Courses)}
+
+                    </Grid>
 
 
 
