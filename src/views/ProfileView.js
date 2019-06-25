@@ -7,7 +7,7 @@ export class ProfileView extends React.Component {
 
         this.state = {
             loading: false,
-            data: []
+
         };
     }
 

@@ -1,53 +1,76 @@
 "use strict";
 
 import React from 'react';
-import { Card, Button, FontIcon, TextField } from 'react-md';
 import { withRouter } from 'react-router-dom'
 
 import { AlertMessage } from './AlertMessage';
 import Page from './Page';
-
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+import UniversityService from '../services/UniversityService';
 
 const style = { maxWidth: 500 };
-
+const currencies = [
+    {
+        value: 'TUM',
+        label: '$',
+    },
+    {
+        value: 'EUR',
+        label: '€',
+    },
+    {
+        value: 'BTC',
+        label: '฿',
+    },
+    {
+        value: 'JPY',
+        label: '¥',
+    },
+];
 
 class StudyplanPreQuery extends React.Component {
 
     constructor(props) {
         super(props);
 
-        if(this.props.studyplan != undefined) {
+        if (this.props.studyplan != undefined) {
             this.state = {
                 name: props.studyplan.name,
                 university: props.studyplan.university,
-                field_of_study: props.studyplan.fos,
-                year : props.movie.year,
-                rating : props.movie.mpaa_rating,
-                synopsis: props.movie.synopsis
+                fieldOfStudy: props.studyplan.fos
+
             };
         } else {
             this.state = {
-                title : '',
-                year : '',
-                rating : '',
-                synopsis: ''
+                name: '',
+                univeristy: 'TUM',
+                fieldOfStudy: ''
+
             };
         }
 
-        this.handleChangeTitle = this.handleChangeTitle.bind(this);
-        this.handleChangeYear = this.handleChangeYear.bind(this);
+
+        this.handleChangeName = this.handleChangeName.bind(this);
+        this.handleChangeUniveristy = this.handleChangeUniveristy.bind(this);
         this.handleChangeRating = this.handleChangeRating.bind(this);
         this.handleChangeSynopsis = this.handleChangeSynopsis.bind(this);
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChangeTitle(value) {
-        this.setState(Object.assign({}, this.state, {title: value}));
+    handleChangeName(event) {
+        //this.setState(Object.assign({}, this.state, {name: value}));
+        this.setState({name: event.target.value})
+        console.log(this.state.name);
     }
 
-    handleChangeYear(value) {
-        this.setState(Object.assign({}, this.state, {year: value}));
+    handleChangeUniveristy(event) {
+        this.setState({univeristy: event.target.value});
+        console.log(this.state.university);
+        //this.setState(Object.assign({}, this.state, {year: value}));
     }
 
     handleChangeRating(value) {
@@ -61,7 +84,7 @@ class StudyplanPreQuery extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        let movie = this.props.movie;
+       /* let movie = this.props.movie;
         if(movie == undefined) {
             movie = {};
         }
@@ -71,59 +94,71 @@ class StudyplanPreQuery extends React.Component {
         movie.year = this.state.year;
         movie.synopsis = this.state.synopsis;
 
-        this.props.onSubmit(movie);
+        this.props.onSubmit(movie);*/
+       console.log(this.state.name);
+        console.log(this.state.univeristy);
     }
 
     render() {
         return (
             <Page>
-                <Card style={style} className="md-block-centered">
-                    <form className="md-grid" onSubmit={this.handleSubmit} onReset={() => this.props.history.goBack()}>
-                        <TextField
-                            label="Title"
-                            id="TitleField"
-                            type="text"
-                            className="md-row"
-                            required={true}
-                            value={this.state.title}
-                            onChange={this.handleChangeTitle}
-                            errorText="Title is required"/>
-                        <TextField
-                            label="Year"
-                            id="YearField"
-                            type="number"
-                            className="md-row"
-                            required={true}
-                            value={this.state.year}
-                            onChange={this.handleChangeYear}
-                            errorText="Year is required"
-                            maxLength={4}/>
-                        <TextField
-                            label="Rating"
-                            id="RatingField"
-                            type="text"
-                            className="md-row"
-                            required={false}
-                            value={this.state.rating}
-                            onChange={this.handleChangeRating}/>
-                        <TextField
-                            label="Synopsis"
-                            id="SynopsisField"
-                            type="text"
-                            className="md-row"
-                            rows={5}
-                            required={true}
-                            value={this.state.synopsis}
-                            onChange={this.handleChangeSynopsis}
-                            errorText="Synopsis is required"/>
+                <form>
+                    <Grid container direction="column" alignContent="center">
+                    <TextField
+                        id="standard-name"
+                        label="Name"
 
-                        <Button id="submit" type="submit"
-                                disabled={this.state.year.toString().length != 4 || this.state.title == undefined || this.state.title == '' || this.state.year == undefined || this.state.year == '' || this.state.synopsis == undefined || this.state.synopsis == ''}
-                                raised primary className="md-cell md-cell--2">Save</Button>
-                        <Button id="reset" type="reset" raised secondary className="md-cell md-cell--2">Dismiss</Button>
-                        <AlertMessage className="md-row md-full-width" >{this.props.error ? `${this.props.error}` : ''}</AlertMessage>
-                    </form>
-                </Card>
+                        onChange={this.handleChangeName}
+                        margin="normal"
+                    />
+                    <TextField
+                        id="standard-uncontrolled"
+                        label="Uncontrolled"
+                        defaultValue="foo"
+
+                        margin="normal"
+                    />
+                    <TextField
+                        required
+                        id="standard-required"
+                        label="Required"
+                        defaultValue="Hello World"
+
+                        margin="normal"
+                    />
+
+                    <TextField
+                        id="standard-select-currency"
+                        select
+                        label="Select"
+
+                        value={""}
+                        onChange={this.handleChangeUniveristy}
+
+
+                        helperText="Please select your currency"
+                        margin="normal"
+                    >
+                        {currencies.map(option => (
+                            <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                    <Button onClick={this.handleSubmit}>SUBMIT</Button>
+                    </Grid>
+                </form>
+               <Grid container>
+
+
+
+                   { /*
+                   function(event: object) => void
+                    event: The event source of the callback. You can pull out the new value by accessing event.target.value.
+                    */}
+
+
+               </Grid>
             </Page>
         );
     }

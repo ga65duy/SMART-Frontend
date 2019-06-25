@@ -42,7 +42,7 @@ export  class Profile extends React.Component {
                                 margin = "dense"
                             />
                             <Button>Studyplans</Button>
-                            <Button>Ranking</Button>
+                            <Button>Ratings</Button>
                         </Grid>
                     </Grid>
                 </Paper>

@@ -11,9 +11,9 @@ import { UserLoginView } from "./views/UserLoginView";
 import { UserSignupView } from "./views/UserSignupView";
 import {LoadStudyplanView} from './views/LoadStudyplanView';
 import {CreateStudyplanView} from './views/CreateStudyplanView';
-import StudyplanView from './views/StudyplanView';
+import {StudyplanView} from './views/StudyplanView';
 import { CourseListView } from './views/CourseListView';
-import CreateStudyplanQueryView from './views/CreateStudyplanQueryView';
+import {CreateStudyplanQueryView} from './views/CreateStudyplanQueryView';
 import {ProfileView} from "./views/ProfileView";
 
 import UserService from "./services/UserService";
@@ -32,7 +32,7 @@ export default class App extends React.Component {
             routes: [
                 { component: LoadStudyplanView, path: '/', exact:true},
                 { component: CreateStudyplanQueryView , path: '/home'},
-                {component: CreateStudyplanView, path:'/home/:id'},
+               // {component: CreateStudyplanView, path:'/home/:id'},
                 { component: MovieDetailView , path: '/show/:id'},
                 { component: ProfileView , path: '/profile'},
 

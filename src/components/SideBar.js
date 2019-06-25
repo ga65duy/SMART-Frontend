@@ -37,7 +37,7 @@ class SideBar extends React.Component {
         this.state = {
             openProfile: false,
             openStudyplan: false,
-            openRanking: false,
+            openRating: false,
             openCourse: false
         };
     }
@@ -54,9 +54,9 @@ class SideBar extends React.Component {
                     openStudyplan: !this.state.openStudyplan
                 });
                 break;
-            case "Ranking":
+            case "Ratings":
                 this.setState({
-                    openRanking: !this.state.openRanking
+                    openRatings: !this.state.openRating
                 }) ;
                 break;
             case "Courses":
@@ -91,14 +91,14 @@ class SideBar extends React.Component {
                                 </ListItem>
                             </List>
                         </Collapse>
-                        <ListItem button onClick={() => this.handleClick("Ranking")} className={classes.nested} >
-                            <ListItemText color="primary" primary="Ranking"/>
-                            {this.state.openRanking ? <ExpandLess /> : <ExpandMore />}
+                        <ListItem button onClick={() => this.handleClick("Rating")} className={classes.nested} >
+                            <ListItemText color="primary" primary="Rating"/>
+                            {this.state.openRating ? <ExpandLess /> : <ExpandMore />}
                         </ListItem>
-                        <Collapse in={this.state.openRanking}>
+                        <Collapse in={this.state.openRating}>
                             <List component="div" disablePadding>
                                 <ListItem button className={classes.nestedSecondLevel}>
-                                    <ListItemText primary="ExampleRanking"/>
+                                    <ListItemText primary="ExampleRating"/>
                                 </ListItem>
                             </List>
                         </Collapse>
