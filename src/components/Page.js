@@ -44,33 +44,49 @@ export default class Page extends React.Component {
 
     render() {
         return (
-            <section>
+            <Grid container direction="column" spacing={1}>
+                <Grid item>
                 <Header title={this.state.title} />
-                <Typography/>
+                </Grid>
+                <Grid item>
                 <Grid  container
                        direction="row"
                        justify="space-between"
                        alignItems="flex-start"
+                       spacing={1}
+
+
 
 
                 >
-                    <div>
-                        <Grid container direction="column">
+                    <Grid item>
+                        <Grid container direction="column"  spacing={1}>
 
-                            <SideBar />
-                            <div style={{width: "200px", height: "200px", background: "#428bca", color: "#fff" }}>RECTANGLE</div>
+                            <Grid item>
+                                <SideBar />
+                            </Grid>
+                            <Grid item>
+                                <div style={{width: "200px", height: "200px", background: "#428bca", color: "#fff" }}>RECTANGLE</div>
+                            </Grid>
 
 
                         </Grid>
-                    </div>
-                    <div style={{flexGrow:1}}>
-                {this.props.children}
-                    </div>
-                    <div style={{width: "160px", height: "600px", background: "#428bca", color: "#fff" }}>SKYSCRAPER</div>
+                    </Grid>
+                <Grid item style={{flexGrow:1}}>
+                <Grid item>
+                    {this.props.children}
+                </Grid>
+                    </Grid>
+                        <Grid item>
+                        <div style={{width: "160px", height: "600px", background: "#428bca", color: "#fff" }}>SKYSCRAPER</div>
+                        </Grid>
+                    </Grid>
                 </Grid>
 
-                <Footer />
-            </section>
+                <Grid item>
+                    <Footer />
+                </Grid>
+            </Grid>
         );
     }
 }

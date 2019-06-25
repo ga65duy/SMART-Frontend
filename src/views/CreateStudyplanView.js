@@ -2,68 +2,40 @@
 
 import React from 'react';
 
-import { MovieList } from '../components/MovieList';
+import Studyplan from '../components/Studyplan';
 
 import StudyplanService from '../services/StudyplanService';
-import UserService from '../services/UserService';
-import StudyplanPreQuery from '../components/StudyplanPreQuery';
 
 
 export class CreateStudyplanView extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            loading: false,
-            studyplan:'',
-        };
     }
 
-    componentWillMount(){
+    componentWillMount(props){
         this.setState({
             loading: true
         });
 
-        if (UserService.isAuthenticated()){
+        let id = this.props.match.params.id;
 
-           /* StudyplanService.getStudyplan().then((data) => {
-                this.setState({
-                    data: [...data],
-                    loading: false
-                });
-            }).catch((e) => {
-                console.error(e);
-            });*/
-
-           this.setState({loading:false});
-
-
-        }
-        else {
-
-
-
-        }
-
-    }
-
-    createStudyplan(id) {
-        this.setState({
-            data: [...this.state.data],
-            loading: true
-        });
-        MovieService.deleteMovie(id).then((message) => {
-
-            let movieIndex = this.state.data.map(movie => movie['_id']).indexOf(id);
-            let movies = this.state.data;
-            movies.splice(movieIndex, 1);
+        StudyplanService.getStudyplan(id).then((data) => {
             this.setState({
-                data: [...movies],
+                studyplan: data,
                 loading: false
             });
         }).catch((e) => {
             console.error(e);
+        });
+
+    }
+
+    deleteMovie(id) {
+        MovieService.deleteMovie(id).then((message) => {
+            this.props.history.push('/');
+        }).catch((e) => {
+            console.log(e);
         });
     }
 
@@ -73,7 +45,7 @@ export class CreateStudyplanView extends React.Component {
         }
 
         return (
-            <StudyplanPreQuery data={this.state.data} createStudyplan={(id) => this.createStudyplan(id)}/>
+            <Studyplan studyplan={this.state.studyplan} onDelete={(id) => this.deleteMovie(id)} />
         );
     }
 }

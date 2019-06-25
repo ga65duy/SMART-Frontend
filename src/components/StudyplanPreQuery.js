@@ -1,9 +1,8 @@
 "use strict";
 
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
-import Paper from '@material-ui/core/Paper';
-import MediaQuery from 'react-responsive';
+import { Card, Button, FontIcon, TextField } from 'react-md';
+import { withRouter } from 'react-router-dom'
 
 import { AlertMessage } from './AlertMessage';
 import Page from './Page';
@@ -17,70 +16,117 @@ class StudyplanPreQuery extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            username : '',
-            password : ''
-        };
+        if(this.props.studyplan != undefined) {
+            this.state = {
+                name: props.studyplan.name,
+                university: props.studyplan.university,
+                field_of_study: props.studyplan.fos,
+                year : props.movie.year,
+                rating : props.movie.mpaa_rating,
+                synopsis: props.movie.synopsis
+            };
+        } else {
+            this.state = {
+                title : '',
+                year : '',
+                rating : '',
+                synopsis: ''
+            };
+        }
 
-        this.handleChangeUsername = this.handleChangeUsername.bind(this);
-        this.handleChangePassword = this.handleChangePassword.bind(this);
+        this.handleChangeTitle = this.handleChangeTitle.bind(this);
+        this.handleChangeYear = this.handleChangeYear.bind(this);
+        this.handleChangeRating = this.handleChangeRating.bind(this);
+        this.handleChangeSynopsis = this.handleChangeSynopsis.bind(this);
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChangeUsername(value) {
-        this.setState(Object.assign({}, this.state, {username: value}));
+    handleChangeTitle(value) {
+        this.setState(Object.assign({}, this.state, {title: value}));
     }
 
-    handleChangePassword(value) {
-        this.setState(Object.assign({}, this.state, {password: value}));
+    handleChangeYear(value) {
+        this.setState(Object.assign({}, this.state, {year: value}));
+    }
+
+    handleChangeRating(value) {
+        this.setState(Object.assign({}, this.state, {rating: value}));
+    }
+
+    handleChangeSynopsis(value) {
+        this.setState(Object.assign({}, this.state, {synopsis: value}));
     }
 
     handleSubmit(event) {
         event.preventDefault();
 
-        let user = {
-            username: this.state.username,
-            password: this.state.password
-        };
+        let movie = this.props.movie;
+        if(movie == undefined) {
+            movie = {};
+        }
 
-        this.props.onSubmit(user);
+        movie.title = this.state.title;
+        movie.mpaa_rating = this.state.rating;
+        movie.year = this.state.year;
+        movie.synopsis = this.state.synopsis;
+
+        this.props.onSubmit(movie);
     }
 
     render() {
         return (
             <Page>
+                <Card style={style} className="md-block-centered">
+                    <form className="md-grid" onSubmit={this.handleSubmit} onReset={() => this.props.history.goBack()}>
+                        <TextField
+                            label="Title"
+                            id="TitleField"
+                            type="text"
+                            className="md-row"
+                            required={true}
+                            value={this.state.title}
+                            onChange={this.handleChangeTitle}
+                            errorText="Title is required"/>
+                        <TextField
+                            label="Year"
+                            id="YearField"
+                            type="number"
+                            className="md-row"
+                            required={true}
+                            value={this.state.year}
+                            onChange={this.handleChangeYear}
+                            errorText="Year is required"
+                            maxLength={4}/>
+                        <TextField
+                            label="Rating"
+                            id="RatingField"
+                            type="text"
+                            className="md-row"
+                            required={false}
+                            value={this.state.rating}
+                            onChange={this.handleChangeRating}/>
+                        <TextField
+                            label="Synopsis"
+                            id="SynopsisField"
+                            type="text"
+                            className="md-row"
+                            rows={5}
+                            required={true}
+                            value={this.state.synopsis}
+                            onChange={this.handleChangeSynopsis}
+                            errorText="Synopsis is required"/>
 
-
-
-                <div>
-                    <div>Device Test!</div>
-                    <MediaQuery query="(min-device-width: 1224px)">
-                        <div>You are a desktop or laptop</div>
-                        <MediaQuery query="(min-device-width: 1824px)">
-                            <div>You also have a huge screen</div>
-                        </MediaQuery>
-                        <MediaQuery query="(max-width: 1224px)">
-                            <div>You are sized like a tablet or mobile phone though</div>
-                        </MediaQuery>
-                    </MediaQuery>
-                    <MediaQuery query="(max-device-width: 1224px)">
-                        <div>You are a tablet or mobile phone</div>
-                    </MediaQuery>
-                    <MediaQuery query="(orientation: portrait)">
-                        <div>You are portrait</div>
-                    </MediaQuery>
-                    <MediaQuery query="(orientation: landscape)">
-                        <div>You are landscape</div>
-                    </MediaQuery>
-                    <MediaQuery query="(min-resolution: 2dppx)">
-                        <div>You are retina</div>
-                    </MediaQuery>
-                </div>
-
+                        <Button id="submit" type="submit"
+                                disabled={this.state.year.toString().length != 4 || this.state.title == undefined || this.state.title == '' || this.state.year == undefined || this.state.year == '' || this.state.synopsis == undefined || this.state.synopsis == ''}
+                                raised primary className="md-cell md-cell--2">Save</Button>
+                        <Button id="reset" type="reset" raised secondary className="md-cell md-cell--2">Dismiss</Button>
+                        <AlertMessage className="md-row md-full-width" >{this.props.error ? `${this.props.error}` : ''}</AlertMessage>
+                    </form>
+                </Card>
             </Page>
         );
     }
-};
+}
 
 export default withRouter(StudyplanPreQuery);

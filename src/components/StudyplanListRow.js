@@ -61,18 +61,19 @@ class StudyplanListRow extends React.Component{
 
        <Paper >
            <Grid container direction="row" alignItems="center" justify="space-between" >
-               <div>
-               <Typography> {this.props.name}</Typography>
-               </div>
-               <div>
+
+               <Grid item>
+               <Typography> {".   "+this.props.name}</Typography>
+               </Grid>
+               <Grid item>
                <Typography> {this.props.img} </Typography>
-               </div>
-               <div>
+               </Grid>
+               <Grid item>
                <Grid container direction="column" >
                    <Button> Edit </Button>
                    <Button> Delete </Button>
                </Grid>
-               </div>
+               </Grid>
 
            </Grid>
 

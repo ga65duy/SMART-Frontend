@@ -9,6 +9,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
 
+
 const studyplanItems = [
     {"name": "studyplan1", "img": "img1"},
     {"name": "studyplan2","img": "img2"},
@@ -36,7 +37,9 @@ export default class StudyplanList extends React.Component {
 
     getStudyplanListItems(studyplanItems) {
         return studyplanItems.map(item => {
-            return <StudyplanListRow name={item["name"]} img={"test_backend"}/>
+            return (<Grid item>
+                        <StudyplanListRow name={item["name"]} img={"test_backend"}/>
+            </Grid>);
         })
     }
 
@@ -59,6 +62,7 @@ export default class StudyplanList extends React.Component {
                             direction="column"
                             justify="flex-start"
                             alignItems="stretch"
+                            spacing={1}
 
 
 
