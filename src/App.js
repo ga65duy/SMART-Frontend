@@ -14,6 +14,7 @@ import {CreateStudyplanView} from './views/CreateStudyplanView';
 import StudyplanView from './views/StudyplanView';
 import { CourseListView } from './views/CourseListView';
 import CreateStudyplanQueryView from './views/CreateStudyplanQueryView';
+import {ProfileView} from "./views/ProfileView";
 
 import UserService from "./services/UserService";
 
@@ -33,6 +34,8 @@ export default class App extends React.Component {
                 { component: CreateStudyplanQueryView , path: '/home'},
                 {component: CreateStudyplanView, path:'/home/:id'},
                 { component: MovieDetailView , path: '/show/:id'},
+                { component: ProfileView , path: '/profile'},
+
 
 
                 { component: UserLoginView, path: '/login'},
@@ -81,7 +84,7 @@ export default class App extends React.Component {
 
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
-                            return (<MovieListView {... props} />)//Dummy for ProfileView
+                            return (<ProfileView {... props} />)//Dummy for ProfileView
                         }
                         else {
                             return (<Redirect to={'/login'}/>)
