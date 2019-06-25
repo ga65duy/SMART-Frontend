@@ -5,22 +5,30 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button";
 import Page from './Page';
+import {withStyles} from "@material-ui/core/styles";
+import PropTypes from "prop-types";
 
+const styles = theme => ({
+    paper: {
+        padding: theme.spacing(2),
+        margin: "10px",
+        //textAlign: "center",
+    },
+});
 
-
-export  class Profile extends React.Component {
+class Profile extends React.Component {
     constructor(props){
         super(props);
     }
 
     render () {
-        //const {classes} = this.props;
+        const {classes} = this.props;
         return (
             <Page>
-                <Paper>
-                    <Grid container alignItems={"center"}>
-                        <Grid item >
-                            <Typography> My Profile </Typography>
+                <Paper className={classes.paper}>
+                    <Grid container>
+                        <Grid item>
+                            <Typography variant="h5"> My Profile </Typography>
                         </Grid>
                         <Grid item container direction = "column">
                             <Typography>Username</Typography>
@@ -41,6 +49,10 @@ export  class Profile extends React.Component {
                                 variant="outlined"
                                 margin = "dense"
                             />
+                            <Grid item direction="row" align="center">
+                                <Button> Save </Button>
+                                <Button> Cancle </Button>
+                            </Grid>
                             <Button>Studyplans</Button>
                             <Button>Ratings</Button>
                         </Grid>
@@ -49,3 +61,9 @@ export  class Profile extends React.Component {
             </Page>
         )};
 }
+Profile.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Profile);
+

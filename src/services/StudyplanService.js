@@ -19,16 +19,10 @@ export default class StudyplanService {
         });
     }
 
-
     static deleteStudyplan(id) {
         return new Promise((resolve, reject) => {
             HttpService.remove(`${StudyplanService.baseURL()}/${id}`, function(data) {
-                if(data.message != undefined) {
-                    resolve(data.message);
-                }
-                else {
-                    reject('Error while deleting');
-                }
+                resolve(data);
             }, function(textStatus) {
                 reject(textStatus);
             });

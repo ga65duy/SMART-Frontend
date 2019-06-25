@@ -1,10 +1,5 @@
 import React from "react";
 import StudyplanList from "../components/StudyplanList";
-import SearchBar from "../components/SearchBar";
-import SideBar from "../components/SideBar";
-import Grid from '@material-ui/core/Grid';
-import Page from '../components/Page';
-
 import StudyplanService from '../services/StudyplanService';
 
 
@@ -18,8 +13,6 @@ export class LoadStudyplanView extends React.Component {
 
         };
     }
-
-
 
     componentWillMount(){
         this.setState({
