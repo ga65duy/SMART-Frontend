@@ -47,10 +47,11 @@ export default class UserService {
         let base64 = base64Url.replace('-', '+').replace('_', '/');
         return {
             id : JSON.parse(window.atob(base64)).id,
-            username: JSON.parse(window.atob(base64)).username
+            username: JSON.parse(window.atob(base64)).username,
+            email: JSON.parse(window.atob(base64)).email
         };
     }
-
+    
     static isAuthenticated() {
         return !!window.localStorage['jwtToken'];
     }

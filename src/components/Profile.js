@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import Page from './Page';
 import {withStyles} from "@material-ui/core/styles";
 import PropTypes from "prop-types";
+import UserService from "../services/UserService";
 
 const styles = theme => ({
     paper: {
@@ -19,6 +20,29 @@ const styles = theme => ({
 class Profile extends React.Component {
     constructor(props){
         super(props);
+
+        this.state = {
+            user: {},
+        }
+        this.changeField = this.changeField.bind(this);
+    }
+
+    componentWillMount(){
+        this.setState({
+            loading: true
+        });
+
+        const user = UserService.getCurrentUser();
+        this.setState({user: user})
+    }
+
+    changeField(e){
+        const value = e.target.value;
+        this.setState(
+            {user:
+                {username: value}
+            })
+
     }
 
     render () {
@@ -33,9 +57,10 @@ class Profile extends React.Component {
                         <Grid item container direction = "column">
                             <Typography>Username</Typography>
                             <TextField
-                                placeholder="Username"
+                                value={this.state.user.username}
                                 variant="outlined"
                                 margin="dense"
+                                onChange={this.changeField}
                             />
                             <Typography>E-Mail</Typography>
                             <TextField
