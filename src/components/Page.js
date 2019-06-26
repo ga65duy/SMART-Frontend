@@ -33,6 +33,7 @@ export default class Page extends React.Component {
         this.state = {
             title: '',
             loading: false,
+            studyplans: []
         }
     }
 
@@ -41,6 +42,14 @@ export default class Page extends React.Component {
            title: document.title,
            loading: true
        });
+        StudyplanService.getStudyplan().then((studyplans) => {
+            this.setState({
+                studyplans: [...studyplans],
+                loading: false
+            });
+        }).catch((e) => {
+            console.error(e);
+        });
     }
 
 
@@ -61,7 +70,7 @@ export default class Page extends React.Component {
                         <Grid container direction="column"  spacing={1}>
 
                             <Grid item>
-                                <SideBar studyplans={this.props.studyplans}/>
+                                <SideBar studyplans={this.state.studyplans}/>
                             </Grid>
                             <Grid item>
                                 <div style={{width: "200px", height: "200px", background: "#428bca", color: "#fff" }}>RECTANGLE</div>

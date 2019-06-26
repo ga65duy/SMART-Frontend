@@ -36,7 +36,7 @@ class StudyplanListRow extends React.Component{
         const {classes} = this.props;
         return (
             <Paper className={classes.paper}>
-                <Grid container alignItems={"center"} xs={12}>
+                <Grid container alignItems={"center"}>
                     <Grid item xs={2}>
                         <Typography>
                             {this.props.studyplan.name}

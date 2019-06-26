@@ -42,10 +42,9 @@ class SideBar extends React.Component {
         };
     }
     getStudyplanName(studyplanItems) {
-        console.log(this.props);
         return studyplanItems.map(item => {
-            return (<ListItem button >
-                <ListItemText primary ={item["name"]} className={this.props.classes.nestedSecondLevel}/>
+            return (<ListItem key={item["name"]} button >
+                <ListItemText primary={item["name"]} className={this.props.classes.nestedSecondLevel}/>
             </ListItem>);
         })
     }

@@ -19,7 +19,7 @@ export default class StudyplanList extends React.Component {
 
     render() {
         return (
-            <Page studyplans = {this.props.studyplans}>
+            <Page>
                 <Grid>
                     {this.getStudyplanListItems(this.props.studyplans)}
                 </Grid>

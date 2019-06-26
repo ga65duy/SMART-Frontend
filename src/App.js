@@ -31,6 +31,7 @@ export default class App extends React.Component {
 
             routes: [
                 { component: LoadStudyplanView, path: '/', exact:true},
+                { component: LoadStudyplanView, path: '/profile/studyplans'},
                 { component: CreateStudyplanQueryView , path: '/home'},
                // {component: CreateStudyplanView, path:'/home/:id'},
                 { component: MovieDetailView , path: '/show/:id'},
