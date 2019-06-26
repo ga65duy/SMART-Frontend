@@ -31,7 +31,7 @@ export default class StudyplanService {
 
     static updateStudyplan(studyplan) {
         return new Promise((resolve, reject) => {
-            HttpService.put(`${this.baseURL()}/${studyplan._id}`, movstudyplan, function(data) {
+            HttpService.put(`${this.baseURL()}/${studyplan._id}`, studyplan, function(data) {
                 resolve(data);
             }, function(textStatus) {
                 reject(textStatus);

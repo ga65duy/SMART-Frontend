@@ -52,9 +52,9 @@ export default class CourseService {
 
      */
 
-    /*static updateMovie(movie) {
+    static updateCourse(course) {
         return new Promise((resolve, reject) => {
-            HttpService.put(`${this.baseURL()}/${movie._id}`, movie, function(data) {
+            HttpService.put(`${this.baseURL()}/${course._id}`, course, function(data) {
                 resolve(data);
             }, function(textStatus) {
                 reject(textStatus);
@@ -62,18 +62,13 @@ export default class CourseService {
         });
     }
 
-     */
 
-    /*static createMovie(movie) {
-        movie.id = Math.floor((Math.random() * 100000000) + 1).toString();
-        movie.posters = {
-            thumbnail: "http://resizing.flixster.com/AeDB8hgaGed_TMCcIF1P_gubGwA=/54x81/dkpu1ddg7pbsk.cloudfront.net/movie/11/27/63/11276344_ori.jpg",
-            profile: "http://resizing.flixster.com/AeDB8hgaGed_TMCcIF1P_gubGwA=/54x81/dkpu1ddg7pbsk.cloudfront.net/movie/11/27/63/11276344_ori.jpg",
-            detailed: "http://resizing.flixster.com/AeDB8hgaGed_TMCcIF1P_gubGwA=/54x81/dkpu1ddg7pbsk.cloudfront.net/movie/11/27/63/11276344_ori.jpg",
-            original: "http://resizing.flixster.com/AeDB8hgaGed_TMCcIF1P_gubGwA=/54x81/dkpu1ddg7pbsk.cloudfront.net/movie/11/27/63/11276344_ori.jpg"
-        };
+
+    static createCourse(course) {
+        course.id = Math.floor((Math.random() * 100000000) + 1).toString();
+
         return new Promise((resolve, reject) => {
-            HttpService.post(MovieService.baseURL(), movie, function(data) {
+            HttpService.post(CourseService.baseURL(), course, function(data) {
                 resolve(data);
             }, function(textStatus) {
                 reject(textStatus);
@@ -81,5 +76,5 @@ export default class CourseService {
         });
     }
     
-     */
+
 }

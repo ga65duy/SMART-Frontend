@@ -35,19 +35,23 @@ class StudyplanPreQuery extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log(this.props.universities);
 
         if (this.props.studyplan != undefined) {
             this.state = {
-                name: props.studyplan.name,
+                Uname:'',
+                Sname: props.studyplan.name,
                 university: props.studyplan.university,
-                fieldOfStudy: props.studyplan.fos
+                fieldOfStudyName: props.studyplan.fos
+
 
             };
         } else {
             this.state = {
-                name: '',
-                univeristy: 'TUM',
-                fieldOfStudy: ''
+                Uname:'',
+                Sname: '',
+                univeristy: '',
+                fieldOfStudyName: ''
 
             };
         }
@@ -55,16 +59,18 @@ class StudyplanPreQuery extends React.Component {
 
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleChangeUniveristy = this.handleChangeUniveristy.bind(this);
-        this.handleChangeRating = this.handleChangeRating.bind(this);
+        this.handleChangeFieldOfStudy = this.handleChangeFieldOfStudy.bind(this);
         this.handleChangeSynopsis = this.handleChangeSynopsis.bind(this);
+        this.handleCourseSubmit=this.handleCourseSubmit.bind(this);
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChangeName(event) {
         //this.setState(Object.assign({}, this.state, {name: value}));
-        this.setState({name: event.target.value})
-        console.log(this.state.name);
+        this.setState({Uname: event.target.value})
+        console.log(this.state.Uname);
+
     }
 
     handleChangeUniveristy(event) {
@@ -73,30 +79,47 @@ class StudyplanPreQuery extends React.Component {
         //this.setState(Object.assign({}, this.state, {year: value}));
     }
 
-    handleChangeRating(value) {
-        this.setState(Object.assign({}, this.state, {rating: value}));
+    handleChangeFieldOfStudy(event) {
+        this.setState({fieldOfStudyName:event.target.value});
     }
 
-    handleChangeSynopsis(value) {
-        this.setState(Object.assign({}, this.state, {synopsis: value}));
+    handleChangeSynopsis(event) {
+        this.setState({courseName:event.target.value});
     }
 
     handleSubmit(event) {
         event.preventDefault();
 
-       /* let movie = this.props.movie;
-        if(movie == undefined) {
-            movie = {};
+
+        let university = this.props.university;
+        if(university == undefined) {
+            university = {};
         }
 
-        movie.title = this.state.title;
-        movie.mpaa_rating = this.state.rating;
-        movie.year = this.state.year;
-        movie.synopsis = this.state.synopsis;
+        university.name = this.state.Uname;
+        university.fieldsOfStudy = [];
 
-        this.props.onSubmit(movie);*/
-       console.log(this.state.name);
-        console.log(this.state.univeristy);
+
+       // this.props.onSubmit(university);
+        this.props.updateUniversity(university);
+
+
+        console.log(university);
+
+    }
+
+    handleCourseSubmit(event){
+        event.preventDefault();
+
+        let course=this.props.course;
+        if (course==undefined)
+        {
+            course={};
+        }
+
+        course.name=this.state.courseName;
+        this.props.updateCourse(course);
+        console.log(course);
     }
 
     render() {
@@ -106,15 +129,16 @@ class StudyplanPreQuery extends React.Component {
                     <Grid container direction="column" alignContent="center">
                     <TextField
                         id="standard-name"
-                        label="Name"
+                        label="UName (Name)"
 
                         onChange={this.handleChangeName}
                         margin="normal"
                     />
                     <TextField
                         id="standard-uncontrolled"
-                        label="Uncontrolled"
+                        label="FoS (Uncontrolled)"
                         defaultValue="foo"
+                        onChange={this.handleChangeFieldOfStudy}
 
                         margin="normal"
                     />
@@ -139,14 +163,29 @@ class StudyplanPreQuery extends React.Component {
                         helperText="Please select your currency"
                         margin="normal"
                     >
-                        {currencies.map(option => (
-                            <MenuItem key={option.value} value={option.value}>
-                                {option.label}
+                        {this.props.universities.map(option => (
+                            <MenuItem key={option.id} value={option.name}>
+                                {option.name}
                             </MenuItem>
                         ))}
                     </TextField>
+
+
                     <Button onClick={this.handleSubmit}>SUBMIT</Button>
                     </Grid>
+                </form>
+
+                <form>
+                    <TextField
+                        id="standard-uncontrolled"
+                        label="Course Name"
+                        defaultValue="CourseName"
+                        onChange={this.handleChangeSynopsis}
+
+                        margin="normal"
+                    />
+
+                    <Button onClick={this.handleCourseSubmit}> SUBMIT COURSE </Button>
                 </form>
                <Grid container>
 
