@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { MovieDetail } from '../components/MovieDetail';
+import { Studyplan } from '../components/Studyplan';
 
 import MovieService from '../services/MovieService';
 
@@ -45,7 +45,7 @@ export class MovieDetailView extends React.Component {
         }
 
         return (
-            <MovieDetail movie={this.state.movie} onDelete={(id) => this.deleteMovie(id)}/>
+            <Studyplan movie={this.state.movie} onDelete={(id) => this.deleteMovie(id)}/>
         );
     }
 }

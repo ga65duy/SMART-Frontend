@@ -8,11 +8,9 @@ import Page from './Page';
 
 import UserService from '../services/UserService';
 
-import StudyplanService from '../services/StudyplanService';
-
 const style = { maxWidth: 500 };
 
-export class MovieDetail extends React.Component {
+export class Studyplan extends React.Component {
 
     constructor(props) {
         super(props);

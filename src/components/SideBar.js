@@ -41,6 +41,14 @@ class SideBar extends React.Component {
             openCourse: false
         };
     }
+    getStudyplanName(studyplanItems) {
+        return studyplanItems.map(item => {
+            return (<ListItem button >
+                <ListItemText primary ={item["name"]} className={sideBar.nestedSecondLevel}/>
+            </ListItem>);
+        })
+    }
+
 
     handleClick(listItem) {
         switch (listItem) {
@@ -86,9 +94,7 @@ class SideBar extends React.Component {
                         </ListItem>
                         <Collapse in={this.state.openStudyplan}>
                             <List component="div" disablePadding>
-                                <ListItem button className={classes.nestedSecondLevel}>
-                                    <ListItemText primary="ExampleStudyplan"/>
-                                </ListItem>
+                                {this.getStudyplanName(this.props.studyplans)}
                             </List>
                         </Collapse>
                         <ListItem button onClick={() => this.handleClick("Rating")} className={classes.nested} >
