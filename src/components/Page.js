@@ -54,6 +54,10 @@ export default class Page extends React.Component {
 
 
     render() {
+        if(this.state.loading)
+        {
+            return (<h2>Loading...</h2>);
+        }
         return (
             <Grid container direction="column" spacing={1}>
                 <Grid item>

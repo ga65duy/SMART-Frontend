@@ -79,7 +79,7 @@ class SideBar extends React.Component {
         return (
             <Paper square={true} >
             <List className={classes.root} id="SideBarListID">
-                <ListItem button >
+                <ListItem button href="/" >
                     <ListItemText color="primary" primary="Home"/>
                 </ListItem>
                 <ListItem button onClick={() => this.handleClick("Profile")}>
