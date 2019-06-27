@@ -74,12 +74,10 @@ class Profile extends React.Component {
                                 variant="outlined"
                                 margin = "dense"
                             />
-                            <Grid item direction="row" align="center">
+                            <Grid item align="center">
                                 <Button> Save </Button>
                                 <Button> Cancle </Button>
                             </Grid>
-                            <Button>Studyplans</Button>
-                            <Button>Ratings</Button>
                         </Grid>
                     </Grid>
                 </Paper>
