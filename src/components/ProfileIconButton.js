@@ -37,6 +37,10 @@ export default function ProfileIconButton() {
         location.href = '/#/profile';
     }
 
+    function register(){
+        location.href='/#/register';
+    }
+
     if(UserService.isAuthenticated()){
 
         return (
@@ -70,7 +74,7 @@ export default function ProfileIconButton() {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    <MenuItem onClick={profile}>My Profile</MenuItem>
+                    <MenuItem onClick={register}>Register</MenuItem>
                     <MenuItem onClick={login}>LogIn</MenuItem>
                 </Menu>
             </div>

@@ -9,7 +9,14 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Typography from '@material-ui/core/Typography';
+import FieldOfStudyService from '../services/FieldOfStudyService';
+
+
 import UniversityService from '../services/UniversityService';
+import CourseService from "../services/CourseService";
 
 const style = { maxWidth: 500 };
 const currencies = [
@@ -31,18 +38,22 @@ const currencies = [
     },
 ];
 
+
+
 class StudyplanPreQuery extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props.universities);
 
         if (this.props.studyplan != undefined) {
             this.state = {
                 Uname:'',
                 Sname: props.studyplan.name,
                 university: props.studyplan.university,
-                fieldOfStudyName: props.studyplan.fos
+                fieldOfStudyName: props.studyplan.fos,
+                courses:props.courses,
+                selectedCourses:[],
+                fieldsOfStudy:FieldOfStudyService.getFoSs(),
 
 
             };
@@ -51,10 +62,15 @@ class StudyplanPreQuery extends React.Component {
                 Uname:'',
                 Sname: '',
                 univeristy: '',
-                fieldOfStudyName: ''
+                fieldOfStudyName: '',
+                courses: props.courses,
+                selectedCourses:[],
+                fieldsOfStudy:FieldOfStudyService.getFoSs(),
 
             };
         }
+        this.setState({fieldsOfStudy:[]})
+
 
 
         this.handleChangeName = this.handleChangeName.bind(this);
@@ -62,8 +78,20 @@ class StudyplanPreQuery extends React.Component {
         this.handleChangeFieldOfStudy = this.handleChangeFieldOfStudy.bind(this);
         this.handleChangeSynopsis = this.handleChangeSynopsis.bind(this);
         this.handleCourseSubmit=this.handleCourseSubmit.bind(this);
+        this.handleChangeFoSCommit=this.handleChangeFoSCommit.bind(this);
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChangeS=this.handleChangeS.bind(this);
+    }
+
+    componentWillMount(){
+        FieldOfStudyService.getFoSs().then((data) => {
+            this.setState({
+                fieldsOfStudy: [...data],
+            });
+        }).catch((e) => {
+            console.error(e);
+        });
     }
 
     handleChangeName(event) {
@@ -121,6 +149,70 @@ class StudyplanPreQuery extends React.Component {
         this.props.updateCourse(course);
         console.log(course);
     }
+
+    handleChangeFoSCommit(event){
+
+        event.preventDefault();
+
+        let FoS=this.props.fieldOfStudy;
+        if (FoS==undefined)
+        {
+            FoS={};
+        }
+
+        FoS.name=this.state.fieldOfStudyName;
+        FoS.mandatory=[]+this.props.courses;
+
+        this.props.updateFoS(FoS);
+
+
+
+    }
+
+   handleChangeS(event,name){
+
+  //    this.setState({[name]: event.target.checked });
+
+
+       console.log(this.state[name])
+
+    }
+
+
+    checkBoxes(){
+
+        const courses=this.props.courses;
+
+        courses.map(o=>(
+
+            this.setState({[o.name]:false})
+        ))
+
+
+       return(
+        courses.map(option => (
+
+
+            <FormControlLabel
+                control={
+                    <Checkbox
+                        key={option.id}
+                        checked= {this.state.checkedA}
+                        onChange={this.handleChangeS(option.name)}
+                        value={option.name}
+                        inputProps={{
+                            'aria-label': 'primary checkbox',
+                        }}
+                    />
+                }
+                label={option.name}
+            />
+
+
+        )))
+    }
+
+
 
     render() {
         return (
@@ -187,6 +279,30 @@ class StudyplanPreQuery extends React.Component {
 
                     <Button onClick={this.handleCourseSubmit}> SUBMIT COURSE </Button>
                 </form>
+
+                <form>
+                <TextField
+                    id="standard-uncontrolled"
+                    label="FoS Name"
+
+                    onChange={this.handleChangeFieldOfStudy}
+
+                    margin="normal"
+                />
+
+                    {this.props.courses.map(option => (
+
+                        <Typography>{option.name}</Typography>
+
+                    ))}
+
+
+
+
+                <Button onClick={this.handleChangeFoSCommit}> SUBMIT FoS </Button>
+            </form>
+
+
                <Grid container>
 
 
@@ -195,6 +311,7 @@ class StudyplanPreQuery extends React.Component {
                    function(event: object) => void
                     event: The event source of the callback. You can pull out the new value by accessing event.target.value.
                     */}
+
 
 
                </Grid>

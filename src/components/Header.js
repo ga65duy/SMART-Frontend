@@ -21,6 +21,7 @@ import Paper from '@material-ui/core/Paper';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import UserService from '../services/UserService';
 
 //import logo from './src/Smart.jpg';
 
@@ -72,6 +73,22 @@ class Header extends React.Component {
 
  }
 
+ switchUniversityUser()
+ {
+
+     if(UserService.isUniversityUser()){
+         return (
+             <Button color="primary" href="/#/profile/courses">My Courses </Button>
+         )
+     }
+     else{
+         return (
+             <Button edge="start" color="primary" href="/#/profile/studyplans">My Studyplans</Button>
+         )
+     }
+
+ }
+
 
 
     render() {
@@ -87,7 +104,8 @@ class Header extends React.Component {
                 <div className={classes.root}>
                     <AppBar position="static" color = "secondary">
                         <Toolbar>
-                            <img src={require('../Smart.jpg')}/>
+                            <img href="/" src={require('../Smart.jpg')}/>
+
                             <Breadcrumbs separator="›" aria-label="Breadcrumb" color="primary">
                                 <Link color="primary" href="/" to="/">
                                     Home
@@ -101,12 +119,14 @@ class Header extends React.Component {
 
                             <Button edge="start" color="primary" href="/">Home</Button>
                             <Typography color="primary">|</Typography>
-                            {<Button edge="start" color="primary" href="/#/profile/studyplans">Studyplans</Button> //if user =university change to courses, if user unregistered send to login/register}
+                            { this.switchUniversityUser()//if user =university change to courses, if user unregistered send to login/register}
                             }
-                            <Typography color="primary">|</Typography>
-                            <Button edge="start" color="primary" href="/#/contact">Contact</Button>
-                            <Typography color="primary">|</Typography>
-                            <Button edge="start" color="primary" href="/#/profile">Profile</Button>
+                            {//<Typography color="primary">|</Typography>
+                                // <Button edge="start" color="primary" href="/#/contact">Contact</Button>
+
+                           //     <Typography color="primary">|</Typography>
+                            //    < Button edge="start" color="primary" href="/#/profile">Profile</Button>
+                            }
 
                             <ProfileIconButton/>
                         </Toolbar>

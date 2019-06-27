@@ -9,6 +9,7 @@ import UserService from '../services/UserService';
 import StudyplanPreQuery from '../components/StudyplanPreQuery';
 import UniversityService from '../services/UniversityService';
 import CourseService from '../services/CourseService';
+import FieldOfStudyService from '../services/FieldOfStudyService';
 import MovieService from "../services/MovieService";
 
 
@@ -23,6 +24,8 @@ export class CreateStudyplanQueryView extends React.Component {
             studyplan:'',
             user:UserService.getCurrentUser(),
             universities:'',
+            courses:CourseService.getCourses(),
+            fieldsOfStudy: FieldOfStudyService.getFoSs(),
         };
     }
 
@@ -32,13 +35,25 @@ export class CreateStudyplanQueryView extends React.Component {
         });
 
         UniversityService.getUniversities().then((data) => {
+
             this.setState({
                 universities: [...data],
-                loading: false
+
+            });
+            CourseService.getCourses().then((data2) => {
+                this.setState({
+                    courses: [...data2],
+                    loading:false,
+                });
+
+            }).catch((e) => {
+                console.error(e);
             });
         }).catch((e) => {
             console.error(e);
         });
+
+
     }
 
     createStudyplan(id) {
@@ -85,6 +100,25 @@ export class CreateStudyplanQueryView extends React.Component {
 
     }
 
+    updateFoS(fos){
+        if(this.state.fos == undefined) {
+            FieldOfStudyService.createFoS(fos).then((data) => {
+                // this.props.history.push('/');
+            }).catch((e) => {
+                console.error(e);
+                this.setState(Object.assign({}, this.state, {error: 'Error while creating university'}));
+            });
+        } else {
+            FieldOfStudyService.updateFoS(fos).then((data) => {
+                //this.props.history.push('/');
+            }).catch((e) => {
+                console.error(e);
+                this.setState(Object.assign({}, this.state, {error: 'Error while creating university'}));
+            });
+        }
+
+    }
+
 
 
     render() {
@@ -94,7 +128,7 @@ export class CreateStudyplanQueryView extends React.Component {
         }
 
         return (
-            <StudyplanPreQuery  universities={this.state.universities} updateUniversity={(university) => this.updateUniversity(university)} updateCourse={(id) => this.updateCourse(id)}/>
+            <StudyplanPreQuery  courses={this.state.courses} universities={this.state.universities} updateUniversity={(university) => this.updateUniversity(university)} updateCourse={(id) => this.updateCourse(id)} updateFoS={(fos) => this.updateFoS(fos)}/>
         );
     }
 };

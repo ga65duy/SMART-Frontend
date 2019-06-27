@@ -18,11 +18,13 @@ class UserSignup extends React.Component {
 
         this.state = {
             username : '',
-            password : ''
+            password : '',
+            isUniversityUser: true,
         };
 
         this.handleChangeUsername = this.handleChangeUsername.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
+        this.handleOptionChange=this.handleOptionChange.bind(this);
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -38,12 +40,31 @@ class UserSignup extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
+
         let user = {
             username: this.state.username,
-            password: this.state.password
+            password: this.state.password,
+            isUniversityUser: this.state.isUniversityUser,
         };
 
+        console.log(user);
+
         this.props.onSubmit(user);
+    }
+
+    handleOptionChange ( event) {
+        if(event.target.value==="true")
+        {
+            this.setState({
+                isUniversityUser:true,
+            })
+        }
+        else {
+            this.setState({
+                isUniversityUser:false,
+            })
+        }
+
     }
 
     render() {
@@ -69,6 +90,33 @@ class UserSignup extends React.Component {
                             value={this.state.password}
                             onChange={this.handleChangePassword}
                             errorText="Password is required"/>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="react-tips"
+                                value="true"
+                                checked={this.state.isUniversityUser}
+                                onChange={this.handleOptionChange}
+
+                            />
+                            Univeristy User
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="react-tips2"
+                                value="false"
+                                checked={!this.state.isUniversityUser}
+                                onChange={this.handleOptionChange}
+
+                            />
+                            Student User
+                        </label>
+
+
+
 
                         <Button id="submit" type="submit"
                                 disabled={this.state.username == undefined || this.state.username == '' || this.state.password == undefined || this.state.password == '' ? true : false}
