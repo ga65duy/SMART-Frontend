@@ -23,7 +23,7 @@ class Profile extends React.Component {
 
         this.state = {
             user: {},
-        }
+        };
         this.changeField = this.changeField.bind(this);
     }
 
