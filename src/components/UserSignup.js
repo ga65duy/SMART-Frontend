@@ -46,8 +46,6 @@ class UserSignup extends React.Component {
         this.handleOptionChange = this.handleOptionChange.bind(this);
         this.registerUser = this.registerUser.bind(this);
 
-
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
 
@@ -108,7 +106,11 @@ class UserSignup extends React.Component {
         this.setState(Object.assign({}, this.state, {password: value, passwordValid: valid[0], textPassword: valid[1]}));
     }
 
-    handleSubmit(e) {
+    handleOptionChange () {
+        this.setState({isUniversityUser: !this.state.isUniversityUser})
+    }
+
+    registerUser(e) {
         e.preventDefault();
 
         let user = {
@@ -116,31 +118,13 @@ class UserSignup extends React.Component {
             email: this.state.email,
             password: this.state.password,
             isUniversityUser: this.state.isUniversityUser,
-
         };
 
-        this.props.onSubmit(user);
-    }
-
-    handleOptionChange () {
-        this.setState({isUniversityUser: !this.state.isUniversityUser})
-
-    }
-
-    registerUser(){
-        const studentData= {
-            username: this.state.username,
-            email: this.state.email,
-            password: this.state.password
-            };
-
-        UserService.register(studentData).then((data) => {
-
+        UserService.register(user).then((data) => {
         }).catch((e)=> {
             console.error(e)
             this.setState({usernameValid: false, textUser: "User already exists"})
         });
-
     };
 
     render() {
@@ -153,24 +137,6 @@ class UserSignup extends React.Component {
                                 <FormControlLabel value="student" control={<Radio color="primary"/>} label="Student User" checked={!this.state.isUniversityUser}/>
                                 <FormControlLabel value="uni" control={<Radio color="primary"/>} label="University User" checked={this.state.isUniversityUser}/>
                             </RadioGroup>
-                            {/*<label>*/}
-                            {/*    <input*/}
-                            {/*        type="radio"*/}
-                            {/*        value="true"*/}
-                            {/*        checked={this.state.isUniversityUser}*/}
-                            {/*        onChange={this.handleOptionChange}*/}
-                            {/*    />*/}
-                            {/*    Univeristy User*/}
-                            {/*</label>*/}
-                            {/*<label>*/}
-                            {/*    <input*/}
-                            {/*        type="radio"*/}
-                            {/*        value="false"*/}
-                            {/*        checked={!this.state.isUniversityUser}*/}
-                            {/*        onChange={this.handleOptionChange}*/}
-                            {/*    />*/}
-                            {/*    Student User*/}
-                            {/*</label>*/}
                             <TextField
                                 label="Username"
                                 id="Username"

@@ -45,11 +45,16 @@ export default class UserService {
         return {
             id : JSON.parse(window.atob(base64)).id,
             username: JSON.parse(window.atob(base64)).username,
-            email: JSON.parse(window.atob(base64)).email
+            email: JSON.parse(window.atob(base64)).email,
+            isUniversityUser: JSON.parse(window.atob(base64)).isUniversityUser
         };
     }
     
     static isAuthenticated() {
         return !!window.localStorage['jwtToken'];
+    }
+
+    static isUniversityUser(){
+        return (this.getCurrentUser().isUniversityUser)
     }
 }
