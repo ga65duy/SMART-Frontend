@@ -4,10 +4,21 @@ import React from 'react';
 
 import {withStyles} from "@material-ui/core/styles";
 
-import {TextField, Button, Paper, Grid,RadioGroup,FormControlLabel, Radio, IconButton,  InputAdornment, Input} from "@material-ui/core";
+import {
+    TextField,
+    Button,
+    Paper,
+    Grid,
+    RadioGroup,
+    FormControlLabel,
+    Radio,
+    IconButton,
+    InputAdornment
+} from "@material-ui/core";
 import {Visibility, VisibilityOff} from "@material-ui/icons";
 import Page from './Page';
 import UserService from "../services/UserService";
+import {withRouter} from "react-router-dom";
 
 const styles = theme => ({
     paper: {
@@ -29,25 +40,34 @@ class UserSignup extends React.Component {
             username: '',
             email: '',
             password: '',
+            uni: '',
+            faculty: '',
+            chair: '',
+            authorization: '',
             isUniversityUser: false,
             showPassword: false,
             usernameValid: false,
             emailValid: false,
             passwordValid: false,
+            uniValid: false,
+            facValid: false,
+            chairValid: false,
+            authorizationValid: false,
             textUser: 'Username required',
-            textEmail:'Email required',
-            textPassword:'Password required'
+            textEmail: 'Email required',
+            textPassword: 'Password required',
+            textUni: "University required",
+            textFac: "Faculty required",
+            textChair: "Chair required",
+            textAuthorization: "Authorization required",
         };
 
-        this.handleChangeUsername = this.handleChangeUsername.bind(this);
-        this.handleChangePassword = this.handleChangePassword.bind(this);
-        this.handleChangeEmail = this.handleChangeEmail.bind(this);
-        this.handleClickShowPassword = this.handleClickShowPassword.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.handleOptionChange = this.handleOptionChange.bind(this);
+        this.handleClickShowPassword = this.handleClickShowPassword.bind(this);
         this.registerUser = this.registerUser.bind(this);
 
     }
-
 
     validateInput(value, field) {
         let message = '';
@@ -56,10 +76,13 @@ class UserSignup extends React.Component {
         switch (field) {
             case "Username":
             case "Password":
+            case "University":
+            case "Faculty":
+            case "Chair":
                 if (value.length !== 0) {
                     fieldValid = true;
                 } else {
-                    message = field+" required"
+                    message = field + " required"
                 }
                 break;
             case "Email":
@@ -71,11 +94,19 @@ class UserSignup extends React.Component {
                     fieldValid = true;
                 } else {
                     fieldValid = false;
-                    message = "Invalid "+field;
+                    message = "Invalid " + field;
                 }
                 break;
             default:
                 break;
+            case "Authorization":
+                //TODO: safe AuthorizationKey in backend
+                if (value === "xxx") {
+                    fieldValid = true;
+                } else {
+                    fieldValid = false;
+                    message = "Invalid " + field;
+                }
         }
         return [fieldValid, message]
     }
@@ -84,114 +115,213 @@ class UserSignup extends React.Component {
         this.setState({showPassword: !this.state.showPassword})
     }
 
-    handleChangeUsername(e) {
-        console.log(e.target.id);
+    handleChange(e) {
         const value = e.target.value;
         const field = e.target.id;
         const valid = this.validateInput(value, field);
-        this.setState(Object.assign({}, this.state, {username: value, usernameValid: valid[0], textUser: valid[1]}));
+        switch (field) {
+            case "Username":
+                this.setState({username: value, usernameValid: valid[0], textUser: valid[1]});
+                break;
+            case "Email":
+                this.setState({email: value, emailValid: valid[0], textEmail: valid[1]});
+                break;
+            case "Password":
+                this.setState({password: value, passwordValid: valid[0], textPassword: valid[1]});
+                break;
+            case "University":
+                this.setState({uni: value, uniValid: valid[0], textUni: valid[1]});
+                break;
+            case "Faculty":
+                this.setState({faculty: value, facValid: valid[0], textFac: valid[1]});
+                break;
+            case "Chair":
+                this.setState({chair: value, chairValid: valid[0], textChair: valid[1]});
+                break;
+            case "Authorization":
+                this.setState({authorization: value, authorizationValid: valid[0], textAuthorization: valid[1]})
+            default:
+                console.log("error")
+        }
     }
 
-    handleChangeEmail(e) {
-        const value = e.target.value;
-        const field = e.target.id;
-        const valid = this.validateInput(value, field);
-        this.setState(Object.assign({}, this.state, {email: value, emailValid: valid[0], textEmail: valid[1]}));
-    }
-
-    handleChangePassword(e) {
-        const value = e.target.value;
-        const field = e.target.id;
-        const valid = this.validateInput(value, field);
-        this.setState(Object.assign({}, this.state, {password: value, passwordValid: valid[0], textPassword: valid[1]}));
-    }
-
-    handleOptionChange () {
+    handleOptionChange() {
         this.setState({isUniversityUser: !this.state.isUniversityUser})
+    }
+
+    showAdditionlFieldsForUni() {
+        return (
+            <Grid container direction="column">
+                <TextField
+                    label="University"
+                    id="University"
+                    type="text"
+                    required={true}
+                    value={this.state.uni}
+                    onChange={this.handleChange}
+                    helperText={this.state.textUni}
+                    variant="standard"
+                    error={!this.state.uniValid}
+                    margin="dense"/>
+                <TextField
+                    label="Faculty"
+                    id="Faculty"
+                    type="text"
+                    required={true}
+                    value={this.state.faculty}
+                    onChange={this.handleChange}
+                    error={!this.state.facValid}
+                    helperText={this.state.textFac}
+                    variant="standard"
+                    margin="dense"/>
+                <TextField
+                    label="Chair"
+                    id="Chair"
+                    type="text"
+                    required={true}
+                    value={this.state.chair}
+                    onChange={this.handleChange}
+                    helperText={this.state.textChair}
+                    error={!this.state.chairValid}
+                    variant="standard"
+                    margin="dense"/>
+                <TextField
+                    label="Authorization"
+                    id="Authorization"
+                    type="text"
+                    required={true}
+                    value={this.state.authorization}
+                    onChange={this.handleChange}
+                    helperText={this.state.textAuthorization}
+                    variant="standard"
+                    error={!this.state.authorizationValid}
+                    margin="dense"/>
+            </Grid>)
+    }
+
+    showRegisterButton() {
+        var validateUni = [
+            this.state.usernameValid, this.state.emailValid, this.state.passwordValid,
+            this.state.uniValid, this.state.facValid, this.state.chairValid, this.state.authorizationValid];
+        var validateStudent = [this.state.usernameValid, this.state.emailValid, this.state.passwordValid];
+        if (this.state.isUniversityUser) {
+            return !(validateUni.every(item => item))
+        } else {
+            return !(validateStudent.every(item => item))
+        }
     }
 
     registerUser(e) {
         e.preventDefault();
 
-        let user = {
-            username: this.state.username,
-            email: this.state.email,
-            password: this.state.password,
-            isUniversityUser: this.state.isUniversityUser,
-        };
+        if (this.state.isUniversityUser) {
+            var user = {
+                username: this.state.username,
+                email: this.state.email,
+                password: this.state.password,
+                isUniversityUser: this.state.isUniversityUser,
+            };
+        } else {
+            var user = {
+                username: this.state.username,
+                email: this.state.email,
+                password: this.state.password,
+                isUniversityUser: this.state.isUniversityUser,
+                university: this.state.uni,
+                faculty: this.state.faculty,
+                authorization: this.state.authorization
+            };
+        }
+
 
         UserService.register(user).then((data) => {
-        }).catch((e)=> {
-            console.error(e)
+            if (this.state.isUniversityUser) {
+                //TODO: go to courses of uni
+                this.props.history.push('/profile')
+            } else {
+                this.props.history.push('/profile/studyplans')
+            }
+        }).catch((e) => {
+            console.error(e);
             this.setState({usernameValid: false, textUser: "User already exists"})
         });
     };
 
     render() {
         const {classes} = this.props;
+        const isUni = this.state.isUniversityUser;
+        let universityUser;
+
+        if (isUni) {
+            universityUser = this.showAdditionlFieldsForUni();
+        }
         return (
             <Page>
                 <Paper className={classes.paper}>
-                        <Grid container direction="column">
-                            <RadioGroup onChange={this.handleOptionChange} row >
-                                <FormControlLabel value="student" control={<Radio color="primary"/>} label="Student User" checked={!this.state.isUniversityUser}/>
-                                <FormControlLabel value="uni" control={<Radio color="primary"/>} label="University User" checked={this.state.isUniversityUser}/>
-                            </RadioGroup>
-                            <TextField
-                                label="Username"
-                                id="Username"
-                                type="text"
-                                required={true}
-                                value={this.state.username}
-                                onChange={this.handleChangeUsername}
-                                helperText={this.state.textUser}
-                                variant="standard"
-                                error={!this.state.usernameValid}
-                                margin="dense"/>
-                            <TextField
-                                label="E-mail"
-                                id="Email"
-                                type="email"
-                                required={true}
-                                value={this.state.email}
-                                onChange={this.handleChangeEmail}
-                                error={!this.state.emailValid}
-                                helperText={this.state.textEmail}
-                                variant="standard"
-                                margin="dense"/>
-                            <TextField
-                                error={true}
-                                label="Password"
-                                id="Password"
-                                type= {this.state.showPassword ? 'text' : 'password'}
-                                required={true}
-                                value={this.state.password}
-                                onChange={this.handleChangePassword}
-                                error={!this.state.passwordValid}
-                                helperText={this.state.textPassword}
-                                variant="standard"
-                                margin="dense"
-                                InputProps={{
+                    <Grid container direction="column">
+                        <RadioGroup onChange={this.handleOptionChange} row>
+                            <FormControlLabel value="student" control={<Radio color="primary"/>} label="Student User"
+                                              checked={!this.state.isUniversityUser}/>
+                            <FormControlLabel value="uni" control={<Radio color="primary"/>} label="University User"
+                                              checked={this.state.isUniversityUser}/>
+                        </RadioGroup>
+                        <TextField
+                            label="Username"
+                            id="Username"
+                            type="text"
+                            required={true}
+                            value={this.state.username}
+                            onChange={this.handleChange}
+                            helperText={this.state.textUser}
+                            variant="standard"
+                            error={!this.state.usernameValid}
+                            margin="dense"/>
+                        <TextField
+                            label="E-mail"
+                            id="Email"
+                            type="email"
+                            required={true}
+                            value={this.state.email}
+                            onChange={this.handleChange}
+                            error={!this.state.emailValid}
+                            helperText={this.state.textEmail}
+                            variant="standard"
+                            margin="dense"/>
+                        {universityUser}
+                        <TextField
+                            error={true}
+                            label="Password"
+                            id="Password"
+                            type={this.state.showPassword ? 'text' : 'password'}
+                            required={true}
+                            value={this.state.password}
+                            onChange={this.handleChange}
+                            error={!this.state.passwordValid}
+                            helperText={this.state.textPassword}
+                            variant="standard"
+                            margin="dense"
+                            InputProps={{
                                 endAdornment:
                                     <InputAdornment position="end">
-                                        <IconButton  onClick={this.handleClickShowPassword}>
-                                            {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                                        <IconButton onClick={this.handleClickShowPassword}>
+                                            {this.state.showPassword ? <Visibility/> : <VisibilityOff/>}
                                         </IconButton>
                                     </InputAdornment>
-                                }}
-                            />
-                            <Grid item alignContent="center">
-                                <Button id="submit" type="submit" variant="contained" color = "primary" className={classes.button}
-                                        disabled={!(this.state.usernameValid & this.state.emailValid & this.state.passwordValid)}
-                                onClick = {this.registerUser}>
-                                    Register
-                                </Button>
-                                <Button id="reset" type="reset" variant="contained" >Dismiss</Button>
-                            </Grid>
+                            }}
+                        />
+                        <Grid item alignContent="center">
+                            <Button id="submit" type="submit" variant="contained" color="primary"
+                                    className={classes.button}
+                                    disabled={this.showRegisterButton()}
+                                    onClick={this.registerUser}>
+                                Register
+                            </Button>
+                            <Button id="reset" type="reset" variant="contained">Dismiss</Button>
                         </Grid>
+                    </Grid>
                 </Paper>
             </Page>
         );
     }
 };
-export default withStyles(styles)(UserSignup);
+export default withRouter(withStyles(styles)(UserSignup));

@@ -1,17 +1,27 @@
 "use strict";
 
 import React from 'react';
-import Card from "@material-ui/core/Card";
+
+import {withStyles} from "@material-ui/core/styles";
+import {withRouter, Link} from 'react-router-dom';
+
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-//import { Card, Button, TextField } from 'react-md';
-import { withRouter, Link } from 'react-router-dom';
-
-import { AlertMessage } from './AlertMessage';
 import Page from './Page';
+import {Grid, Paper} from "@material-ui/core";
+import UserService from "../services/UserService";
 
 
-const style = { maxWidth: 500 };
+const styles = theme => ({
+    paper: {
+        padding: theme.spacing(2),
+        margin: "10px",
+        textAlign: "center",
+    },
+    button: {
+        marginRight: theme.spacing(2),
+    },
+});
 
 
 class UserLogin extends React.Component {
@@ -20,22 +30,56 @@ class UserLogin extends React.Component {
         super(props);
 
         this.state = {
-            username : '',
-            password : ''
+            username: '',
+            password: '',
+            usernameValid: '',
+            passwordValid: '',
+            textUser: 'User required',
+            textPassword: 'Password required'
         };
 
-        this.handleChangeUsername = this.handleChangeUsername.bind(this);
-        this.handleChangePassword = this.handleChangePassword.bind(this);
-
+        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.loginUser = this.loginUser.bind(this);
     }
 
-    handleChangeUsername(value) {
-        this.setState(Object.assign({}, this.state, {username: value}));
+    validateInput(value, field) {
+        let message = '';
+        let fieldValid = false;
+
+        switch (field) {
+            case "Username":
+            case "Password":
+                if (value.length !== 0) {
+                    fieldValid = true;
+                } else {
+                    message = field + " required"
+                }
+                break;
+            default:
+                console.log("error")
+        }
+        return [fieldValid, message]
     }
 
-    handleChangePassword(value) {
-        this.setState(Object.assign({}, this.state, {password: value}));
+    handleChange(e) {
+        const value = e.target.value;
+        const field = e.target.id;
+        const valid = this.validateInput(value, field);
+        switch (field) {
+            case "Username":
+                this.setState({username: value, usernameValid: valid[0], textUser: valid[1]});
+                break;
+            case "Password":
+                this.setState({password: value, passwordValid: valid[0], textPassword: valid[1]});
+                break;
+            default:
+                console.log("error")
+        }
+    }
+
+    showLoginButton() {
+        return !(this.state.usernameValid & this.state.passwordValid)
     }
 
     handleSubmit(event) {
@@ -49,78 +93,76 @@ class UserLogin extends React.Component {
         this.props.onSubmit(user);
     }
 
+    loginUser(e) {
+        e.preventDefault();
+
+        const username = this.state.username;
+        const password = this.state.password;
+
+        UserService.login(username, password).then((data) => {
+            const universityUser = UserService.isUniversityUser();
+            if (universityUser) {
+                //TODO: go to courses of uni
+                this.props.history.push('/profile')
+            } else {
+                this.props.history.push('/profile/studyplans')
+            }
+            console.log(data)
+        }).catch((e) => {
+            console.error(e);
+            this.setState({
+                usernameValid: false,
+                textUser: "Username or password are wrong",
+                passwordValid: false,
+                textPassword: "Username or password are wrong"
+            });
+        });
+    };
+
     render() {
+        const {classes} = this.props;
         return (
             <Page>
-                <Card style={style}>
-                    <form className="md-grid" onSubmit={this.handleSubmit} onReset={() => this.props.history.goBack()}>
+                <Paper className={classes.paper}>
+                    <Grid container direction="column">
                         <TextField
-                            label="Login"
-                            id="LoginField"
+                            label="Username"
+                            id="Username"
                             type="text"
-                            className="md-row"
                             required={true}
                             value={this.state.username}
-                            onChange={this.handleChangeUsername}
-                            errorText="Login is required"/>
+                            onChange={this.handleChange}
+                            error={!this.state.usernameValid}
+                            helperText={this.state.textUser}
+                            variant="standard"
+                            margin="dense"/>
                         <TextField
                             label="Password"
-                            id="PasswordField"
-                            type="password"
-                            className="md-row"
+                            id="Password"
+                            type="text"
                             required={true}
                             value={this.state.password}
-                            onChange={this.handleChangePassword}
-                            errorText="Password is required"/>
+                            onChange={this.handleChange}
+                            error={!this.state.passwordValid}
+                            helperText={this.state.textPassword}
+                            variant="standard"
+                            margin="dense"/>
 
-                        <Button id="submit" type="submit"
-                                disabled={this.state.username == undefined || this.state.username == '' || this.state.password == undefined || this.state.password == '' ? true : false}
-                                raised primary className="md-cell md-cell--2">Login</Button>
-                        <Button id="reset" type="reset" raised secondary className="md-cell md-cell--2">Dismiss</Button>
-                        <Link to={'/register'} className="md-cell">Not registered yet?</Link>
-                        <AlertMessage className="md-row md-full-width" >{this.props.error ? `${this.props.error}` : ''}</AlertMessage>
-                    </form>
-                </Card>
+                        <Grid item alignContent="center">
+                            <Button id="submit" type="submit" variant="contained" color="primary"
+                                    className={classes.button}
+                                    disabled={this.showLoginButton()}
+                                    onClick={this.loginUser}>
+                                Login
+                            </Button>
+                            <Button id="reset" type="reset" variant="contained">Dismiss</Button>
+                        </Grid>
+                        <Link to={'/register'}>Not registered yet?</Link>
+                    </Grid>
+                </Paper>
             </Page>
         );
     }
-};
+}
 
-//     render() {
-//         return (
-//             <Page>
-//                 <Card style={style} className="md-block-centered">
-//                     <form className="md-grid" onSubmit={this.handleSubmit} onReset={() => this.props.history.goBack()}>
-//                         <TextField
-//                             label="Login"
-//                             id="LoginField"
-//                             type="text"
-//                             className="md-row"
-//                             required={true}
-//                             value={this.state.username}
-//                             onChange={this.handleChangeUsername}
-//                             errorText="Login is required"/>
-//                         <TextField
-//                             label="Password"
-//                             id="PasswordField"
-//                             type="password"
-//                             className="md-row"
-//                             required={true}
-//                             value={this.state.password}
-//                             onChange={this.handleChangePassword}
-//                             errorText="Password is required"/>
-//
-//                         <Button id="submit" type="submit"
-//                                 disabled={this.state.username == undefined || this.state.username == '' || this.state.password == undefined || this.state.password == '' ? true : false}
-//                                 raised primary className="md-cell md-cell--2">Login</Button>
-//                         <Button id="reset" type="reset" raised secondary className="md-cell md-cell--2">Dismiss</Button>
-//                         <Link to={'/register'} className="md-cell">Not registered yet?</Link>
-//                         <AlertMessage className="md-row md-full-width" >{this.props.error ? `${this.props.error}` : ''}</AlertMessage>
-//                     </form>
-//                 </Card>
-//             </Page>
-//         );
-//     }
-// };
-
-export default withRouter(UserLogin);
+export default withRouter(withStyles(styles)(UserLogin));

@@ -7,13 +7,15 @@ export default class UserService {
     constructor() {
     }
 
-    static baseURL() {return "http://localhost:3000/auth"; }
+    static baseURL() {
+        return "http://localhost:3000/auth";
+    }
 
     static register(userData) {
         return new Promise((resolve, reject) => {
-            HttpService.post(`${UserService.baseURL()}/register`, userData, function(data) {
+            HttpService.post(`${UserService.baseURL()}/register`, userData, function (data) {
                 resolve(data);
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
@@ -24,15 +26,15 @@ export default class UserService {
             HttpService.post(`${UserService.baseURL()}/login`, {
                 username: user,
                 password: pass
-            }, function(data) {
+            }, function (data) {
                 resolve(data);
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
     }
 
-    static logout(){
+    static logout() {
         window.localStorage.removeItem('jwtToken');
     }
 
@@ -43,18 +45,18 @@ export default class UserService {
         let base64Url = token.split('.')[1];
         let base64 = base64Url.replace('-', '+').replace('_', '/');
         return {
-            id : JSON.parse(window.atob(base64)).id,
+            id: JSON.parse(window.atob(base64)).id,
             username: JSON.parse(window.atob(base64)).username,
             email: JSON.parse(window.atob(base64)).email,
             isUniversityUser: JSON.parse(window.atob(base64)).isUniversityUser
         };
     }
-    
+
     static isAuthenticated() {
         return !!window.localStorage['jwtToken'];
     }
 
-    static isUniversityUser(){
+    static isUniversityUser() {
         return (this.getCurrentUser().isUniversityUser)
     }
 }
