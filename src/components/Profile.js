@@ -2,18 +2,28 @@ import React from "react";
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button";
 import Page from './Page';
 import {withStyles} from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import UserService from "../services/UserService";
+import UserInput from "./UserInput";
+import UniversityUserInput from "./UniversityUserInput";
 
+
+/**
+ *Profile
+ *
+ * Shows the data of the logged in user.
+ * Author: Maria
+ */
 const styles = theme => ({
     paper: {
         padding: theme.spacing(2),
         margin: "10px",
         //textAlign: "center",
+    },
+    button: {
+        marginRight: theme.spacing(2),
     },
 });
 
@@ -22,68 +32,108 @@ class Profile extends React.Component {
         super(props);
 
         this.state = {
-            user: {},
+            sthChanged: false,
+            allFieldsValid: false,
+            validations: {
+                usernameValid: true,
+                emailValid: true,
+                passwordValid: true,
+                uniValid: true,
+                facValid: true,
+                chairValid: true,
+                authorizationValid: true
+            },
+            user: this.props.user
+
         };
-        this.changeField = this.changeField.bind(this);
+
+        this.changedFields = this.changedFields.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
     }
 
-    componentWillMount(){
-        this.setState({
-            loading: true
-        });
 
-        const user = UserService.getCurrentUser();
-        this.setState({user: user})
+    componentWillMount(): void {
+        this.originalUser = JSON.parse(JSON.stringify(this.props.user))
     }
 
-    changeField(e){
-        const value = e.target.value;
-        this.setState(
-            {user:
-                {username: value}
+    changedFields() {
+        var validateUni = [
+            this.state.validations.usernameValid,
+            this.state.validations.emailValid,
+            this.state.validations.uniValid,
+            this.state.validations.facValid,
+            this.state.validations.chairValid,
+            this.state.validations.authorizationValid
+        ];
+
+        var validateStudent = [
+            this.state.validations.usernameValid,
+            this.state.validations.emailValid,
+        ];
+
+        if (this.state.user.isUniversityUser) {
+            this.setState({
+                allFieldsValid: (validateUni.every(item => item)),
+                sthChanged: true
             })
-
+        } else {
+            this.setState({
+                allFieldsValid: (validateStudent.every(item => item)),
+                sthChanged: true
+            })
+        }
     }
 
-    render () {
+    handleSubmit() {
+        this.props.onSubmit(this.state.user)
+    }
+
+    handleCancel() {
+        this.setState({
+            user: JSON.parse(JSON.stringify(this.originalUser)),
+            sthChanged: false,
+            validations: {
+                usernameValid: true,
+                emailValid: true,
+                passwordValid: true,
+                uniValid: true,
+                facValid: true,
+                chairValid: true,
+                authorizationValid: true
+            },
+            allFieldsValid: true
+        })
+    }
+
+    render() {
+
         const {classes} = this.props;
+        let universityUser = <UniversityUserInput user={this.state.user}
+                                                  profile={false}
+                                                  onUpdate ={this.changedFields}
+                                                  validations ={this.state.validations}/>;
         return (
             <Page>
                 <Paper className={classes.paper}>
+                    <Typography> My Profile </Typography>
+                    <UserInput user={this.state.user}
+                               profile={true}
+                               onUpdate={this.changedFields}
+                               validations={this.state.validations}/>
+                    {this.state.user.isUniversityUser ? universityUser : null}
                     <Grid container>
-                        <Grid item>
-                            <Typography variant="h5"> My Profile </Typography>
-                        </Grid>
-                        <Grid item container direction = "column">
-                            <Typography>Username</Typography>
-                            <TextField
-                                value={this.state.user.username}
-                                variant="outlined"
-                                margin="dense"
-                                onChange={this.changeField}
-                            />
-                            <Typography>E-Mail</Typography>
-                            <TextField
-                                placeholder="E-mail"
-                                variant="outlined"
-                                margin = "dense"
-                            />
-                            <Typography>Password</Typography>
-                            <TextField
-                                placeholder="Password"
-                                variant="outlined"
-                                margin = "dense"
-                            />
-                            <Grid item align="center">
-                                <Button> Save </Button>
-                                <Button> Cancle </Button>
-                            </Grid>
-                        </Grid>
+                    <Grid item alignContent="center">
+                        <Button className={classes.button} disabled={!(this.state.sthChanged && this.state.allFieldsValid)} variant="contained" color="primary"> Save </Button>
+                        <Button disabled={!this.state.sthChanged}
+                        onClick={this.handleCancel} variant="contained"> Cancle </Button>
+                    </Grid>
                     </Grid>
                 </Paper>
             </Page>
-        )};
+        )
+    }
 }
+
 Profile.propTypes = {
     classes: PropTypes.object.isRequired,
 };

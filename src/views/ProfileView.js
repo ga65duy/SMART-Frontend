@@ -1,5 +1,11 @@
 import React from "react";
 import Profile from "../components/Profile";
+import UserService from "../services/UserService";
+
+/**
+ * ProfileView
+ * Author: Maria
+ */
 
 export class ProfileView extends React.Component {
     constructor(props) {
@@ -7,23 +13,18 @@ export class ProfileView extends React.Component {
 
         this.state = {
             loading: false,
-
         };
     }
 
     componentWillMount(){
         this.setState({
-            loading: false
+            loading: true
         });
 
-        // ProfileService.getProfileInfo().then((data) => {
-        //     this.setState({
-        //         data: [...data],
-        //         loading: false
-        //     });
-        // }).catch((e) => {
-        //     console.error(e);
-        // });
+        //const userId = UserService.getCurrentUser().id;
+        UserService.getLoggedInUserInfo().then(user =>{
+            this.setState({user: user, loading: false})
+        });
     }
 
     render() {
@@ -32,7 +33,7 @@ export class ProfileView extends React.Component {
         }
 
         return (
-            <Profile data={this.state.data}/>
+            <Profile user={this.state.user}/>
         );
     }
 }

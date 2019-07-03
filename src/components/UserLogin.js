@@ -11,6 +11,12 @@ import Page from './Page';
 import {Grid, Paper} from "@material-ui/core";
 import UserService from "../services/UserService";
 
+/**
+ * UserLogin
+ *
+ * Either the universtiyuser or the student can login with his username and password
+ * Author: Maria
+ */
 
 const styles = theme => ({
     paper: {

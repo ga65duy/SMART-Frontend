@@ -2,6 +2,11 @@
 
 import HttpService from "./HttpService";
 
+/**
+ * UserService
+ *
+ * Author: Maria
+ */
 export default class UserService {
 
     constructor() {
@@ -11,9 +16,15 @@ export default class UserService {
         return "http://localhost:3000/auth";
     }
 
-    static register(userData) {
+    static register(userData, userType) {
+        let path = "";
+        if (userType) {
+            path = "/registerUniversityUser"
+        } else {
+            path = "/registerStudent"
+        }
         return new Promise((resolve, reject) => {
-            HttpService.post(`${UserService.baseURL()}/register`, userData, function (data) {
+            HttpService.post(`${UserService.baseURL()}${path}`, userData, function (data) {
                 resolve(data);
             }, function (textStatus) {
                 reject(textStatus);
@@ -37,6 +48,16 @@ export default class UserService {
     static logout() {
         window.localStorage.removeItem('jwtToken');
     }
+
+    static getLoggedInUserInfo() {
+        return new Promise ((resolve, reject) => {
+        HttpService.get(`${UserService.baseURL()}/me`, function (data) {
+            resolve(data);
+        }, function (textStatus) {
+            reject(textStatus);
+        });
+    });
+}
 
     static getCurrentUser() {
         let token = window.localStorage['jwtToken'];

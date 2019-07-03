@@ -2,6 +2,12 @@ import React from "react";
 import StudyplanList from "../components/StudyplanList";
 import StudyplanService from '../services/StudyplanService';
 
+/**
+ * LoadStudyplanView
+ *
+ * View for the load studyplan usecase
+ * Author: Maria
+ */
 
 export class LoadStudyplanView extends React.Component {
 
@@ -12,6 +18,21 @@ export class LoadStudyplanView extends React.Component {
             studyplans: []
 
         };
+        this.removeStudyplan = this.removeStudyplan.bind(this);
+    }
+
+    removeStudyplan(studyplan){
+        StudyplanService.deleteStudyplan(studyplan._id)
+            .then((studyplan) => {
+                StudyplanService.getStudyplan()
+                    .then( (studyplans) => {
+                        this.setState({
+                            studyplans: [...studyplans]
+                        });
+                    })
+            }).catch((e) => {
+                console.error(e)
+        });
     }
 
     componentWillMount(){
@@ -35,7 +56,7 @@ export class LoadStudyplanView extends React.Component {
         }
         else {
             return (
-                <StudyplanList studyplans={this.state.studyplans}/>
+                <StudyplanList remove={this.removeStudyplan} studyplans={this.state.studyplans}/>
 
             )
         }

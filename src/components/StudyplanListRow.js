@@ -4,10 +4,15 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from "@material-ui/core/Button";
 
-
 import {withStyles} from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import StudyplanService from "../services/StudyplanService";
+
+/**
+ *StudyplanListRow
+ *
+ * Single Studyplan is shown. This component is used in the studyplanList to show all studyplans of a user
+ * Author: Maria
+ */
 
 const styles = theme => ({
     paper: {
@@ -22,16 +27,13 @@ const styles = theme => ({
 class StudyplanListRow extends React.Component{
     constructor(props){
         super(props);
-        this.removeStudyplan= this.removeStudyplan.bind(this);
+        this.handleRemove= this.handleRemove.bind(this);
     }
 
-    removeStudyplan(){
-        StudyplanService.deleteStudyplan(this.props.studyplan._id)
-            .then(window.location.reload())
-            .catch((e) => {
-            console.error(e)
-});
+    handleRemove() {
+        this.props.remove(this.props.studyplan);
     }
+
     render () {
         const {classes} = this.props;
         return (
@@ -51,7 +53,7 @@ class StudyplanListRow extends React.Component{
                                 <Button>Edit</Button>
                             </Grid>
                             <Grid item>
-                                <Button onClick={() => this.removeStudyplan()}>Delete</Button>
+                                <Button onClick={this.handleRemove}>Delete</Button>
                             </Grid>
                         </Grid>
                     </Grid>

@@ -6,7 +6,11 @@ import UserLogin from '../components/UserLogin';
 
 import UserService from '../services/UserService';
 
-
+/**
+ * UserLoginView
+ *
+ * Author: Maria
+ */
 export class UserLoginView extends React.Component {
 
     constructor(props) {

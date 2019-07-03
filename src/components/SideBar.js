@@ -3,6 +3,7 @@ import React from "react"
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from "prop-types";
 
+import { withRouter } from 'react-router-dom'
 import Paper from  "@material-ui/core/Paper"
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -11,6 +12,12 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
+/**
+ *SideBar
+ *
+ * Shows different information according to the university user or student
+ * Author: Maria
+ */
 const sideBar = theme => ({
     root: {
         width: '100%',
@@ -40,7 +47,14 @@ class SideBar extends React.Component {
             openRating: false,
             openCourse: false
         };
+
+        this.profile = this.profile.bind(this);
     }
+
+    profile(){
+        location.href = '/#/profile';
+    }
+
     getStudyplanName(studyplanItems) {
         return studyplanItems.map(item => {
             return (<ListItem key={item["name"]} button >
@@ -48,7 +62,6 @@ class SideBar extends React.Component {
             </ListItem>);
         })
     }
-
 
     handleClick(listItem) {
         switch (listItem) {
@@ -110,7 +123,7 @@ class SideBar extends React.Component {
                             </ListItem>
                         </List>
                     </Collapse>
-                    <ListItem button>
+                    <ListItem button onClick={this.profile}>
                         <ListItemText> Profile</ListItemText>
                     </ListItem>
                     <ListItem button>
@@ -126,4 +139,4 @@ SideBar.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(sideBar)(SideBar);
+export default withRouter(withStyles(sideBar)(SideBar));
