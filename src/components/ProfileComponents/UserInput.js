@@ -2,12 +2,8 @@
 
 import React from 'react';
 
-import {withStyles} from "@material-ui/core/styles";
-
 import {TextField, Button, Paper, Grid, RadioGroup, FormControlLabel, Radio, IconButton, InputAdornment} from "@material-ui/core";
 import {Visibility, VisibilityOff} from "@material-ui/icons";
-import Page from './Page';
-import UserService from "../services/UserService";
 import {withRouter} from "react-router-dom";
 
 /**
@@ -58,7 +54,10 @@ class UserInput extends React.Component {
         if (this.props.profile) {
             this.setState({
                 showPasswordField: false,
-                showUserTypeSelection: false
+                showUserTypeSelection: false,
+                textUser: '',
+                textEmail: '',
+                textPassword: '',
             })
         }
 
@@ -150,13 +149,15 @@ class UserInput extends React.Component {
                 console.log("error")
         }
 
-        this.props.onUpdate()
+        this.props.onUpdate();
+        if (this.props.profile) {
+            this.props.resetSaveButton()
+        }
     }
 
     handleOptionChange() {
         this.props.user.isUniversityUser = !this.props.user.isUniversityUser;
         this.props.onUpdate()
-
     }
 
 

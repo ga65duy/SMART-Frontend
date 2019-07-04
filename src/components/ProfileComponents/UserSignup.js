@@ -5,7 +5,7 @@ import React from 'react';
 import {withStyles} from "@material-ui/core/styles";
 
 import {Button, Paper, Grid} from "@material-ui/core";
-import Page from './Page';
+import Page from '../Page';
 import {withRouter} from "react-router-dom";
 import UserInput from "./UserInput";
 import UniversityUserInput from "./UniversityUserInput";
@@ -19,7 +19,7 @@ const styles = theme => ({
     paper: {
         padding: theme.spacing(2),
         margin: "10px",
-        textAlign: "center",
+        //textAlign: "center",
     },
     button: {
         marginRight: theme.spacing(2),
@@ -36,7 +36,7 @@ class UserSignup extends React.Component {
                 username: '',
                 email: '',
                 password: '',
-                uni: '',
+                university: '',
                 faculty: '',
                 chair: '',
                 authorization: '',
@@ -97,7 +97,7 @@ class UserSignup extends React.Component {
                username: '',
                email: '',
                password: '',
-               uni: '',
+               university: '',
                faculty: '',
                chair: '',
                authorization: '',
@@ -119,18 +119,23 @@ class UserSignup extends React.Component {
 
     render() {
         const {classes} = this.props;
-        let universityUser = <UniversityUserInput user={this.state.user} profile={false} onUpdate ={this.showRegisterButton} validations ={this.state.validations}/>
+        let universityUser = <UniversityUserInput user={this.state.user}
+                                                  profile={false}
+                                                  universities = {this.props.universities}
+                                                  onUpdate ={this.showRegisterButton}
+                                                  validations ={this.state.validations}/>
         return (
             <Page>
                 <Paper className={classes.paper}>
-                    <Grid container direction="column">
+                    <Grid container direction="column" alignContent="center">
                         <UserInput user={this.state.user}
                                    profile={false}
                                    onUpdate={this.showRegisterButton}
                                    validations={this.state.validations}
-                                   error={this.props.error}/>
+                                   error={this.props.error}
+                        />
                         {this.state.user.isUniversityUser ? universityUser : null}
-                        <Grid item alignContent="center">
+                        <Grid item >
                             <Button id="submit" type="submit" variant="contained" color="primary"
                                     className={classes.button}
                                     disabled={this.state.allValidationsSucessful}

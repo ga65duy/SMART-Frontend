@@ -2,9 +2,10 @@
 
 import React from 'react';
 
-import UserSignup from '../components/UserSignup';
+import UserSignup from '../../components/ProfileComponents/UserSignup';
 
-import UserService from '../services/UserService';
+import UserService from '../../services/UserService';
+import UniversityService from "../../services/UniversityService";
 
 /**
  * UserSignUpView
@@ -17,13 +18,26 @@ export class UserSignupView extends React.Component {
         super(props);
         this.state = {
             error: false
-        }
+        };
         this.registerUser = this.registerUser.bind(this)
     }
 
+    componentWillMount(){
+        this.setState({
+            loading: true
+        });
+
+        UniversityService.getUniversities().then((universites) => {
+            this.setState({
+                universities: [...universites],
+                loading: false
+            });
+        }).catch((e) => {
+            console.error(e);
+        });
+    }
+
     registerUser(user) {
-        console.log("View");
-        console.log(user);
         let new_user = {};
         if (user.isUniversityUser) {
             new_user = {
@@ -31,7 +45,7 @@ export class UserSignupView extends React.Component {
                 email: user.email,
                 password: user.password,
                 isUniversityUser: user.isUniversityUser,
-                university: user.uni,
+                university: user.university,
                 faculty: user.faculty,
                 chair: user.chair,
                 authorization: user.authorization
@@ -61,7 +75,7 @@ export class UserSignupView extends React.Component {
 
     render() {
         return (
-            <UserSignup onSubmit={this.registerUser} error={this.state.error}/>
+            <UserSignup onSubmit={this.registerUser} universities = {this.state.universities} error={this.state.error}/>
         );
     }
 }

@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from "@material-ui/core/Button";
-import Page from './Page';
+import Page from '../Page';
 import {withStyles} from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import UserInput from "./UserInput";
@@ -49,6 +49,7 @@ class Profile extends React.Component {
 
         this.changedFields = this.changedFields.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
+        this.handleSave = this.handleSave.bind(this);
     }
 
 
@@ -74,18 +75,19 @@ class Profile extends React.Component {
         if (this.state.user.isUniversityUser) {
             this.setState({
                 allFieldsValid: (validateUni.every(item => item)),
-                sthChanged: true
+                sthChanged: true,
+                userUpdated: false
             })
         } else {
             this.setState({
                 allFieldsValid: (validateStudent.every(item => item)),
-                sthChanged: true
+                sthChanged: true,
             })
         }
     }
 
-    handleSubmit() {
-        this.props.onSubmit(this.state.user)
+    handleSave(){
+        this.props.updateProfile();
     }
 
     handleCancel() {
@@ -101,17 +103,18 @@ class Profile extends React.Component {
                 chairValid: true,
                 authorizationValid: true
             },
-            allFieldsValid: true
+            allFieldsValid: true,
         })
     }
 
     render() {
-
         const {classes} = this.props;
         let universityUser = <UniversityUserInput user={this.state.user}
-                                                  profile={false}
+                                                  profile={true}
+                                                  universities={this.props.universities}
                                                   onUpdate ={this.changedFields}
-                                                  validations ={this.state.validations}/>;
+                                                  validations ={this.state.validations}
+                                                  resetSaveButton = {this.props.resetSaveButton}/>;
         return (
             <Page>
                 <Paper className={classes.paper}>
@@ -119,13 +122,25 @@ class Profile extends React.Component {
                     <UserInput user={this.state.user}
                                profile={true}
                                onUpdate={this.changedFields}
-                               validations={this.state.validations}/>
+                               validations={this.state.validations}
+                               resetSaveButton = {this.props.resetSaveButton}
+                    />
                     {this.state.user.isUniversityUser ? universityUser : null}
                     <Grid container>
                     <Grid item alignContent="center">
-                        <Button className={classes.button} disabled={!(this.state.sthChanged && this.state.allFieldsValid)} variant="contained" color="primary"> Save </Button>
-                        <Button disabled={!this.state.sthChanged}
-                        onClick={this.handleCancel} variant="contained"> Cancle </Button>
+                        <Button className={classes.button}
+                                disabled={!(this.state.sthChanged && this.state.allFieldsValid) || this.props.userUpdated}
+                                variant="contained"
+                                color="primary"
+                                onClick={this.handleSave}
+                        >
+                            Save
+                        </Button>
+                        <Button disabled={!this.state.sthChanged || this.props.userUpdated}
+                                onClick={this.handleCancel}
+                                variant="contained">
+                            Cancel
+                        </Button>
                     </Grid>
                     </Grid>
                 </Paper>

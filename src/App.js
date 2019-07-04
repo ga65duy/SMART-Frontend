@@ -7,14 +7,14 @@ import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import { MovieListView } from './views/MovieListView';
 import { MovieDetailView }   from './views/MovieDetailView';
 import { MovieFormView }   from './views/MovieFormView';
-import { UserLoginView } from "./views/UserLoginView";
-import { UserSignupView } from "./views/UserSignupView";
+import { UserLoginView } from "./views/ProfileViews/UserLoginView";
+import { UserSignupView } from "./views/ProfileViews/UserSignupView";
 import {LoadStudyplanView} from './views/LoadStudyplanView';
 import {CreateStudyplanView} from './views/CreateStudyplanView';
 import {StudyplanView} from './views/StudyplanView';
 import { CourseListView } from './views/CourseListView';
 import {CreateStudyplanQueryView} from './views/CreateStudyplanQueryView';
-import {ProfileView} from "./views/ProfileView";
+import {ProfileView} from "./views/ProfileViews/ProfileView";
 
 import UserService from "./services/UserService";
 

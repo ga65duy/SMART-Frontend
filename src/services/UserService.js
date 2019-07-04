@@ -73,6 +73,16 @@ export default class UserService {
         };
     }
 
+    static updateUser(userData) {
+        return new Promise((resolve, reject) => {
+            HttpService.put(`${UserService.baseURL()}/updateProfile`, userData, function (data) {
+                resolve(data);
+            }, function (textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
     static isAuthenticated() {
         return !!window.localStorage['jwtToken'];
     }

@@ -4,10 +4,7 @@ import React from 'react';
 
 import {withStyles} from "@material-ui/core/styles";
 
-import {TextField, Button, Paper, Grid, RadioGroup, FormControlLabel, Radio, IconButton, InputAdornment} from "@material-ui/core";
-import {Visibility, VisibilityOff} from "@material-ui/icons";
-import Page from './Page';
-import UserService from "../services/UserService";
+import {TextField, Grid, FormControl, InputLabel, Select, MenuItem, FormHelperText} from "@material-ui/core";
 import {withRouter} from "react-router-dom";
 
 /**
@@ -23,6 +20,10 @@ const styles = theme => ({
     },
     button: {
         marginRight: theme.spacing(2),
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
     },
 });
 
@@ -42,9 +43,12 @@ class UniversityUserInput extends React.Component {
             textFac: "Faculty required",
             textChair: "Chair required",
             textAuthorization: "Authorization required",
+            universityId: ""
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleDropdown = this.handleDropdown.bind(this);
+        this.showUniverisitiesInDropdown = this.showUniverisitiesInDropdown.bind(this);
     }
 
     componentWillMount() {
@@ -54,7 +58,12 @@ class UniversityUserInput extends React.Component {
                     uniValid: true,
                     facValid: true,
                     chairValid:true,
-                    authorizationValid: true}
+                    authorizationValid: true},
+                    universityId: this.props.user.university,
+                    textUni: '',
+                    textChair: '',
+                    textFac: '',
+                    textAuthorization: ''
             })
         }
 
@@ -69,6 +78,12 @@ class UniversityUserInput extends React.Component {
 
         switch (field) {
             case "University":
+                if (value.length !== 0) {
+                    fieldValid = true;
+                } else {
+                    message = field + " required"
+                }
+                break;
             case "Faculty":
             case "Chair":
                 if (value.length !== 0) {
@@ -96,14 +111,7 @@ class UniversityUserInput extends React.Component {
         const field = e.target.id;
         const valid = this.validateInput(value, field);
         switch (field) {
-            case "University":
-                this.props.validations.uniValid = valid[0];
-                this.props.user.uni = value;
-                this.setState({
-                    uniValid: valid[0],
-                    textUni: valid[1]
-                });
-                break;
+
             case "Faculty":
                 this.props.validations.facValid = valid[0];
                 this.props.user.faculty = value;
@@ -113,7 +121,7 @@ class UniversityUserInput extends React.Component {
                 break;
             case "Chair":
                 this.props.validations.chairValid = valid[0];
-                this.props.user.chair = value
+                this.props.user.chair = value;
                 this.setState({
                     chairValid: valid[0],
                     textChair: valid[1]});
@@ -127,23 +135,58 @@ class UniversityUserInput extends React.Component {
             default:
                 console.log("error")
         }
-        this.props.onUpdate()
+        this.props.onUpdate();
+        if(this.props.profile){
+            this.props.resetSaveButton()
+        }
+    }
+
+    handleDropdown(e) {
+        this.props.user.university = e.target.value;
+        this.props.validations.uniValid = true;
+        this.setState({
+            universityId: e.target.value,
+            textUni: ""
+        });
+        this.props.onUpdate();
+        if(this.props.profile){
+            this.props.resetSaveButton()
+        }
+
+    }
+
+    showUniverisitiesInDropdown(universities){
+        return universities.map((item, i) => {
+                return (<MenuItem key={i} value={item._id}> {item.name} </MenuItem>);
+            })
     }
 
     render() {
+        let authorizationField = <TextField
+                                    label="Authorization"
+                                    id="Authorization"
+                                    type="text"
+                                    required={true}
+                                    value={this.props.user.authorization}
+                                    onChange={this.handleChange}
+                                    helperText={this.state.textAuthorization}
+                                    variant="standard"
+                                    error={!this.props.validations.authorizationValid}
+                                    margin="dense"/>;
+        const classes = this.props;
         return (
             <Grid container direction="column">
-                <TextField
-                    label="University"
-                    id="University"
-                    type="text"
-                    required={true}
-                    value={this.props.user.uni}
-                    onChange={this.handleChange}
-                    helperText={this.state.textUni}
-                    variant="standard"
-                    error={!this.props.validations.uniValid}
-                    margin="dense"/>
+                <FormControl  className={classes.formControl}
+                                  error={!this.props.validations.uniValid}>
+                    <InputLabel> University </InputLabel>
+                    <Select
+                        value={this.state.universityId}
+                        onChange={this.handleDropdown}
+                        >
+                        {this.showUniverisitiesInDropdown(this.props.universities)}
+                    </Select>
+                    <FormHelperText>{this.state.textUni}</FormHelperText>
+                </FormControl>
                 <TextField
                     label="Faculty"
                     id="Faculty"
@@ -166,21 +209,11 @@ class UniversityUserInput extends React.Component {
                     error={!this.props.validations.chairValid}
                     variant="standard"
                     margin="dense"/>
-                <TextField
-                    label="Authorization"
-                    id="Authorization"
-                    type="text"
-                    required={true}
-                    value={this.props.user.authorization}
-                    onChange={this.handleChange}
-                    helperText={this.state.textAuthorization}
-                    variant="standard"
-                    error={!this.props.validations.authorizationValid}
-                    margin="dense"/>
+                {!this.props.profile ? authorizationField : null}
             </Grid>
         );
     };
 }
 
-export default withRouter(UniversityUserInput);
+export default withRouter(withStyles(styles)(UniversityUserInput));
 
