@@ -59,6 +59,12 @@ class UserInput extends React.Component {
                 textEmail: '',
                 textPassword: '',
             })
+        } else if(this.props.login) {
+            this.setState({
+                showUserTypeSelection: false,
+                showEmailField: false,
+                textUser: '',
+                textPassword: '',})
         }
 
         this.setState({
@@ -69,14 +75,25 @@ class UserInput extends React.Component {
     componentDidUpdate(prevProps) {
         if (prevProps.error !== this.props.error) {
             if (this.props.error) {
-                this.props.validations.usernameValid = false;
-                this.setState({
-                    validations: {
-                        ...this.state.validations,
-                        usernameValid: false
-                    },
-                    textUser: "User already exists"
-                });
+
+                if (this.props.login) {
+                    this.props.validations.usernameValid = false;
+                    this.props.validations.passwordValid = false;
+                    this.setState({
+                        textUser: "Username or password invalid",
+                        textPassword: "Username or password invalid"
+                    })
+
+                } else {
+                    this.props.validations.usernameValid = false;
+                    this.setState({
+                        validations: {
+                            ...this.state.validations,
+                            usernameValid: false
+                        },
+                        textUser: "User already exists"
+                    });
+                }
             }
         }
     }

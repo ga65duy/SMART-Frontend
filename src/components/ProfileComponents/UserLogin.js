@@ -46,7 +46,7 @@ class UserLogin extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.loginUser = this.loginUser.bind(this);
+        this.handleSubmit = this.loginUser.bind(this);
     }
 
     validateInput(value, field) {

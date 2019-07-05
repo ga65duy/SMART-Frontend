@@ -66,7 +66,6 @@ class UniversityUserInput extends React.Component {
                     textAuthorization: ''
             })
         }
-
         this.setState({
             validations: this.props.validations
         })

@@ -30,7 +30,7 @@ class UserSignup extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            allValidationsSucessful: true,
+            allValidationsSuccessful: true,
             sthTyped: false,
             user: {
                 username: '',
@@ -76,12 +76,12 @@ class UserSignup extends React.Component {
 
         if (this.state.user.isUniversityUser) {
            this.setState({
-               allValidationsSucessful: !(validateUni.every(item => item)),
+               allValidationsSuccessful: !(validateUni.every(item => item)),
                sthTyped: true
            })
         } else {
             this.setState({
-                allValidationsSucessful: !(validateStudent.every(item => item)),
+                allValidationsSuccessful: !(validateStudent.every(item => item)),
                 sthTyped: true
             })
         }
@@ -129,7 +129,6 @@ class UserSignup extends React.Component {
                 <Paper className={classes.paper}>
                     <Grid container direction="column" alignContent="center">
                         <UserInput user={this.state.user}
-                                   profile={false}
                                    onUpdate={this.showRegisterButton}
                                    validations={this.state.validations}
                                    error={this.props.error}
@@ -138,7 +137,7 @@ class UserSignup extends React.Component {
                         <Grid item >
                             <Button id="submit" type="submit" variant="contained" color="primary"
                                     className={classes.button}
-                                    disabled={this.state.allValidationsSucessful}
+                                    disabled={this.state.allValidationsSuccessful}
                                     onClick={this.handleSubmit}>
                                 Register
                             </Button>
