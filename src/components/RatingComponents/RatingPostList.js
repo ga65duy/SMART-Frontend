@@ -28,7 +28,7 @@ export class RatingPostList extends React.Component{
     }
     render(){
         return(
-                <Grid>
+                <Grid style={{maxHeight: 500, overflow: 'auto'}}>
                     {this.getRatingPostListItems(this.props.ratings)}
                 </Grid>
         )

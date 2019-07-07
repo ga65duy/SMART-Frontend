@@ -3,13 +3,9 @@ import React from 'react';
 
 import {Box, Grid, TextField} from "@material-ui/core"
 import Stars from "./Stars"
-
 import Star from '@material-ui/icons/Star'
 import orange from '@material-ui/core/colors/orange'
-
 import Rating from 'material-ui-rating'
-
-import {withStyles} from "@material-ui/core"
 
 /**
  * CommentAndStars
@@ -17,13 +13,7 @@ import {withStyles} from "@material-ui/core"
  * Author:Maria
  */
 
-const styles = theme => ({
-    button: {
-        marginRight: theme.spacing(2),
-    },
-});
-
-class CommentAndStars extends React.Component {
+export default class CommentAndStars extends React.Component {
     constructor(props) {
         super(props);
 
@@ -40,15 +30,13 @@ class CommentAndStars extends React.Component {
     }
 
     render() {
-        const classes = this.props;
         return (
                 <Grid>
                     <Grid container
                           direction="row"
                           justify={"space-between"}
-
                           >
-                            <Grid item xs={6}>
+                            <Grid item xs={7}>
                             <TextField
                                 label="Title"
                                 id="Title"
@@ -73,7 +61,7 @@ class CommentAndStars extends React.Component {
                             </Grid>
                     </Grid>
                     <Grid container direction="row" justify={"space-between"}>
-                            <Grid item xs={6}>
+                            <Grid item xs={7}>
                                 <TextField
                                     label="Comment"
                                     id="Comment"
@@ -90,15 +78,13 @@ class CommentAndStars extends React.Component {
                                     margin="dense"
                                 />
                             </Grid>
-                            <Grid item xs={6}>
-                                    <Stars rating={this.props.rating.lecturerRating} name={"Lecturer"} clicked={this.handleRatingChange} postExisting={this.props.postExisting}/>
-                                    <Stars rating={this.props.rating.contentRating} name = {"Content"} clicked={this.handleRatingChange} postExisting={this.props.postExisting}/>
-                                    <Stars rating={this.props.rating.examRating} name = {"Exam"} clicked={this.handleRatingChange} postExisting={this.props.postExisting}/>
+                            <Grid item>
+                                    <Stars rating={this.props.rating.lecturerRating} name={"Lecturer"} clicked={this.handleRatingChange} postExisting={this.props.postExisting} />
+                                    <Stars rating={this.props.rating.contentRating} name = {"Content"} clicked={this.handleRatingChange} postExisting={this.props.postExisting} />
+                                    <Stars rating={this.props.rating.examRating} name = {"Exam"} clicked={this.handleRatingChange} postExisting={this.props.postExisting} />
                                 </Grid>
                     </Grid>
                 </Grid>
         );
     }
 }
-//disabled={!this.state.sthChanged || this.props.userUpdated}
-export default withStyles(styles)(CommentAndStars)

@@ -2,6 +2,8 @@
 import React from 'react';
 import Rating from 'material-ui-rating'
 import {Grid,Box} from "@material-ui/core";
+import Star from "@material-ui/core/SvgIcon/SvgIcon";
+import orange from "@material-ui/core/colors/orange";
 
 /**
  * Stars

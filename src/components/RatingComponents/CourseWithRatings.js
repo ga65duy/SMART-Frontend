@@ -32,19 +32,22 @@ class CourseWithRatings extends React.Component{
         return(
             <Page>
                 <Paper className={classes.paper}>
-                        <Grid container direction="column">
+                        <Grid container direction="column" wrap="nowrap">
                             <Grid item>
-                                <Typography align="center" variant="h6">
+                                <Typography align="center" variant="h6" gutterBottom={true}>
                                     {this.props.course.name}
                                 </Typography>
-                            </Grid>
-                            <Grid item>
-                                <Typography>
+                                <Typography gutterBottom={true}>
                                     {this.props.course.description}
                                 </Typography>
                             </Grid>
                             <Grid item>
                                 <RatingWithButtons rate={this.props.rate}/>
+                            </Grid>
+                            <Grid item>
+                                <Typography>
+                                    All previous comments:
+                                </Typography>
                             </Grid>
                             <Grid item>
                                 <RatingPostList ratings={this.props.course.ratings}/>

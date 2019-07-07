@@ -3,7 +3,7 @@ import React from 'react';
 
 import CommentAndStars from "./CommentAndStars"
 import Button from "@material-ui/core/Button"
-import {Grid} from "@material-ui/core"
+import {Grid,Paper} from "@material-ui/core"
 import {withStyles} from "@material-ui/core/styles"
 
 /**
@@ -13,6 +13,11 @@ import {withStyles} from "@material-ui/core/styles"
  */
 
 const styles = theme => ({
+    paper: {
+        padding: theme.spacing(2),
+        margin: "10px",
+        textAlign: "center",
+    },
     button: {
         marginRight: theme.spacing(2),
     },
@@ -85,6 +90,7 @@ class RatingWithButtons extends React.Component{
             comment: this.state.comment
         };
         this.props.rate(rating);
+        //this.handleCancel();
     }
 
     handleCancel(){
@@ -99,6 +105,7 @@ class RatingWithButtons extends React.Component{
     render() {
         const {classes} = this.props;
         return (
+            <Paper className={classes.paper}>
             <Grid>
             <CommentAndStars rating={this.state} onChange={this.handleChange}/>
                 <Button
@@ -116,6 +123,7 @@ class RatingWithButtons extends React.Component{
                     Cancel
                 </Button>
             </Grid>
+            </Paper>
         )
     };
 }

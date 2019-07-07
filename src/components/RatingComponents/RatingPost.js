@@ -31,7 +31,7 @@ class RatingPost extends React.Component{
         let dateString = moment(this.props.rating.createdAt).format("LLL");
 
         return(
-                <Grid item>
+                <Grid item xs={12}>
                     <Paper className={classes.paper}>
                     <Typography align={"left"}>
                         {this.props.rating.user.username} posted on {dateString}
