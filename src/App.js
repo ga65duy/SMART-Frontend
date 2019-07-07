@@ -16,7 +16,8 @@ import { CourseListView } from './views/CourseListView';
 import {CreateStudyplanQueryView} from './views/CreateStudyplanQueryView';
 import {ProfileView} from "./views/ProfileViews/ProfileView";
 
-import {CommentAndStars} from "./components/RatingComponents/CommentAndStars";
+import {CourseView} from "./views/CourseView"
+
 
 import UserService from "./services/UserService";
 
@@ -39,7 +40,7 @@ export default class App extends React.Component {
                 { component: MovieDetailView , path: '/show/:id'},
                 { component: ProfileView , path: '/profile'},
 
-                { component: CommentAndStars, path:'/rating'},
+                { component: CourseView, path: '/courses/:id'},
 
                 { component: UserLoginView, path: '/login'},
                 { component: UserSignupView, path: '/register'},

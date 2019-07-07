@@ -14,7 +14,7 @@ export class LoadStudyplanView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading:false,
+            loading: true,
             studyplans: []
 
         };

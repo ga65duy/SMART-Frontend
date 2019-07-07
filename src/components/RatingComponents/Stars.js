@@ -1,16 +1,18 @@
 "use strict";
 import React from 'react';
 import Rating from 'material-ui-rating'
-import {Grid, Typography} from "@material-ui/core";
+import {Grid,Box} from "@material-ui/core";
 
 /**
  * Stars
  * For Rating Lecture,Exam, Content
  * Author: Maria
  */
+
+
 export default class Stars extends React.Component {
     constructor(props) {
-        super();
+        super(props);
         this.handleChange= this.handleChange.bind(this);
     }
 
@@ -20,16 +22,21 @@ export default class Stars extends React.Component {
 
     render() {
         return (
-            <Grid container direction="row" justify="space-between">
-                <Typography>
-                    {this.props.name}
-                </Typography>
-                <Rating
-                    value={this.props.rating}
-                    max={5}
-                    onChange={this.handleChange}
-                />
-            </Grid>
+                <Box component="div" m={2}>
+                    <Grid container direction={"row"} justify={"space-between"}>
+                    <Box m={1}>
+                        {this.props.name}
+                    </Box>
+                    <Box >
+                        <Rating
+                            value={this.props.rating}
+                            max={5}
+                            onChange={this.handleChange}
+                            readOnly={this.props.postExisting}
+                        />
+                    </Box>
+                    </Grid>
+                </Box>
         );
     }
 };
