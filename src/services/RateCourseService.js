@@ -1,0 +1,46 @@
+"use strict";
+import HttpService from "./HttpService";
+
+/**
+ * RateCoursService
+ * Needed for the rate course usecase
+ * Author: Maria
+ */
+export default class RateCourseService {
+    constructor() {
+    }
+
+    static baseURL() {
+        return "http://localhost:3000/rating"
+    }
+
+    static createRating(rating) {
+        return new Promise((resolve, reject) => {
+            HttpService.post(RateCourseService.baseURL(), rating, function (data) {
+                resolve(data);
+            }, function (textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
+    static deleteRating(id) {
+        return new Promise((resolve, reject) => {
+            HttpService.remove(`${RateCourseService.baseURL()}/${id}`, function (data) {
+                resolve(data);
+            }, function (textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
+    /*static updateRating(rating) {
+        return new Promise((resolve, reject) => {
+            HttpService.put(`${RateCourseService.baseURL()}/${rating._id}`, rating, function(data) {
+                resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+    }*/
+};

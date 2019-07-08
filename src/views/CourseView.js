@@ -2,26 +2,27 @@
 import React from 'react'
 import CourseService from "../services/CourseService";
 import CourseWithRatings from "../components/RatingComponents/CourseWithRatings";
-import RatingCourseService from "../services/RatingCourseService";
+import RateCourseService from "../services/RateCourseService";
 import UserService from "../services/UserService";
 import moment from "moment";
 
 /**
  * CourseView
- * Shows the course, courseinfo with already written ratings and possibility to write a rating
+ * Shows the course, courseinfo with already written ratings and possibility to write a rating, if not already rated.
  * Author: Maria
  */
 
-export class CourseView extends React.Component{
-    constructor(props){
+export class CourseView extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
             loading: true,
         };
         this.rateCourse = this.rateCourse.bind(this);
+        this.deleteRating = this.deleteRating.bind(this);
     }
 
-    componentWillMount(){
+    componentWillMount() {
         let courseId = this.props.match.params.id;
 
         UserService.getLoggedInUserInfo()
@@ -31,15 +32,19 @@ export class CourseView extends React.Component{
                         this.setState({
                             loading: false,
                             user: user,
-                            course: course})})
-                    .catch((e) => {console.error(e);
+                            course: course
+                        })
+                    })
+                    .catch((e) => {
+                        console.error(e);
                     });
             })
-            .catch((e) => {console.error(e);
-        });
+            .catch((e) => {
+                console.error(e);
+            });
     }
 
-    rateCourse(rating){
+    rateCourse(rating) {
         var createdAt = moment();
         rating = {
             ...rating,
@@ -47,15 +52,16 @@ export class CourseView extends React.Component{
             user: this.state.user._id,
             createdAt: createdAt
         };
-        console.log(rating.createdAt);
-        RatingCourseService.createRating(rating).then((data) => {
+        RateCourseService.createRating(rating).then((data) => {
             let courseId = this.props.match.params.id;
             CourseService.getCourse(courseId)
-                .then((course) =>
+                .then((course) => {
+                    console.log(course);
                     this.setState({
                         loading: false,
                         course: course
-                    }))
+                    })
+                })
                 .catch((e) => {
                     console.error(e.message);
                 });
@@ -64,14 +70,53 @@ export class CourseView extends React.Component{
         });
     }
 
-    render(){
+    deleteRating(rating) {
+        RateCourseService.deleteRating(rating._id)
+            .then(() => {
+                let courseId = this.state.course._id;
+                CourseService.getCourse(courseId)
+                    .then((course) => {
+                        console.log(course);
+                        this.setState({
+                            loading: false,
+                            course: course
+                        })
+                    })
+                    .catch((e) => {
+                        console.error(e.message);
+                    });
+            }).catch((e) => {
+            console.error(e)
+        });
+    }
+
+    /*updateRating(rating){
+        RateCourseService.updateRating(rating)
+            .then(() => {
+                let courseId = this.state.course._id;
+                CourseService.getCourse(courseId)
+                    .then((course) =>
+                    {console.log(course);
+                        this.setState({
+                            loading: false,
+                            course: course
+                        })})
+                    .catch((e) => {
+                        console.error(e.message);
+                    });
+            }).catch((e) => {
+            console.error(e)
+        });
+    }*/
+
+    render() {
         if (this.state.loading) {
             return (<h2>Loading...</h2>);
-        }
-        else {
+        } else {
             console.log(this.state.course);
             return (
-                <CourseWithRatings course={this.state.course} rate={this.rateCourse}/>
+                <CourseWithRatings course={this.state.course} rate={this.rateCourse} deleteRating={this.deleteRating}
+                                   loggedInUser={this.state.user}/>
             );
         }
     }

@@ -1,10 +1,12 @@
 "use strict";
-import React from 'react';
+import React from 'react'
 
 import CommentAndStars from "./CommentAndStars"
 import Button from "@material-ui/core/Button"
-import {Grid,Paper} from "@material-ui/core"
+import {Grid, Paper} from "@material-ui/core"
+
 import {withStyles} from "@material-ui/core/styles"
+
 
 /**
  * RatingWithButtons
@@ -23,8 +25,8 @@ const styles = theme => ({
     },
 });
 
-class RatingWithButtons extends React.Component{
-    constructor(props){
+class RatingWithButtons extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
             lecturerRating: 0,
@@ -32,7 +34,8 @@ class RatingWithButtons extends React.Component{
             contentRating: 0,
             overallRating: 0,
             title: '',
-            comment:''
+            comment: '',
+            userClicked: false
         };
 
         this.handleCancel = this.handleCancel.bind(this);
@@ -41,9 +44,9 @@ class RatingWithButtons extends React.Component{
     }
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
-        const overallRating = (this.state.lecturerRating + this.state.contentRating + this.state.examRating)/3;
+        const overallRating = (this.state.lecturerRating + this.state.contentRating + this.state.examRating) / 3;
 
-        if(overallRating !== prevState.overallRating){
+        if (overallRating !== prevState.overallRating) {
             this.setState({overallRating: overallRating})
         }
     }
@@ -55,14 +58,14 @@ class RatingWithButtons extends React.Component{
                     lecturerRating: value,
                 });
                 break;
-            case "Exam":
-                this.setState({
-                    examRating: value
-                });
-                break;
             case "Content":
                 this.setState({
                     contentRating: value
+                });
+                break;
+            case "Exam":
+                this.setState({
+                    examRating: value
                 });
                 break;
             case "Title":
@@ -78,53 +81,60 @@ class RatingWithButtons extends React.Component{
             default:
                 break;
         }
+        this.setState({userClicked: true})
     }
 
-    handleSave(){
+    handleSave() {
         const rating = {
             lecturerRating: this.state.lecturerRating,
-            contentRating:this.state.examRating,
-            examRating: this.state.contentRating,
+            contentRating: this.state.contentRating,
+            examRating: this.state.examRating,
             overallRating: this.state.overallRating,
             title: this.state.title,
             comment: this.state.comment
         };
         this.props.rate(rating);
-        //this.handleCancel();
+        this.handleCancel();
     }
 
-    handleCancel(){
+    handleCancel() {
         this.setState({
             lecturerRating: 0,
-            examRating: 0,
             contentRating: 0,
+            examRating: 0,
             overallRating: 0,
             title: '',
-            comment:''})
+            comment: '',
+            userClicked: false
+        })
     }
+
     render() {
         const {classes} = this.props;
         return (
             <Paper className={classes.paper}>
-            <Grid>
-            <CommentAndStars rating={this.state} onChange={this.handleChange}/>
-                <Button
-                    alignContent="center"
-                    className={classes.button}
-                    variant="contained"
-                    color="primary"
-                    onClick={this.handleSave}
-                >
-                Save
-                </Button>
-                <Button
-                    onClick={this.handleCancel}
-                    variant="contained">
-                    Cancel
-                </Button>
-            </Grid>
+                <Grid>
+                    <CommentAndStars rating={this.state} onChange={this.handleChange}/>
+                    <Button
+                        alignContent="center"
+                        className={classes.button}
+                        variant="contained"
+                        color="primary"
+                        onClick={this.handleSave}
+                        disabled={!this.state.userClicked}
+                    >
+                        Save
+                    </Button>
+                    <Button
+                        onClick={this.handleCancel}
+                        disabled={!this.state.userClicked}
+                        variant="contained">
+                        Cancel
+                    </Button>
+                </Grid>
             </Paper>
         )
     };
 }
-export default withStyles(styles)(RatingWithButtons)
+
+export default withStyles(styles)(RatingWithButtons);
