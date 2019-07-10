@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+
+import UserService from '../services/UserService';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
@@ -19,24 +21,7 @@ import UniversityService from '../services/UniversityService';
 import CourseService from "../services/CourseService";
 
 const style = { maxWidth: 500 };
-const currencies = [
-    {
-        value: 'TUM',
-        label: '$',
-    },
-    {
-        value: 'EUR',
-        label: '€',
-    },
-    {
-        value: 'BTC',
-        label: '฿',
-    },
-    {
-        value: 'JPY',
-        label: '¥',
-    },
-];
+const semester=["Sommer Semester 19", "Winter Semester 19", "Sommer Semester 20", "Winter Semester 20", "Sommer Semester 21", "Winter Semester 21"];
 
 
 
@@ -44,180 +29,221 @@ class StudyplanPreQuery extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state={};
 
         if (this.props.studyplan != undefined) {
             this.state = {
-                Uname:'',
-                Sname: props.studyplan.name,
+
+
                 university: props.studyplan.university,
-                fieldOfStudyName: props.studyplan.fos,
-                courses:props.courses,
-                selectedCourses:[],
-                fieldsOfStudy:FieldOfStudyService.getFoSs(),
+                FoSs: [], //FieldsOfStudieS
+                selectedFoS:{},
+                startSemester:semester[0],
+                SName: "", //StudyplanName
 
 
             };
         } else {
             this.state = {
-                Uname:'',
-                Sname: '',
-                univeristy: '',
-                fieldOfStudyName: '',
-                courses: props.courses,
-                selectedCourses:[],
-                fieldsOfStudy:FieldOfStudyService.getFoSs(),
+
+
+                univeristy: {},
+                FoSs:[], //FieldsOfStudieS
+                selectedFoS:{},
+                startSemester:semester[0],
+                SName:"", //StudyplanName
+
 
             };
         }
-        this.setState({fieldsOfStudy:[]})
 
 
 
-        this.handleChangeName = this.handleChangeName.bind(this);
+
+      //  this.handleChangeName = this.handleChangeName.bind(this);
         this.handleChangeUniveristy = this.handleChangeUniveristy.bind(this);
-        this.handleChangeFieldOfStudy = this.handleChangeFieldOfStudy.bind(this);
-        this.handleChangeSynopsis = this.handleChangeSynopsis.bind(this);
-        this.handleCourseSubmit=this.handleCourseSubmit.bind(this);
-        this.handleChangeFoSCommit=this.handleChangeFoSCommit.bind(this);
-
+        this.handleChangeFoS = this.handleChangeFoS.bind(this);
+        this.handleChangeStartSemester=this.handleChangeStartSemester.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChangeS=this.handleChangeS.bind(this);
+        this.handleChangeName=this.handleChangeName.bind(this);
+
+        //this.handleChangeSynopsis = this.handleChangeSynopsis.bind(this);
+        //this.handleCourseSubmit=this.handleCourseSubmit.bind(this);
+        //this.handleChangeFoSCommit=this.handleChangeFoSCommit.bind(this);
+
+       //
+        //this.handleChangeS=this.handleChangeS.bind(this);
     }
 
     componentWillMount(){
-        FieldOfStudyService.getFoSs().then((data) => {
-            this.setState({
-                fieldsOfStudy: [...data],
-            });
-        }).catch((e) => {
-            console.error(e);
-        });
-    }
-
-    handleChangeName(event) {
-        //this.setState(Object.assign({}, this.state, {name: value}));
-        this.setState({Uname: event.target.value})
-        console.log(this.state.Uname);
 
     }
+
+
 
     handleChangeUniveristy(event) {
-        this.setState({univeristy: event.target.value});
-        console.log(this.state.university);
-        //this.setState(Object.assign({}, this.state, {year: value}));
+        var uni=event.target.value;
+        this.setState({university: uni});
+
+        var FoSs= uni.fieldsOfStudy;
+        this.setState({FoSs:FoSs});
+
     }
 
-    handleChangeFieldOfStudy(event) {
-        this.setState({fieldOfStudyName:event.target.value});
+
+    handleChangeFoS(event){
+        var FoS=event.target.value;
+        this.setState({selectedFoS:FoS});
     }
 
-    handleChangeSynopsis(event) {
-        this.setState({courseName:event.target.value});
+    handleChangeStartSemester(event){
+        var sS=event.target.value;
+        this.setState({startSemester: sS});
     }
 
     handleSubmit(event) {
-        event.preventDefault();
+        let studyplan={};
+        studyplan.name= this.state.SName;
+        studyplan.fieldOfStudy=this.state.selectedFoS;
+        studyplan.startSemester=this.state.startSemester;
+
+        studyplan.semester1 = this.state.selectedFoS.recommendedSemester1;
+        studyplan.semester2 = this.state.selectedFoS.recommendedSemester2;
+        studyplan.semester3 = this.state.selectedFoS.recommendedSemester3;
+        studyplan.semester4 = this.state.selectedFoS.recommendedSemester4;
+        studyplan.semester5 = this.state.selectedFoS.recommendedSemester5;
+        studyplan.semester6 = this.state.selectedFoS.recommendedSemester6;
 
 
-        let university = this.props.university;
-        if(university == undefined) {
-            university = {};
-        }
-
-        university.name = this.state.Uname;
-        university.fieldsOfStudy = [];
+            //TODO  add studyplan to user (in update Studyplan)
 
 
-       // this.props.onSubmit(university);
-        this.props.updateUniversity(university);
 
 
-        console.log(university);
-
-    }
-
-    handleCourseSubmit(event){
-        event.preventDefault();
-
-        let course=this.props.course;
-        if (course==undefined)
-        {
-            course={};
-        }
-
-        course.name=this.state.courseName;
-        this.props.updateCourse(course);
-        console.log(course);
-    }
-
-    handleChangeFoSCommit(event){
-
-        event.preventDefault();
-
-        let FoS=this.props.fieldOfStudy;
-        if (FoS==undefined)
-        {
-            FoS={};
-        }
-
-        FoS.name=this.state.fieldOfStudyName;
-        FoS.mandatory=[]+this.props.courses;
-
-        this.props.updateFoS(FoS);
 
 
+        this.props.updateStudyplan(studyplan);
 
     }
 
-   handleChangeS(event,name){
-
-  //    this.setState({[name]: event.target.checked });
-
-
-       console.log(this.state[name])
-
+    handleChangeName(event) {
+        this.setState({SName: event.target.value})
     }
 
 
-    checkBoxes(){
-
-        const courses=this.props.courses;
-
-        courses.map(o=>(
-
-            this.setState({[o.name]:false})
-        ))
-
-
-       return(
-        courses.map(option => (
-
-
-            <FormControlLabel
-                control={
-                    <Checkbox
-                        key={option.id}
-                        checked= {this.state.checkedA}
-                        onChange={this.handleChangeS(option.name)}
-                        value={option.name}
-                        inputProps={{
-                            'aria-label': 'primary checkbox',
-                        }}
-                    />
-                }
-                label={option.name}
-            />
-
-
-        )))
-    }
 
 
 
     render() {
+
         return (
             <Page>
-                <form>
+
+                <Grid container
+                      direction="column"
+                      justify="flex-start"
+                      alignItems="center"
+                      spacing={2}>
+
+                    <Grid item >
+                        <form>
+                            <TextField
+                                id="standard-select-university"
+                                select
+                                label="Select your university"
+
+                                value={this.state.university}
+                                onChange={this.handleChangeUniveristy}
+
+
+                                helperText="Please select your university"
+                                margin="normal"
+                            >
+                                {this.props.universities.map(option => (
+                                    <MenuItem key={option.id} value={option}>
+                                        {option.name}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </form>
+                    </Grid>
+                    <Grid item>
+                        <form>
+                            <TextField
+                                id="standard-select-FoS"
+                                select
+                                label="Select FoS"
+
+                                value={this.state.selectedFoS}
+                                onChange={this.handleChangeFoS}
+
+
+                                helperText="Please select your Field of Study"
+                                margin="normal"
+                            >
+                                {this.state.FoSs.map(option2 => (
+                                    <MenuItem key={option2.id} value={option2}>
+                                        {option2.name}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </form>
+                    </Grid>
+
+                    <Grid item >
+                        <form>
+                            <TextField
+                                id="standard-select-StartSemester"
+                                select
+                                label="Select Start Semester"
+
+                                value={this.state.startSemester}
+                                onChange={this.handleChangeStartSemester}
+
+
+                                helperText="Please select your Start Semester"
+                                margin="normal"
+                            >
+                                {semester.map(option3 => (
+                                    <MenuItem key={option3.id} value={option3}>
+                                        {option3}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </form>
+                    </Grid>
+
+                    <Grid item>
+                        <TextField
+                            id="standard-uncontrolled"
+                            label="Studyplan Name"
+
+                            onChange={this.handleChangeName}
+
+                            margin="normal"
+                        />
+                    </Grid>
+
+                    <Grid item>
+                        <Button onClick={this.handleSubmit} variant="contained" > Create New Studyplan</Button>
+
+                    </Grid>
+
+
+                </Grid>
+
+
+
+
+            </Page>
+        );
+    }
+}
+
+export default withRouter(StudyplanPreQuery);
+
+/*
+ <form>
                     <Grid container direction="column" alignContent="center">
                     <TextField
                         id="standard-name"
@@ -307,17 +333,129 @@ class StudyplanPreQuery extends React.Component {
 
 
 
-                   { /*
-                   function(event: object) => void
-                    event: The event source of the callback. You can pull out the new value by accessing event.target.value.
-                    */}
+                   {
+                  // function(event: object) => void
+                    //event: The event source of the callback. You can pull out the new value by accessing event.target.value.
+                    }
 
 
 
-               </Grid>
-            </Page>
-        );
+</Grid>
+
+handleChangeS(event,name){
+
+  //    this.setState({[name]: event.target.checked });
+
+
+       console.log(this.state[name])
+
     }
-}
 
-export default withRouter(StudyplanPreQuery);
+
+    checkBoxes(){
+
+        const courses=this.props.courses;
+
+        courses.map(o=>(
+
+            this.setState({[o.name]:false})
+        ))
+
+
+       return(
+        courses.map(option => (
+
+
+            <FormControlLabel
+                control={
+                    <Checkbox
+                        key={option.id}
+                        checked= {this.state.checkedA}
+                        onChange={this.handleChangeS(option.name)}
+                        value={option.name}
+                        inputProps={{
+                            'aria-label': 'primary checkbox',
+                        }}
+                    />
+                }
+                label={option.name}
+            />
+
+
+        )))
+    }
+
+
+
+      handleCourseSubmit(event){
+        event.preventDefault();
+
+        let course=this.props.course;
+        if (course==undefined)
+        {
+            course={};
+        }
+
+        course.name=this.state.courseName;
+        this.props.updateCourse(course);
+        console.log(course);
+    }
+
+    handleChangeFoSCommit(event){
+
+        event.preventDefault();
+
+        let FoS=this.props.fieldOfStudy;
+        if (FoS==undefined)
+        {
+            FoS={};
+        }
+
+        FoS.name=this.state.fieldOfStudyName;
+        FoS.mandatory=[]+this.props.courses;
+
+        this.props.updateFoS(FoS);
+
+
+
+    }
+
+
+      handleChangeName(event) {
+        //this.setState(Object.assign({}, this.state, {name: value}));
+        this.setState({Uname: event.target.value})
+        console.log(this.state.Uname);
+
+    }
+
+
+ handleChangeFieldOfStudy(event) {
+        this.setState({fieldOfStudyName:event.target.value});
+    }
+
+    handleChangeSynopsis(event) {
+        this.setState({courseName:event.target.value});
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+
+
+        let university = this.props.university;
+        if(university == undefined) {
+            university = {};
+        }
+
+        university.name = this.state.Uname;
+        university.fieldsOfStudy = [];
+
+
+       // this.props.onSubmit(university);
+        this.props.updateUniversity(university);
+
+
+        console.log(university);
+
+    }
+
+ */
