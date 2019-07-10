@@ -2,7 +2,6 @@
 
 import React from 'react';
 
-import { MovieList } from '../components/MovieList';
 
 import StudyplanService from '../services/StudyplanService';
 import UserService from '../services/UserService';
@@ -10,7 +9,6 @@ import StudyplanPreQuery from '../components/StudyplanPreQuery';
 import UniversityService from '../services/UniversityService';
 import CourseService from '../services/CourseService';
 import FieldOfStudyService from '../services/FieldOfStudyService';
-import MovieService from "../services/MovieService";
 
 
 
@@ -21,11 +19,10 @@ export class CreateStudyplanQueryView extends React.Component {
 
         this.state = {
             loading: false,
-            studyplan:'',
             user:UserService.getCurrentUser(),
             universities:'',
             courses:CourseService.getCourses(),
-            fieldsOfStudy: FieldOfStudyService.getFoSs(),
+            foss:'',
         };
     }
 
@@ -43,7 +40,16 @@ export class CreateStudyplanQueryView extends React.Component {
             CourseService.getCourses().then((data2) => {
                 this.setState({
                     courses: [...data2],
-                    loading:false,
+
+                });
+                FieldOfStudyService.getFoSs().then((data3) => {
+                    this.setState({
+                        foss: [...data3],
+                        loading:false,
+                    });
+
+                }).catch((e) => {
+                    console.error(e);
                 });
 
             }).catch((e) => {
@@ -56,79 +62,47 @@ export class CreateStudyplanQueryView extends React.Component {
 
     }
 
-    createStudyplan(id) {
 
-    }
 
-    updateUniversity(university){
+    updateStudyplan(studyplan){
 
-            if(this.state.univeristy == undefined) {
-                UniversityService.createUniversity(university).then((data) => {
-             //       this.props.history.push('/');
+                StudyplanService.createStudyplan(studyplan).then((data) => {
+
+                    let u = UserService.getCurrentUser();
+                    if (u.studyplans===undefined){
+                        u.studyplans=[data._id];
+                    }
+                    else{
+                        u.studyplans = u.studyplans.push(data._id);
+                    }
+
+                    UserService.updateUser(u).catch((e)=>{console.error(e);});
+
+                    //history push /studyplan/id
+                    console.log(u);
+
                 }).catch((e) => {
                     console.error(e);
-                    this.setState(Object.assign({}, this.state, {error: 'Error while creating university'}));
+                    this.setState(Object.assign({}, this.state, {error: 'Error while creating studyplan'}));
                 });
-            } else {
-                UniversityService.updateUniversity(univeristy).then((data) => {
-                 //   this.props.history.push('/');
-                }).catch((e) => {
-                    console.error(e);
-                    this.setState(Object.assign({}, this.state, {error: 'Error while creating university'}));
-                });
-            }
+
+      /*  */
 
     }
 
 
-    updateCourse(course){
-        if(this.state.course == undefined) {
-            CourseService.createCourse(course).then((data) => {
-               // this.props.history.push('/');
-            }).catch((e) => {
-                console.error(e);
-                this.setState(Object.assign({}, this.state, {error: 'Error while creating university'}));
-            });
-        } else {
-            CourseService.updateCourse(course).then((data) => {
-                //this.props.history.push('/');
-            }).catch((e) => {
-                console.error(e);
-                this.setState(Object.assign({}, this.state, {error: 'Error while creating university'}));
-            });
-        }
 
-    }
-
-    updateFoS(fos){
-        if(this.state.fos == undefined) {
-            FieldOfStudyService.createFoS(fos).then((data) => {
-                // this.props.history.push('/');
-            }).catch((e) => {
-                console.error(e);
-                this.setState(Object.assign({}, this.state, {error: 'Error while creating university'}));
-            });
-        } else {
-            FieldOfStudyService.updateFoS(fos).then((data) => {
-                //this.props.history.push('/');
-            }).catch((e) => {
-                console.error(e);
-                this.setState(Object.assign({}, this.state, {error: 'Error while creating university'}));
-            });
-        }
-
-    }
 
 
 
     render() {
 
         if(this.state.loading){
-            return (<div>loading...</div>);
+            return (<div>Loading...</div>);
         }
 
         return (
-            <StudyplanPreQuery  courses={this.state.courses} universities={this.state.universities} updateUniversity={(university) => this.updateUniversity(university)} updateCourse={(id) => this.updateCourse(id)} updateFoS={(fos) => this.updateFoS(fos)}/>
+            <StudyplanPreQuery foss={this.state.foss} courses={this.state.courses} universities={this.state.universities} updateStudyplan={(data) => this.updateStudyplan(data)} />
         );
     }
 };

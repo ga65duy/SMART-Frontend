@@ -2,6 +2,7 @@
 
 import HttpService from './HttpService';
 
+
 export default class UniversityService {
 
     constructor(){
@@ -42,6 +43,21 @@ export default class UniversityService {
         return new Promise((resolve, reject) => {
             HttpService.post(UniversityService.baseURL(), university, function(data) {
                 resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
+    static getUniversity(id) {
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${UniversityService.baseURL()}/${id}`, function(data) {
+                if(data != undefined || Object.keys(data).length !== 0) {
+                    resolve(data);
+                }
+                else {
+                    reject('Error while retrieving university');
+                }
             }, function(textStatus) {
                 reject(textStatus);
             });

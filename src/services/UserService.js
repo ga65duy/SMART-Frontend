@@ -69,7 +69,8 @@ export default class UserService {
             id: JSON.parse(window.atob(base64)).id,
             username: JSON.parse(window.atob(base64)).username,
             email: JSON.parse(window.atob(base64)).email,
-            isUniversityUser: JSON.parse(window.atob(base64)).isUniversityUser
+            isUniversityUser: JSON.parse(window.atob(base64)).isUniversityUser,
+            studyplans: JSON.parse(window.atob(base64)).studyplans,
         };
     }
 
