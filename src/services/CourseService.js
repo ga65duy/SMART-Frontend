@@ -62,11 +62,7 @@ export default class CourseService {
         });
     }
 
-
-
     static createCourse(course) {
-        course.id = Math.floor((Math.random() * 100000000) + 1).toString();
-
         return new Promise((resolve, reject) => {
             HttpService.post(CourseService.baseURL(), course, function(data) {
                 resolve(data);
@@ -75,6 +71,18 @@ export default class CourseService {
             });
         });
     }
-    
 
+    /**
+     * Get all rated courses of a user
+     * Author: Maria
+     */
+    static listCoursesOfAUser(user){
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${CourseService.baseURL()}/ratings/user/${user._id}`, function(data) {
+                resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
 }

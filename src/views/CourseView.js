@@ -90,25 +90,6 @@ export class CourseView extends React.Component {
         });
     }
 
-    /*updateRating(rating){
-        RateCourseService.updateRating(rating)
-            .then(() => {
-                let courseId = this.state.course._id;
-                CourseService.getCourse(courseId)
-                    .then((course) =>
-                    {console.log(course);
-                        this.setState({
-                            loading: false,
-                            course: course
-                        })})
-                    .catch((e) => {
-                        console.error(e.message);
-                    });
-            }).catch((e) => {
-            console.error(e)
-        });
-    }*/
-
     render() {
         if (this.state.loading) {
             return (<h2>Loading...</h2>);

@@ -33,14 +33,4 @@ export default class RateCourseService {
             });
         });
     }
-
-    /*static updateRating(rating) {
-        return new Promise((resolve, reject) => {
-            HttpService.put(`${RateCourseService.baseURL()}/${rating._id}`, rating, function(data) {
-                resolve(data);
-            }, function(textStatus) {
-                reject(textStatus);
-            });
-        });
-    }*/
 };
