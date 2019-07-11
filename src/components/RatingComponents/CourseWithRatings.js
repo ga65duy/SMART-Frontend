@@ -11,7 +11,7 @@ import ReactStars from "react-stars"
 
 /**
  * CourseWithRatings
- * Component showing the coursename, info and all ratings, with the possibility to rate and comment the course
+ * Component showing the coursinformation and all ratings, with the possibility to rate and comment the course
  * Author: Maria
  */
 
@@ -78,14 +78,14 @@ class CourseWithRatings extends React.Component {
                 <Paper className={classes.paper}>
                     <Grid container direction="column" wrap="nowrap">
                         <Grid item>
-                            <Grid container direction="row" justify={"center"} spacing={4}>
+                            <Grid container direction="row" justify={"center"} spacing={2}>
                                 <Grid item>
-                                    <Typography variant="h3" color={"primary"} gutterBottom={true}>
+                                    <Typography variant="h4" color={"primary"} gutterBottom>
                                         {this.props.course.name}
                                     </Typography>
                                 </Grid>
                                 <Grid item>
-                                    <Box m={0}>
+                                    <Box m={-1}>
                                         <ReactStars
                                             value={this.props.course.avgRatingOverall}
                                             size={35}
@@ -96,10 +96,39 @@ class CourseWithRatings extends React.Component {
                                     </Box>
                                 </Grid>
                             </Grid>
-                            <Grid item>
-                                <Typography gutterBottom>
-                                    {this.props.course.description}
-                                </Typography>
+                            <Grid container direction={"row"}>
+                                <Box m={1} fontWeight="fontWeightBold">
+                                    ECTS:
+                                </Box>
+                                <Box m={1}>
+                                    {this.props.course.ects}
+                                </Box>
+                            </Grid>
+                            <Grid container direction={"row"}>
+                                <Box m={1} fontWeight="fontWeightBold">
+                                    Available at:
+                                </Box>
+                                <Box m={1}>
+                                    {this.props.course.availableSS ? "SS" : "WS"}
+                                </Box>
+                            </Grid>
+                            <Grid container direction={"row"}>
+                                <Box m={1} fontWeight="fontWeightBold">
+                                    Area:
+                                </Box>
+                                <Box m={1}>
+                                    {this.props.course.area}
+                                </Box>
+                            </Grid>
+                            <Grid container direction={"row"}>
+                                <Box m={1} fontWeight="fontWeightBold">
+                                    Description:
+                                </Box>
+                                <Box m={1}>
+                                    <Typography paragraph={true} align={"left"}>
+                                        {this.props.course.description}
+                                    </Typography>
+                                </Box>
                             </Grid>
                         </Grid>
                         <Grid item>
