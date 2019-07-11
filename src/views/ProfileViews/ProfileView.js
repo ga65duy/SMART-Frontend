@@ -5,6 +5,7 @@ import UniversityService from "../../services/UniversityService";
 
 /**
  * ProfileView
+ * Shows the profile of the user, that can be edited
  * Author: Maria
  */
 
@@ -40,10 +41,7 @@ export class ProfileView extends React.Component {
     }
 
     updateProfile() {
-        console.log(this.state.user)
-        UserService.updateUser(this.state.user, this.state.user.isUniversityUser).then((user) => {
-            console.log("updated")
-            console.log(user)
+        UserService.updateUser(this.state.user, this.state.user.isUniversityUser).then(() => {
             this.setState({
                     userUpdated: true
                 }
@@ -63,7 +61,6 @@ export class ProfileView extends React.Component {
         if (this.state.loading) {
             return (<h2>Loading...</h2>);
         }
-
         return (
             <Profile user={this.state.user} universities={this.state.universities}
                      updateProfile={this.updateProfile} resetSaveButton={this.resetSaveButton}

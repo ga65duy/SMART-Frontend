@@ -16,6 +16,7 @@ import UniversityUserInput from "./UniversityUserInput";
  * Shows the data of the logged in user.
  * Author: Maria
  */
+
 const styles = theme => ({
     paper: {
         padding: theme.spacing(2),

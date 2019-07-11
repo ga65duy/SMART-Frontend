@@ -5,7 +5,6 @@ import React from 'react';
 import {withStyles} from "@material-ui/core/styles";
 
 import {Button, Paper, Grid} from "@material-ui/core";
-import Page from '../Page';
 import {withRouter} from "react-router-dom";
 import UserInput from "./UserInput";
 import UniversityUserInput from "./UniversityUserInput";
@@ -15,6 +14,7 @@ import UniversityUserInput from "./UniversityUserInput";
  * A university user (after authorization, with a special key after paying) and a student can register.
  * Author: Maria
  */
+
 const styles = theme => ({
     paper: {
         padding: theme.spacing(2),
