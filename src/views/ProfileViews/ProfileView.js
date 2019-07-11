@@ -19,12 +19,12 @@ export class ProfileView extends React.Component {
         this.resetSaveButton = this.resetSaveButton.bind(this);
     }
 
-    componentWillMount(){
+    componentWillMount() {
         this.setState({
             loading: true
         });
 
-        UserService.getLoggedInUserInfo().then(user =>{
+        UserService.getLoggedInUserInfo().then(user => {
             UniversityService.getUniversities().then((universities) => {
                 this.setState({
                     user: user,
@@ -35,21 +35,25 @@ export class ProfileView extends React.Component {
                 console.error(e);
             });
         }).catch((e) => {
-        console.error(e);
+            console.error(e);
         });
     }
 
-    updateProfile(){
-        UserService.updateUser(this.state.user).then((user) => {
+    updateProfile() {
+        console.log(this.state.user)
+        UserService.updateUser(this.state.user, this.state.user.isUniversityUser).then((user) => {
+            console.log("updated")
+            console.log(user)
             this.setState({
-                userUpdated: true
-            }
-        )}).catch((error) => {
+                    userUpdated: true
+                }
+            )
+        }).catch((error) => {
             console.error(error)
         })
     }
 
-    resetSaveButton(){
+    resetSaveButton() {
         this.setState({
             userUpdated: false
         })

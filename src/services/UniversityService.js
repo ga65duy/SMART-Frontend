@@ -5,28 +5,47 @@ import HttpService from './HttpService';
 
 export default class UniversityService {
 
-    constructor(){
+    constructor() {
     }
 
-    static baseURL() {return "http://localhost:3000/university" }
+    static baseURL() {
+        return "http://localhost:3000/university"
+    }
 
-    static getUniversities(){
+    static getUniversities() {
         return new Promise((resolve, reject) => {
-            HttpService.get(this.baseURL(), function(data) {
+            HttpService.get(this.baseURL(), function (data) {
                 resolve(data);
-            }, function(textStatus) {
+            }, function (textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
+    /**
+     * Get all courses from a university
+     *Author: Maria
+     */
+    static getCoursesFromUniversity(universityId) {
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${UniversityService.baseURL()}/${universityId}/courses`, function (data) {
+                if (data != undefined || Object.keys(data).length !== 0) {
+                    resolve(data);
+                } else {
+                    reject('Error while retrieving courses from uni');
+                }
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
     }
 
 
-
     static updateUniversity(university) {
         return new Promise((resolve, reject) => {
-            HttpService.put(`${this.baseURL()}/${university._id}`, university, function(data) {
+            HttpService.put(`${this.baseURL()}/${university._id}`, university, function (data) {
                 resolve(data);
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
@@ -41,9 +60,9 @@ export default class UniversityService {
         //     original: "http://resizing.flixster.com/AeDB8hgaGed_TMCcIF1P_gubGwA=/54x81/dkpu1ddg7pbsk.cloudfront.net/movie/11/27/63/11276344_ori.jpg"
         // };
         return new Promise((resolve, reject) => {
-            HttpService.post(UniversityService.baseURL(), university, function(data) {
+            HttpService.post(UniversityService.baseURL(), university, function (data) {
                 resolve(data);
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
@@ -51,14 +70,13 @@ export default class UniversityService {
 
     static getUniversity(id) {
         return new Promise((resolve, reject) => {
-            HttpService.get(`${UniversityService.baseURL()}/${id}`, function(data) {
-                if(data != undefined || Object.keys(data).length !== 0) {
+            HttpService.get(`${UniversityService.baseURL()}/${id}`, function (data) {
+                if (data != undefined || Object.keys(data).length !== 0) {
                     resolve(data);
-                }
-                else {
+                } else {
                     reject('Error while retrieving university');
                 }
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });

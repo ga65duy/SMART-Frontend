@@ -22,7 +22,7 @@ export class UserSignupView extends React.Component {
         this.registerUser = this.registerUser.bind(this)
     }
 
-    componentWillMount(){
+    componentWillMount() {
         this.setState({
             loading: true
         });
@@ -48,7 +48,8 @@ export class UserSignupView extends React.Component {
                 university: user.university,
                 faculty: user.faculty,
                 chair: user.chair,
-                authorization: user.authorization
+                authorization: user.authorization,
+                courses: user.courses
             }
         } else {
             new_user = {
@@ -75,7 +76,7 @@ export class UserSignupView extends React.Component {
 
     render() {
         return (
-            <UserSignup onSubmit={this.registerUser} universities = {this.state.universities} error={this.state.error}/>
+            <UserSignup onSubmit={this.registerUser} universities={this.state.universities} error={this.state.error}/>
         );
     }
 }

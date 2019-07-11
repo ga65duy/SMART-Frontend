@@ -40,7 +40,8 @@ class UserSignup extends React.Component {
                 faculty: '',
                 chair: '',
                 authorization: '',
-                isUniversityUser: false
+                isUniversityUser: false,
+                courses: []
             },
             validations: {
                 usernameValid: false,
@@ -49,7 +50,9 @@ class UserSignup extends React.Component {
                 uniValid: false,
                 facValid: false,
                 chairValid: false,
-                authorizationValid: false }
+                authorizationValid: false,
+                coursesValid: false
+            }
         };
 
         this.showRegisterButton = this.showRegisterButton.bind(this);
@@ -65,7 +68,8 @@ class UserSignup extends React.Component {
             this.state.validations.uniValid,
             this.state.validations.facValid,
             this.state.validations.chairValid,
-            this.state.validations.authorizationValid
+            this.state.validations.authorizationValid,
+            this.state.validations.coursesValid
         ];
 
         var validateStudent = [
@@ -75,10 +79,10 @@ class UserSignup extends React.Component {
         ];
 
         if (this.state.user.isUniversityUser) {
-           this.setState({
-               allValidationsSuccessful: !(validateUni.every(item => item)),
-               sthTyped: true
-           })
+            this.setState({
+                allValidationsSuccessful: !(validateUni.every(item => item)),
+                sthTyped: true
+            })
         } else {
             this.setState({
                 allValidationsSuccessful: !(validateStudent.every(item => item)),
@@ -93,16 +97,17 @@ class UserSignup extends React.Component {
 
     handleCancel() {
         this.setState({
-           user: {
-               username: '',
-               email: '',
-               password: '',
-               university: '',
-               faculty: '',
-               chair: '',
-               authorization: '',
-               isUniversityUser: false
-           },
+            user: {
+                username: '',
+                email: '',
+                password: '',
+                university: '',
+                faculty: '',
+                chair: '',
+                authorization: '',
+                isUniversityUser: false,
+                courses: []
+            },
             validations: {
                 usernameValid: false,
                 emailValid: false,
@@ -110,10 +115,10 @@ class UserSignup extends React.Component {
                 uniValid: false,
                 facValid: false,
                 chairValid: false,
-                authorizationValid: false
+                authorizationValid: false,
+                coursesValid: false
             },
             sthTyped: false
-
         })
     }
 
@@ -121,37 +126,35 @@ class UserSignup extends React.Component {
         const {classes} = this.props;
         let universityUser = <UniversityUserInput user={this.state.user}
                                                   profile={false}
-                                                  universities = {this.props.universities}
-                                                  onUpdate ={this.showRegisterButton}
-                                                  validations ={this.state.validations}/>
+                                                  universities={this.props.universities}
+                                                  onUpdate={this.showRegisterButton}
+                                                  validations={this.state.validations}/>
         return (
-            <Page>
-                <Paper className={classes.paper}>
-                    <Grid container direction="column" alignContent="center">
-                        <UserInput user={this.state.user}
-                                   onUpdate={this.showRegisterButton}
-                                   validations={this.state.validations}
-                                   error={this.props.error}
-                        />
-                        {this.state.user.isUniversityUser ? universityUser : null}
-                        <Grid item >
-                            <Button id="submit" type="submit" variant="contained" color="primary"
-                                    className={classes.button}
-                                    disabled={this.state.allValidationsSuccessful}
-                                    onClick={this.handleSubmit}>
-                                Register
-                            </Button>
-                            <Button id="reset"
-                                    type="reset"
-                                    variant="contained"
-                                    onClick={this.handleCancel}
-                                    disabled={!this.state.sthTyped}>
-                                Dismiss
-                            </Button>
-                        </Grid>
+            <Paper className={classes.paper}>
+                <Grid container direction="column" alignContent="center">
+                    <UserInput user={this.state.user}
+                               onUpdate={this.showRegisterButton}
+                               validations={this.state.validations}
+                               error={this.props.error}
+                    />
+                    {this.state.user.isUniversityUser ? universityUser : null}
+                    <Grid item>
+                        <Button id="submit" type="submit" variant="contained" color="primary"
+                                className={classes.button}
+                                disabled={this.state.allValidationsSuccessful}
+                                onClick={this.handleSubmit}>
+                            Register
+                        </Button>
+                        <Button id="reset"
+                                type="reset"
+                                variant="contained"
+                                onClick={this.handleCancel}
+                                disabled={!this.state.sthTyped}>
+                            Dismiss
+                        </Button>
                     </Grid>
-                </Paper>
-            </Page>
+                </Grid>
+            </Paper>
         );
     }
 };

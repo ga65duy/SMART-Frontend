@@ -28,7 +28,7 @@ const styles = theme => ({
 });
 
 class Profile extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -39,6 +39,7 @@ class Profile extends React.Component {
                 emailValid: true,
                 passwordValid: true,
                 uniValid: true,
+                coursesValid: true,
                 facValid: true,
                 chairValid: true,
                 authorizationValid: true
@@ -62,6 +63,7 @@ class Profile extends React.Component {
             this.state.validations.usernameValid,
             this.state.validations.emailValid,
             this.state.validations.uniValid,
+            this.state.validations.coursesValid,
             this.state.validations.facValid,
             this.state.validations.chairValid,
             this.state.validations.authorizationValid
@@ -86,7 +88,7 @@ class Profile extends React.Component {
         }
     }
 
-    handleSave(){
+    handleSave() {
         this.props.updateProfile();
     }
 
@@ -99,6 +101,7 @@ class Profile extends React.Component {
                 emailValid: true,
                 passwordValid: true,
                 uniValid: true,
+                coursesValid: true,
                 facValid: true,
                 chairValid: true,
                 authorizationValid: true
@@ -112,9 +115,9 @@ class Profile extends React.Component {
         let universityUser = <UniversityUserInput user={this.state.user}
                                                   profile={true}
                                                   universities={this.props.universities}
-                                                  onUpdate ={this.changedFields}
-                                                  validations ={this.state.validations}
-                                                  resetSaveButton = {this.props.resetSaveButton}/>;
+                                                  onUpdate={this.changedFields}
+                                                  validations={this.state.validations}
+                                                  resetSaveButton={this.props.resetSaveButton}/>;
         return (
             <Page>
                 <Paper className={classes.paper}>
@@ -123,25 +126,25 @@ class Profile extends React.Component {
                                profile={true}
                                onUpdate={this.changedFields}
                                validations={this.state.validations}
-                               resetSaveButton = {this.props.resetSaveButton}
+                               resetSaveButton={this.props.resetSaveButton}
                     />
                     {this.state.user.isUniversityUser ? universityUser : null}
                     <Grid container>
-                    <Grid item alignContent="center">
-                        <Button className={classes.button}
-                                disabled={!(this.state.sthChanged && this.state.allFieldsValid) || this.props.userUpdated}
-                                variant="contained"
-                                color="primary"
-                                onClick={this.handleSave}
-                        >
-                            Save
-                        </Button>
-                        <Button disabled={!this.state.sthChanged || this.props.userUpdated}
-                                onClick={this.handleCancel}
-                                variant="contained">
-                            Cancel
-                        </Button>
-                    </Grid>
+                        <Grid item alignContent="center">
+                            <Button className={classes.button}
+                                    disabled={!(this.state.sthChanged && this.state.allFieldsValid) || this.props.userUpdated}
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={this.handleSave}
+                            >
+                                Save
+                            </Button>
+                            <Button disabled={!this.state.sthChanged || this.props.userUpdated}
+                                    onClick={this.handleCancel}
+                                    variant="contained">
+                                Cancel
+                            </Button>
+                        </Grid>
                     </Grid>
                 </Paper>
             </Page>

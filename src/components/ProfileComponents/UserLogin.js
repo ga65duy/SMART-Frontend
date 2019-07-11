@@ -128,45 +128,43 @@ class UserLogin extends React.Component {
     render() {
         const {classes} = this.props;
         return (
-            <Page>
-                <Paper className={classes.paper}>
-                    <Grid container direction="column">
-                        <TextField
-                            label="Username"
-                            id="Username"
-                            type="text"
-                            required={true}
-                            value={this.state.username}
-                            onChange={this.handleChange}
-                            error={!this.state.usernameValid}
-                            helperText={this.state.textUser}
-                            variant="standard"
-                            margin="dense"/>
-                        <TextField
-                            label="Password"
-                            id="Password"
-                            type="text"
-                            required={true}
-                            value={this.state.password}
-                            onChange={this.handleChange}
-                            error={!this.state.passwordValid}
-                            helperText={this.state.textPassword}
-                            variant="standard"
-                            margin="dense"/>
+            <Paper className={classes.paper}>
+                <Grid container direction="column">
+                    <TextField
+                        label="Username"
+                        id="Username"
+                        type="text"
+                        required={true}
+                        value={this.state.username}
+                        onChange={this.handleChange}
+                        error={!this.state.usernameValid}
+                        helperText={this.state.textUser}
+                        variant="standard"
+                        margin="dense"/>
+                    <TextField
+                        label="Password"
+                        id="Password"
+                        type="text"
+                        required={true}
+                        value={this.state.password}
+                        onChange={this.handleChange}
+                        error={!this.state.passwordValid}
+                        helperText={this.state.textPassword}
+                        variant="standard"
+                        margin="dense"/>
 
-                        <Grid item alignContent="center">
-                            <Button id="submit" type="submit" variant="contained" color="primary"
-                                    className={classes.button}
-                                    disabled={this.showLoginButton()}
-                                    onClick={this.loginUser}>
-                                Login
-                            </Button>
-                            <Button id="reset" type="reset" variant="contained">Dismiss</Button>
-                        </Grid>
-                        <Link to={'/register'}>Not registered yet?</Link>
+                    <Grid item alignContent="center">
+                        <Button id="submit" type="submit" variant="contained" color="primary"
+                                className={classes.button}
+                                disabled={this.showLoginButton()}
+                                onClick={this.loginUser}>
+                            Login
+                        </Button>
+                        <Button id="reset" type="reset" variant="contained">Dismiss</Button>
                     </Grid>
-                </Paper>
-            </Page>
+                    <Link to={'/register'}>Not registered yet?</Link>
+                </Grid>
+            </Paper>
         );
     }
 }

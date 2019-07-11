@@ -4,17 +4,19 @@ import HttpService from './HttpService';
 
 export default class CourseService {
 
-    constructor(){
+    constructor() {
     }
 
-    static baseURL() {return "http://localhost:3000/courses" }
+    static baseURL() {
+        return "http://localhost:3000/courses"
+    }
 
-    static getCourses(){
+    static getCourses() {
         return new Promise((resolve, reject) => {
-            HttpService.get(this.baseURL(), function(data) {
+            HttpService.get(this.baseURL(), function (data) {
                 resolve(data);
 
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
@@ -22,14 +24,13 @@ export default class CourseService {
 
     static getCourse(id) {
         return new Promise((resolve, reject) => {
-            HttpService.get(`${CourseService.baseURL()}/${id}`, function(data) {
-                if(data != undefined || Object.keys(data).length !== 0) {
+            HttpService.get(`${CourseService.baseURL()}/${id}`, function (data) {
+                if (data != undefined || Object.keys(data).length !== 0) {
                     resolve(data);
+                } else {
+                    reject('Error while retrieving the course');
                 }
-                else {
-                    reject('Error while retrieving movie');
-                }
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
@@ -54,9 +55,9 @@ export default class CourseService {
 
     static updateCourse(course) {
         return new Promise((resolve, reject) => {
-            HttpService.put(`${this.baseURL()}/${course._id}`, course, function(data) {
+            HttpService.put(`${this.baseURL()}/${course._id}`, course, function (data) {
                 resolve(data);
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
@@ -64,9 +65,9 @@ export default class CourseService {
 
     static createCourse(course) {
         return new Promise((resolve, reject) => {
-            HttpService.post(CourseService.baseURL(), course, function(data) {
+            HttpService.post(CourseService.baseURL(), course, function (data) {
                 resolve(data);
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
@@ -76,11 +77,11 @@ export default class CourseService {
      * Get all rated courses of a user
      * Author: Maria
      */
-    static listCoursesOfAUser(user){
+    static listCoursesOfAUser(user) {
         return new Promise((resolve, reject) => {
-            HttpService.get(`${CourseService.baseURL()}/ratings/user/${user._id}`, function(data) {
+            HttpService.get(`${CourseService.baseURL()}/ratings/user/${user._id}`, function (data) {
                 resolve(data);
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });

@@ -50,14 +50,14 @@ export default class UserService {
     }
 
     static getLoggedInUserInfo() {
-        return new Promise ((resolve, reject) => {
-        HttpService.get(`${UserService.baseURL()}/me`, function (data) {
-            resolve(data);
-        }, function (textStatus) {
-            reject(textStatus);
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${UserService.baseURL()}/me`, function (data) {
+                resolve(data);
+            }, function (textStatus) {
+                reject(textStatus);
+            });
         });
-    });
-}
+    }
 
     static getCurrentUser() {
         let token = window.localStorage['jwtToken'];
@@ -74,9 +74,16 @@ export default class UserService {
         };
     }
 
-    static updateUser(userData) {
+    static updateUser(userData, userType) {
+        let path = "";
+        if (userType) {
+            path = "/updateUniUserProfile"
+        } else {
+            path = "/updateStudentProfile"
+        }
+
         return new Promise((resolve, reject) => {
-            HttpService.put(`${UserService.baseURL()}/updateProfile`, userData, function (data) {
+            HttpService.put(`${UserService.baseURL()}/${path}`, userData, function (data) {
                 resolve(data);
             }, function (textStatus) {
                 reject(textStatus);

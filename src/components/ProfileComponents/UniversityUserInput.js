@@ -6,6 +6,8 @@ import {withStyles} from "@material-ui/core/styles";
 
 import {TextField, Grid, FormControl, InputLabel, Select, MenuItem, FormHelperText} from "@material-ui/core";
 import {withRouter} from "react-router-dom";
+import CourseService from "../../services/CourseService";
+import UniversityService from "../../services/UniversityService";
 
 /**
  *UniversityUserInput
@@ -40,30 +42,39 @@ class UniversityUserInput extends React.Component {
                 authorizationValid: false
             },
             textUni: "University required",
+            textCourses: "Course required",
             textFac: "Faculty required",
             textChair: "Chair required",
             textAuthorization: "Authorization required",
-            universityId: ""
+            universityId: "",
+            courses: [],
+            coursesWithUniId: []
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleDropdown = this.handleDropdown.bind(this);
         this.showUniverisitiesInDropdown = this.showUniverisitiesInDropdown.bind(this);
+        this.showCoursesInDropDown = this.showCoursesInDropDown.bind(this);
+        this.handleCourseChange = this.handleCourseChange.bind(this);
     }
 
     componentWillMount() {
-        if (this.props.profile){
+        if (this.props.profile) {
+            this.getCoursesDependingOnSelectedUni(this.props.user.university)
             this.setState({
                 validations: {
                     uniValid: true,
                     facValid: true,
-                    chairValid:true,
-                    authorizationValid: true},
-                    universityId: this.props.user.university,
-                    textUni: '',
-                    textChair: '',
-                    textFac: '',
-                    textAuthorization: ''
+                    chairValid: true,
+                    authorizationValid: true,
+                    coursesValid: true
+                },
+                universityId: this.props.user.university,
+                textUni: '',
+                textCourses: '',
+                textChair: '',
+                textFac: '',
+                textAuthorization: ''
             })
         }
         this.setState({
@@ -92,7 +103,6 @@ class UniversityUserInput extends React.Component {
                 }
                 break;
             case "Authorization":
-                //TODO: safe AuthorizationKey in backend
                 if (value === "uni42") {
                     fieldValid = true;
                 } else {
@@ -116,28 +126,42 @@ class UniversityUserInput extends React.Component {
                 this.props.user.faculty = value;
                 this.setState({
                     facValid: valid[0],
-                    textFac: valid[1]});
+                    textFac: valid[1]
+                });
                 break;
             case "Chair":
                 this.props.validations.chairValid = valid[0];
                 this.props.user.chair = value;
                 this.setState({
                     chairValid: valid[0],
-                    textChair: valid[1]});
+                    textChair: valid[1]
+                });
                 break;
             case "Authorization":
                 this.props.validations.authorizationValid = valid[0];
                 this.props.user.authorization = value;
                 this.setState({
                     authorizationValid: valid[0],
-                    textAuthorization: valid[1]});
+                    textAuthorization: valid[1]
+                });
             default:
                 console.log("error")
         }
         this.props.onUpdate();
-        if(this.props.profile){
+        if (this.props.profile) {
             this.props.resetSaveButton()
         }
+    }
+
+    getCoursesDependingOnSelectedUni(university) {
+        UniversityService.getCoursesFromUniversity(university)
+            .then(courses =>
+                this.setState({
+                    coursesWithUniId: courses
+                })
+            ).catch((e) => {
+            console.error(e)
+        });
     }
 
     handleDropdown(e) {
@@ -147,45 +171,89 @@ class UniversityUserInput extends React.Component {
             universityId: e.target.value,
             textUni: ""
         });
+        this.getCoursesDependingOnSelectedUni(e.target.value);
         this.props.onUpdate();
-        if(this.props.profile){
+        if (this.props.profile) {
             this.props.resetSaveButton()
         }
-
     }
 
-    showUniverisitiesInDropdown(universities){
+    showUniverisitiesInDropdown(universities) {
         return universities.map((item, i) => {
-                return (<MenuItem key={i} value={item._id}> {item.name} </MenuItem>);
+            return (<MenuItem key={i} value={item._id}> {item.name} </MenuItem>);
+        })
+    }
+
+    showCoursesInDropDown(courses) {
+        return courses.map(course => (
+            <MenuItem key={course._id} value={course._id}>
+                {course.name}
+            </MenuItem>
+        ))
+    }
+
+    handleCourseChange(event) {
+        let value = event.target.value;
+        this.props.user.courses = value;
+        if (value.length !== 0) {
+            this.props.validations.coursesValid = true;
+            this.setState({
+                textCourses: ""
+            });
+        } else {
+            this.props.validations.coursesValid = false;
+            this.setState({
+                textCourses: "Course required"
             })
+        }
+        this.props.onUpdate();
+        if (this.props.profile) {
+            this.props.resetSaveButton()
+        }
     }
 
     render() {
         let authorizationField = <TextField
-                                    label="Authorization"
-                                    id="Authorization"
-                                    type="text"
-                                    required={true}
-                                    value={this.props.user.authorization}
-                                    onChange={this.handleChange}
-                                    helperText={this.state.textAuthorization}
-                                    variant="standard"
-                                    error={!this.props.validations.authorizationValid}
-                                    margin="dense"/>;
+            label="Authorization"
+            id="Authorization"
+            type="text"
+            required={true}
+            value={this.props.user.authorization}
+            onChange={this.handleChange}
+            helperText={this.state.textAuthorization}
+            variant="standard"
+            error={!this.props.validations.authorizationValid}
+            margin="dense"/>;
         const classes = this.props;
         return (
             <Grid container direction="column">
-                <FormControl  className={classes.formControl}
-                                  error={!this.props.validations.uniValid}>
+                <FormControl className={classes.formControl}
+                             error={!this.props.validations.uniValid}>
                     <InputLabel> University </InputLabel>
                     <Select
                         value={this.state.universityId}
                         onChange={this.handleDropdown}
-                        >
+                    >
                         {this.showUniverisitiesInDropdown(this.props.universities)}
                     </Select>
                     <FormHelperText>{this.state.textUni}</FormHelperText>
                 </FormControl>
+
+
+                <FormControl className={classes.formControl}
+                             error={!this.props.validations.coursesValid}>
+                    <InputLabel htmlFor="select-multiple">Course</InputLabel>
+                    <Select
+                        multiple
+                        value={this.props.user.courses}
+                        onChange={this.handleCourseChange}
+                    >
+                        {this.showCoursesInDropDown(this.state.coursesWithUniId)}
+                    </Select>
+                    <FormHelperText>{this.state.textCourses}</FormHelperText>
+                </FormControl>
+
+
                 <TextField
                     label="Faculty"
                     id="Faculty"

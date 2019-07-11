@@ -31,20 +31,21 @@ const styles = theme => ({
 });
 
 
-class UserLogin extends React.Component {
+class Login extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            user:{
+            user: {
                 username: '',
                 password: '',
             },
-        validations: {
+            validations: {
                 usernameValid: false,
                 passwordValid: false
-        },
-            sthTyped: false};
+            },
+            sthTyped: false
+        };
 
         this.handleCancel = this.handleCancel.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -61,7 +62,7 @@ class UserLogin extends React.Component {
         })
     }
 
-    handleSubmit(){
+    handleSubmit() {
         this.props.onSubmit(this.state.user)
     }
 
@@ -82,33 +83,33 @@ class UserLogin extends React.Component {
     render() {
         const {classes} = this.props;
         return (
-            <Page>
-                <Paper className={classes.paper}>
-                    <UserInput  user ={this.state.user}
-                                login={true}
-                                onUpdate={this.handleUpdate}
-                                validations={this.state.validations}
-                                error={this.props.error}
-                    />
-                        <Grid item alignContent="center">
-                            <Button id="submit" type="submit" variant="contained" color="primary"
-                                    className={classes.button}
-                                    disabled={this.showLoginButton()}
-                                    onClick={this.handleSubmit}>
-                                Login
-                            </Button>
-                            <Button id="reset"
-                                    type="reset"
-                                    variant="contained"
-                                    onClick={this.handleCancel}
-                                    disabled={!this.state.sthTyped}
-                            >Dismiss</Button>
-                        </Grid>
-                        <Link to={'/register'}>Not registered yet?</Link>
-                </Paper>
-            </Page>
+
+            <Paper className={classes.paper}>
+                <UserInput user={this.state.user}
+                           login={true}
+                           onUpdate={this.handleUpdate}
+                           validations={this.state.validations}
+                           error={this.props.error}
+                />
+                <Grid item alignContent="center">
+                    <Button id="submit" type="submit" variant="contained" color="primary"
+                            className={classes.button}
+                            disabled={this.showLoginButton()}
+                            onClick={this.handleSubmit}>
+                        Login
+                    </Button>
+                    <Button id="reset"
+                            type="reset"
+                            variant="contained"
+                            onClick={this.handleCancel}
+                            disabled={!this.state.sthTyped}
+                    >Dismiss</Button>
+                </Grid>
+                <Link to={'/register'}>Not registered yet?</Link>
+            </Paper>
+
         );
     }
 }
 
-export default withRouter(withStyles(styles)(UserLogin));
+export default withRouter(withStyles(styles)(Login));
