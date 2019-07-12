@@ -99,8 +99,9 @@ export class CourseView extends React.Component {
             return (<h2>Loading...</h2>);
         } else {
             console.log(this.state.course);
-            if(this.state.universityuser){
-                return(<CourseStatistics course={this.state.course} loggedInUser={this.state.user} />);
+            if(this.state.universityuser) {
+                return (<CourseStatistics course={this.state.course} rate={this.rateCourse}
+                                          loggedInUser={this.state.user}/>);
             }
             else{
                 return (
