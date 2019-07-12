@@ -15,7 +15,7 @@ import {StudyplanView} from './views/StudyplanView';
 import { CourseListView } from './views/CourseListView';
 import {CreateStudyplanQueryView} from './views/CreateStudyplanQueryView';
 import {ProfileView} from "./views/ProfileViews/ProfileView";
-//import {Welcome} from "./components/Welcome"
+import {Welcome} from "./components/Welcome"
 
 import {CourseView} from "./views/CourseView"
 
@@ -37,7 +37,7 @@ export default class App extends React.Component {
                 { component: LoadStudyplanView, path: '/', exact:true},
                 { component: LoadStudyplanView, path: '/profile/studyplans'},
                 { component: CreateStudyplanQueryView, path: '/home'},
-               // { component: Welcome, path: '/home'},
+                { component: Welcome, path: '/welcome'},
                // {component: CreateStudyplanView, path:'/home/:id'},
                 { component: MovieDetailView , path: '/show/:id'},
                 { component: ProfileView , path: '/profile'},

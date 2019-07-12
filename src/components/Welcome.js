@@ -4,30 +4,33 @@ import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core";
-
+import {Paper} from "@material-ui/core";
+import {withStyles} from "@material-ui/core/styles"
 
 const styles = theme => ({
     paper: {
         padding: theme.spacing(2),
         margin: "10px",
-        //textAlign: "center",
     },
     button: {
         marginRight: theme.spacing(2),
     },
 });
 
-export class Welcome extends React.component {
+export class Welcome extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
 
     render() {
         const {classes} = this.props;
 
-        if (this.state.loading) {
+       /* if (this.state.loading) {
             return (<h2>Loading...</h2>);
-        }
+        }*/
         return (
-            <Paper className={classes.paper}>
+            <Paper>
                 <Grid item style={{flexGrow: 1}} xs={8}>
                     <Grid container direction="column" spacing={1}>
                         <Grid item alignContent="center">
@@ -44,7 +47,6 @@ export class Welcome extends React.component {
                                     <Button
                                         variant="contained"
                                         color="primary"
-                                        //onClick={go to sign in page}
                                     >SignIn
                                     </Button>
                                 </Grid>
@@ -52,7 +54,6 @@ export class Welcome extends React.component {
                                     <Button
                                         variant="contained"
                                         color="primary"
-                                        //onClick={/*go to Studyplan page}
                                     >Start your Studyplan
                                     </Button>
                                 </Grid>
@@ -64,6 +65,7 @@ export class Welcome extends React.component {
         )
     }
 }
+
 
 
 
