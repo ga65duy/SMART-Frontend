@@ -2,25 +2,15 @@
 
 import React from 'react';
 
-import {TextField, Button, Paper, Grid, RadioGroup, FormControlLabel, Radio, IconButton, InputAdornment} from "@material-ui/core";
+import {TextField, Grid, RadioGroup, FormControlLabel, Radio, IconButton, InputAdornment} from "@material-ui/core";
 import {Visibility, VisibilityOff} from "@material-ui/icons";
 import {withRouter} from "react-router-dom";
 
 /**
  *User Input
- * Component for the fields for registration, which has the university user and student in common
+ * Component for the fields for registration and profile, which has the university user and student in common
  * Author: Maria
  */
-const styles = theme => ({
-    paper: {
-        padding: theme.spacing(2),
-        margin: "10px",
-        textAlign: "center",
-    },
-    button: {
-        marginRight: theme.spacing(2),
-    },
-});
 
 class UserInput extends React.Component {
 
@@ -33,11 +23,6 @@ class UserInput extends React.Component {
             showEmailField: true,
             showUserTypeSelection: true,
 
-            validations: {
-                usernameValid: false,
-                emailValid: false,
-                passwordValid: false
-            },
             textUser: 'Username required',
             textEmail: 'Email required',
             textPassword: 'Password required',
@@ -63,13 +48,9 @@ class UserInput extends React.Component {
             this.setState({
                 showUserTypeSelection: false,
                 showEmailField: false,
-                textUser: '',
-                textPassword: '',})
+                textUser: 'Username required',
+                textPassword: 'Password required',})
         }
-
-        this.setState({
-            validations: this.props.validations
-        });
     }
 
     componentDidUpdate(prevProps) {
@@ -83,14 +64,9 @@ class UserInput extends React.Component {
                         textUser: "Username or password invalid",
                         textPassword: "Username or password invalid"
                     })
-
                 } else {
                     this.props.validations.usernameValid = false;
                     this.setState({
-                        validations: {
-                            ...this.state.validations,
-                            usernameValid: false
-                        },
                         textUser: "User already exists"
                     });
                 }
@@ -129,7 +105,7 @@ class UserInput extends React.Component {
         return [fieldValid, message]
     }
 
-    handleClickShowPassword(e) {
+    handleClickShowPassword() {
         this.setState({showPassword: !this.state.showPassword})
     }
 
@@ -142,7 +118,6 @@ class UserInput extends React.Component {
                 this.props.validations.usernameValid = valid[0];
                 this.props.user.username = value;
                 this.setState({
-                    usernameValid: valid[0],
                     textUser: valid[1]
                 });
                 break;
@@ -150,7 +125,6 @@ class UserInput extends React.Component {
                 this.props.validations.emailValid = valid[0];
                 this.props.user.email = value;
                 this.setState({
-                    emailValid: valid[0],
                     textEmail: valid[1]
                 });
                 break;
@@ -158,7 +132,6 @@ class UserInput extends React.Component {
                 this.props.validations.passwordValid = valid[0];
                 this.props.user.password = value;
                 this.setState({
-                    passwordValid: valid[0],
                     textPassword: valid[1]
                 });
                 break;
@@ -237,6 +210,6 @@ class UserInput extends React.Component {
                     </Grid>
         );
     }
-};
+}
 
 export default withRouter(UserInput);

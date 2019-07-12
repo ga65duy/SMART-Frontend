@@ -1,19 +1,17 @@
 "use strict";
 
 import React from 'react';
-
-import {withStyles} from "@material-ui/core/styles";
-
-import {TextField, Grid, FormControl, InputLabel, Select, MenuItem, FormHelperText} from "@material-ui/core";
 import {withRouter} from "react-router-dom";
-import CourseService from "../../services/CourseService";
+import {TextField, Grid, FormControl, InputLabel, Select, MenuItem, FormHelperText} from "@material-ui/core";
+import {withStyles} from "@material-ui/core/styles";
 import UniversityService from "../../services/UniversityService";
 
 /**
  *UniversityUserInput
- * Component for the fields, which are needed for the university user in registration
+ * Component for the fields, which are needed for the university user in registration and his profile
  * Author: Maria
  */
+
 const styles = theme => ({
     paper: {
         padding: theme.spacing(2),
@@ -35,20 +33,13 @@ class UniversityUserInput extends React.Component {
         super(props);
 
         this.state = {
-            validations: {
-                uniValid: false,
-                facValid: false,
-                chairValid: false,
-                authorizationValid: false
-            },
             textUni: "University required",
             textCourses: "Course required",
             textFac: "Faculty required",
             textChair: "Chair required",
             textAuthorization: "Authorization required",
-            universityId: "",
-            courses: [],
-            coursesWithUniId: []
+            coursesWithUniId: [],
+            enableUniversities: true
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -60,26 +51,16 @@ class UniversityUserInput extends React.Component {
 
     componentWillMount() {
         if (this.props.profile) {
-            this.getCoursesDependingOnSelectedUni(this.props.user.university)
+            this.getCoursesDependingOnSelectedUni(this.props.user.university);
             this.setState({
-                validations: {
-                    uniValid: true,
-                    facValid: true,
-                    chairValid: true,
-                    authorizationValid: true,
-                    coursesValid: true
-                },
-                universityId: this.props.user.university,
                 textUni: '',
                 textCourses: '',
                 textChair: '',
                 textFac: '',
-                textAuthorization: ''
+                textAuthorization: '',
+                enableUniversities: false
             })
         }
-        this.setState({
-            validations: this.props.validations
-        })
     }
 
     validateInput(value, field) {
@@ -109,8 +90,9 @@ class UniversityUserInput extends React.Component {
                     fieldValid = false;
                     message = "Invalid " + field;
                 }
-            default:
                 break;
+            default:
+                console.log("error")
         }
         return [fieldValid, message]
     }
@@ -125,7 +107,6 @@ class UniversityUserInput extends React.Component {
                 this.props.validations.facValid = valid[0];
                 this.props.user.faculty = value;
                 this.setState({
-                    facValid: valid[0],
                     textFac: valid[1]
                 });
                 break;
@@ -133,7 +114,6 @@ class UniversityUserInput extends React.Component {
                 this.props.validations.chairValid = valid[0];
                 this.props.user.chair = value;
                 this.setState({
-                    chairValid: valid[0],
                     textChair: valid[1]
                 });
                 break;
@@ -141,9 +121,9 @@ class UniversityUserInput extends React.Component {
                 this.props.validations.authorizationValid = valid[0];
                 this.props.user.authorization = value;
                 this.setState({
-                    authorizationValid: valid[0],
                     textAuthorization: valid[1]
                 });
+                break;
             default:
                 console.log("error")
         }
@@ -168,7 +148,6 @@ class UniversityUserInput extends React.Component {
         this.props.user.university = e.target.value;
         this.props.validations.uniValid = true;
         this.setState({
-            universityId: e.target.value,
             textUni: ""
         });
         this.getCoursesDependingOnSelectedUni(e.target.value);
@@ -227,11 +206,11 @@ class UniversityUserInput extends React.Component {
         const classes = this.props;
         return (
             <Grid container direction="column">
-                <FormControl className={classes.formControl}
+                <FormControl className={classes.formControl} disabled={!this.state.enableUniversities}
                              error={!this.props.validations.uniValid}>
                     <InputLabel> University </InputLabel>
                     <Select
-                        value={this.state.universityId}
+                        value={this.props.user.university}
                         onChange={this.handleDropdown}
                     >
                         {this.showUniverisitiesInDropdown(this.props.universities)}

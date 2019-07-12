@@ -5,11 +5,7 @@ import React from 'react';
 import {withStyles} from "@material-ui/core/styles";
 import {withRouter, Link} from 'react-router-dom';
 
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Page from '../Page';
-import {Grid, Paper} from "@material-ui/core";
-import UserService from "../../services/UserService";
+import {Grid, Paper, Button} from "@material-ui/core";
 import UserInput from "./UserInput";
 
 /**

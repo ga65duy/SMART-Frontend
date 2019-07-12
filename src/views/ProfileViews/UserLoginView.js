@@ -1,17 +1,15 @@
 "use strict";
 
 import React from 'react';
-
-import UserLogin from '../../components/ProfileComponents/UserLogin';
 import Login from '../../components/ProfileComponents/Login'
-
 import UserService from '../../services/UserService';
 
 /**
  * UserLoginView
- *
+ * Shows the login fields to log into the account
  * Author: Maria
  */
+
 export class UserLoginView extends React.Component {
 
     constructor(props) {
@@ -20,9 +18,8 @@ export class UserLoginView extends React.Component {
         this.login = this.login.bind(this)
     }
 
-
     login(user) {
-        UserService.login(user.username, user.password).then((data) => {
+        UserService.login(user.username, user.password).then(() => {
             this.props.history.push('/');
         }).catch((e) => {
             console.error(e);
@@ -33,11 +30,8 @@ export class UserLoginView extends React.Component {
     }
 
     render() {
-        return(
-            <Login onSubmit={this.login} error={this.state.error}> </Login>
+        return (
+            <Login onSubmit={this.login} error={this.state.error}/>
         )
-        // return (
-        //   <UserLogin onSubmit={(user) => this.login(user)} error={this.state.error}/>
-        // );
     }
 }
