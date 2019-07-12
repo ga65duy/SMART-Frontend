@@ -1,9 +1,10 @@
 "use strict";
 import React from 'react'
 import Page from "./Page";
-import {Grid, Typography} from "@material-ui/core";
+import {Box, Grid, Typography} from "@material-ui/core";
 import {RatingPostList} from "./RatingComponents/RatingPostList";
 import Stars from "./RatingComponents/Stars";
+import ReactStars from "react-stars";
 
 /**
  * CourseStatistics
@@ -30,12 +31,83 @@ export class CourseStatistics extends React.Component {
                         <Grid item>                                         /* Row for statistics*/
                             /*ToDo: Calculate statistics*/
                         </Grid>
+
                         <Grid item>                                         /* all avg Ratings*/
-                            <Stars rating={this.props.rating.overallRating} name={"Total Rating"} /*clicked={this.handleRatingChange}*/ postExisting={this.props.postExisting}/>
-                            <Stars rating={this.props.rating.lecturerRating} name={"Lecturer"} /*clicked={this.handleRatingChange}*/ postExisting={this.props.postExisting}/>
-                            <Stars rating={this.props.rating.contentRating} name = {"Content"} /*clicked={this.handleRatingChange}*/ postExisting={this.props.postExisting}/>
-                            <Stars rating={this.props.rating.examRating} name = {"Exam"} /*clicked={this.handleRatingChange}*/ postExisting={this.props.postExisting}/>
+                            <Grid container direction="row" justify={"space-between"} spacing={2}>
+                                <Grid item>
+                                    <Typography variant="p" color={"primary"} gutterBottom>
+                                        {"Average total rating"}
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Box m={-1}>
+                                        <ReactStars
+                                            value={this.props.course.avgRatingOverall}
+                                            size={20}
+                                            color1={"#BDBDBD"}
+                                            color2={"#FFB90F"}
+                                            edit={false}
+                                        />
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                            <Grid container direction="row" justify={"space-between"} spacing={2}>
+                                <Grid item>
+                                    <Typography variant="p" color={"primary"} gutterBottom>
+                                        {"Average lecturer rating"}
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Box m={-1}>
+                                        <ReactStars
+                                            value={this.props.course.lecturerRating}
+                                            size={20}
+                                            color1={"#BDBDBD"}
+                                            color2={"#FFB90F"}
+                                            edit={false}
+                                        />
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                            <Grid container direction="row" justify={"space-between"} spacing={2}>
+                                <Grid item>
+                                    <Typography variant="p" color={"primary"} gutterBottom>
+                                        {"Average content rating"}
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Box m={-1}>
+                                        <ReactStars
+                                            value={this.props.course.contentRating}
+                                            size={20}
+                                            color1={"#BDBDBD"}
+                                            color2={"#FFB90F"}
+                                            edit={false}
+                                        />
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                            <Grid container direction="row" justify={"space-between"} spacing={2}>
+                                <Grid item>
+                                    <Typography variant="p" color={"primary"} gutterBottom>
+                                        {"Average exam rating"}
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Box m={-1}>
+                                        <ReactStars
+                                            value={this.props.course.examRating}
+                                            size={20}
+                                            color1={"#BDBDBD"}
+                                            color2={"#FFB90F"}
+                                            edit={false}
+                                        />
+                                    </Box>
+                                </Grid>
+                            </Grid>
                         </Grid>
+
+
                         <Grid item>                                         /* Row all comments*/
                             <RatingPostList ratings={this.props.course.ratings} deleteRating={this.deleteRating}
                                                       loggedInUser={this.props.loggedInUser}/>
