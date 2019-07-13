@@ -25,11 +25,9 @@ export default class StudyplanList extends React.Component {
 
     render() {
         return (
-            <Page>
                 <Grid>
                     {this.getStudyplanListItems(this.props.studyplans)}
                 </Grid>
-            </Page>
         )
     }
 }

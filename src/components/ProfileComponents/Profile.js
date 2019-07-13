@@ -91,6 +91,7 @@ class Profile extends React.Component {
 
     handleSave() {
         this.props.updateProfile();
+        this.props.updatesidebar();
     }
 
     handleCancel() {
@@ -118,9 +119,9 @@ class Profile extends React.Component {
                                                   universities={this.props.universities}
                                                   onUpdate={this.changedFields}
                                                   validations={this.state.validations}
-                                                  resetSaveButton={this.props.resetSaveButton}/>;
+                                                  resetSaveButton={this.props.resetSaveButton}
+                                                  />;
         return (
-            <Page>
                 <Paper className={classes.paper}>
                     <Typography> My Profile </Typography>
                     <UserInput user={this.state.user}
@@ -148,7 +149,6 @@ class Profile extends React.Component {
                         </Grid>
                     </Grid>
                 </Paper>
-            </Page>
         )
     }
 }

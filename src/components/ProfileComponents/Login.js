@@ -79,7 +79,6 @@ class Login extends React.Component {
     render() {
         const {classes} = this.props;
         return (
-
             <Paper className={classes.paper}>
                 <UserInput user={this.state.user}
                            login={true}
@@ -103,7 +102,6 @@ class Login extends React.Component {
                 </Grid>
                 <Link to={'/register'}>Not registered yet?</Link>
             </Paper>
-
         );
     }
 }

@@ -21,8 +21,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 const sideBar = theme => ({
     root: {
         width: '100%',
-
-        //maxWidth: 200,backgroundColor: theme.palette.background.paper,
+        maxWidth: 260,
     },
     nested: {
         paddingLeft: theme.spacing(4),
@@ -40,13 +39,14 @@ class SideBar extends React.Component {
         super(props);
 
         this.handleClick = this.handleClick.bind(this);
-        this.handleRatings = this.handleRatings.bind(this);
+        this.handleMyCoursesRatings = this.handleMyCoursesRatings.bind(this);
 
         this.state = {
             openProfile: false,
             openStudyplan: false,
             openRatings: false,
-            openCourse: false
+            openCourse: false,
+            openMyCourse: false
         };
 
         this.profile = this.profile.bind(this);
@@ -64,17 +64,18 @@ class SideBar extends React.Component {
         })
     }
 
-   getRatingsFromUser(ratingItems) {
+   getMyRatingsMyCourses(items) {
         console.log("list");
-        return ratingItems.map(item => {
-            return (<ListItem key={item["name"]} button onClick={() => this.handleRatings(item["_id"])}>
+        return items.map(item => {
+            return (<ListItem key={item["name"]} button onClick={() => this.handleMyCoursesRatings(item["_id"])}>
             <ListItemText primary={item["name"]} className={this.props.classes.nested}/>
             </ListItem>);
         })
    }
 
-   handleRatings(courseId){
-        location.href=`/#/courses/${courseId}`
+   handleMyCoursesRatings(courseId){
+        location.href=`/#/courses/${courseId}`;
+        location.reload();
    }
 
     handleClick(listItem) {
@@ -100,42 +101,63 @@ class SideBar extends React.Component {
                     openCourse: !this.state.openCourse
                 });
                 break;
+            case "My Courses":
+                this.setState({
+                    openMyCourse: !this.state.openMyCourse
+                })
         }
     }
     render() {
         const {classes} = this.props;
+        let studentContent = <List>
+                                <ListItem button href="/studyplans" onClick={() => this.handleClick("My Studyplans")}>
+                                    <ListItemText color="primary" primary="My Studyplans"/>
+                                    {this.state.openStudyplan ? <ExpandLess />: <ExpandMore/>}
+                                </ListItem>
+                                <Collapse in={this.state.openStudyplan}>
+                                    <List component="div" disablePadding>
+                                        {this.getStudyplanName(this.props.studyplans)}
+                                    </List>
+                                </Collapse>
+                                <ListItem button onClick={() => this.handleClick("My Ratings")}>
+                                    <ListItemText color="primary" primary="My Rating"/>
+                                    {this.state.openRatings ? <ExpandLess /> : <ExpandMore />}
+                                </ListItem>
+                                <Collapse in={this.state.openRatings}>
+                                    <List component="div" disablePadding>
+                                        {this.getMyRatingsMyCourses(this.props.courses)}
+                                    </List>
+                                </Collapse>
+                                <ListItem button onClick={() => this.handleClick("Courses")}>
+                                    <ListItemText primary="Courses"/>
+                                    {this.state.openCourse ? <ExpandLess />: <ExpandMore/>}
+                                </ListItem>
+                                <Collapse in={this.state.openCourse}>
+                                    <List component="div" disablePadding>
+                                        <ListItem button>
+                                            <ListItemText primary="ExampleCourse" className={classes.nested}/>
+                                        </ListItem>
+                                    </List>
+                                </Collapse>
+                            </List>;
+
+        let uniContent =  <List>
+                            <ListItem button onClick={() => this.handleClick("My Courses")}>
+                                <ListItemText primary="My Courses"/>
+                                {this.state.openMyCourse ? <ExpandLess />: <ExpandMore/>}
+                            </ListItem>
+                            <Collapse in={this.state.openMyCourse}>
+                                <List component="div" disablePadding>
+                                    {this.getMyRatingsMyCourses(this.props.courses)}
+                                </List>
+                            </Collapse>
+                        </List>;
+
         return (
             <Paper square={true} >
                 <List className={classes.root} id="SideBarListID">
-                    <ListItem button href="/studyplans" onClick={() => this.handleClick("My Studyplans")}>
-                        <ListItemText color="primary" primary="My Studyplans"/>
-                        {this.state.openStudyplan ? <ExpandLess />: <ExpandMore/>}
-                    </ListItem>
-                    <Collapse in={this.state.openStudyplan}>
-                        <List component="div" disablePadding>
-                            {this.getStudyplanName(this.props.studyplans)}
-                        </List>
-                    </Collapse>
-                    <ListItem button onClick={() => this.handleClick("My Ratings")}>
-                        <ListItemText color="primary" primary="My Rating"/>
-                        {this.state.openRatings ? <ExpandLess /> : <ExpandMore />}
-                    </ListItem>
-                    <Collapse in={this.state.openRatings}>
-                        <List component="div" disablePadding>
-                            {this.getRatingsFromUser(this.props.ratedCoursesFromUser)}
-                        </List>
-                    </Collapse>
-                    <ListItem button onClick={() => this.handleClick("Courses")}>
-                        <ListItemText primary="Courses"/>
-                        {this.state.openCourse ? <ExpandLess />: <ExpandMore/>}
-                    </ListItem>
-                    <Collapse in={this.state.openCourse}>
-                        <List component="div" disablePadding>
-                            <ListItem button>
-                                <ListItemText primary="ExampleCourse" className={classes.nested}/>
-                            </ListItem>
-                        </List>
-                    </Collapse>
+
+                    {this.props.loggedInUser.isUniversityUser ? uniContent : studentContent}
                     <ListItem button onClick={this.profile}>
                         <ListItemText> Profile</ListItemText>
                     </ListItem>

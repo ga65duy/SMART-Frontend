@@ -1,6 +1,7 @@
 import React from "react";
 import StudyplanList from "../components/StudyplanList";
 import StudyplanService from '../services/StudyplanService';
+import Page from "../components/Page";
 
 /**
  * LoadStudyplanView
@@ -56,8 +57,9 @@ export class LoadStudyplanView extends React.Component {
         }
         else {
             return (
-                <StudyplanList remove={this.removeStudyplan} studyplans={this.state.studyplans}/>
-
+                <Page>
+                    <StudyplanList remove={this.removeStudyplan} studyplans={this.state.studyplans}/>
+                </Page>
             )
         }
     }

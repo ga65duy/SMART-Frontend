@@ -77,9 +77,19 @@ export default class CourseService {
      * Get all rated courses of a user
      * Author: Maria
      */
-    static listCoursesOfAUser(user) {
+    static listCoursesWithRatingsOfUser(user) {
         return new Promise((resolve, reject) => {
             HttpService.get(`${CourseService.baseURL()}/ratings/user/${user._id}`, function (data) {
+                resolve(data);
+            }, function (textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
+    static listUniUserCourses(user) {
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${CourseService.baseURL()}/user/${user._id}`, function (data) {
                 resolve(data);
             }, function (textStatus) {
                 reject(textStatus);

@@ -56,32 +56,52 @@ export default class Page extends React.Component {
     }
 
     componentWillMount() {
+
         this.setState({
             title: document.title,
             loading: true
         });
-        this.updateSideBar();
+
+        UserService.getLoggedInUserInfo().then((user) => {
+            this.setState({
+                loggedInUser: user
+            });
+            this.updateSideBar();
+        });
     }
 
     updateSideBar(){
-        StudyplanService.getStudyplan().then((studyplans) => {
-            UserService.getLoggedInUserInfo().then((user) =>
-                CourseService.listCoursesOfAUser(user).then((courses) => {
+        console.log("Updating sidebar");
+        const user = this.state.loggedInUser;
+        if(user.isUniversityUser){
+
+            CourseService.listUniUserCourses(user).then((courses) =>{
+                console.log(courses);
+                this.setState({
+                    courses: courses,
+                    loading: false
+                })
+            }).catch((e) => {
+                console.error(e);
+            })
+
+        } else {
+
+            StudyplanService.getStudyplan().then((studyplans) => {
+                CourseService.listCoursesWithRatingsOfUser(user).then((courses) => {
                     this.setState({
-                        ratedCoursesFromUser: courses,
-                        //loggedInUser: user,
+                        courses: courses,
                         studyplans: studyplans,
                         loading: false
                     });
                 }).catch((e) => {
                     console.error(e);
-                }))
+                })
                 .catch((e) => {
                     console.error(e);
-                });
-        }).catch((e) => {
-            console.error(e);
-        });
+                })
+            })
+        }
     }
 
 
@@ -104,7 +124,7 @@ export default class Page extends React.Component {
                         <Grid item>
                             <Grid container direction="column" spacing={1}>
                                 <Grid item>
-                                    <SideBar studyplans={this.state.studyplans} ratedCoursesFromUser={this.state.ratedCoursesFromUser}/>
+                                    <SideBar studyplans={this.state.studyplans} courses={this.state.courses} loggedInUser={this.state.loggedInUser}/>
                                 </Grid>
                                 <Grid item>
                                     <div style={{

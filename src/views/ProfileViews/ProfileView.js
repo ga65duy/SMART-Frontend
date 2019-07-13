@@ -2,6 +2,7 @@ import React from "react";
 import Profile from "../../components/ProfileComponents/Profile";
 import UserService from "../../services/UserService";
 import UniversityService from "../../services/UniversityService";
+import Page from "../../components/Page";
 
 /**
  * ProfileView
@@ -62,9 +63,11 @@ export class ProfileView extends React.Component {
             return (<h2>Loading...</h2>);
         }
         return (
-            <Profile user={this.state.user} universities={this.state.universities}
-                     updateProfile={this.updateProfile} resetSaveButton={this.resetSaveButton}
-                     userUpdated={this.state.userUpdated}/>
+            <Page>
+                <Profile user={this.state.user} universities={this.state.universities}
+                         updateProfile={this.updateProfile} resetSaveButton={this.resetSaveButton}
+                         userUpdated={this.state.userUpdated}/>
+            </Page>
         );
     }
 }

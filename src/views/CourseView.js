@@ -6,6 +6,8 @@ import RateCourseService from "../services/RateCourseService";
 import UserService from "../services/UserService";
 import moment from "moment";
 import {CourseStatistics} from "../components/CourseStatistics";
+import Page from "../components/Page";
+
 
 /**
  * CourseView
@@ -107,8 +109,10 @@ export class CourseView extends React.Component {
             }
             else{
                 return (
-                   <CourseWithRatings course={this.state.course} rate={this.rateCourse} deleteRating={this.deleteRating}
-                                   loggedInUser={this.state.user}/>
+                    <Page>
+                       <CourseWithRatings course={this.state.course} rate={this.rateCourse} deleteRating={this.deleteRating}
+                                       loggedInUser={this.state.user}/>
+                    </Page>
             );}
         }
     }

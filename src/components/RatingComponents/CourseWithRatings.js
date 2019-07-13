@@ -72,9 +72,8 @@ class CourseWithRatings extends React.Component {
             </div>;
 
         let userAlreadyCommented =
-            this.state.alreadyPosted ? alreadyCommentedComponent : <RatingWithButtons rate={this.rate}/>;
+            this.state.alreadyPosted ? alreadyCommentedComponent : <RatingWithButtons rate={this.rate} updatesidebar={this.props.updatesidebar}/>;
         return (
-            <Page>
                 <Paper className={classes.paper}>
                     <Grid container direction="column" wrap="nowrap">
                         <Grid item>
@@ -141,11 +140,11 @@ class CourseWithRatings extends React.Component {
                         </Grid>
                         <Grid item>
                             <RatingPostList ratings={this.props.course.ratings} deleteRating={this.deleteRating}
-                                            loggedInUser={this.props.loggedInUser}/>
+                                            loggedInUser={this.props.loggedInUser} updatesidebar={this.props.updatesidebar}
+                                            />
                         </Grid>
                     </Grid>
                 </Paper>
-            </Page>
         );
     }
 }
