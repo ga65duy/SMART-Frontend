@@ -37,6 +37,7 @@ class RatingPost extends React.Component {
 
     deleteRating() {
         this.props.deleteRating(this.props.rating);
+        this.props.updatesidebar();
     }
 
     userIsAuthor() {

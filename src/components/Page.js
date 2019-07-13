@@ -27,6 +27,21 @@ const theme = createMuiTheme({
     }
 });
 
+function recursiveMap(children, fn) {
+    return React.Children.map(children, child => {
+        if (!React.isValidElement(child)) {
+            return child;
+        }
+
+        if (child.props.children) {
+            child = React.cloneElement(child, {
+                children: recursiveMap(child.props.children, fn)
+            });
+        }
+        return fn(child);
+    });
+}
+
 export default class Page extends React.Component {
 
     constructor(props) {
@@ -36,7 +51,8 @@ export default class Page extends React.Component {
             title: '',
             loading: true,
             studyplans: []
-        }
+        };
+        this.updateSideBar = this.updateSideBar.bind(this);
     }
 
     componentWillMount() {
@@ -44,12 +60,13 @@ export default class Page extends React.Component {
             title: document.title,
             loading: true
         });
+        this.updateSideBar();
+    }
 
+    updateSideBar(){
         StudyplanService.getStudyplan().then((studyplans) => {
             UserService.getLoggedInUserInfo().then((user) =>
                 CourseService.listCoursesOfAUser(user).then((courses) => {
-                    console.log(courses);
-                    console.log(user)
                     this.setState({
                         ratedCoursesFromUser: courses,
                         //loggedInUser: user,
@@ -65,11 +82,11 @@ export default class Page extends React.Component {
         }).catch((e) => {
             console.error(e);
         });
-
-
     }
 
+
     render() {
+        const childrenWithProps = recursiveMap(this.props.children, child => {return React.cloneElement(child, {updatesidebar: this.updateSideBar})});
         if (this.state.loading) {
             return (<h2>Loading...</h2>);
         }
@@ -102,7 +119,7 @@ export default class Page extends React.Component {
                         </Grid>
                         <Grid item style={{flexGrow: 1}} xs={8}>
                             <Grid item>
-                                {this.props.children}
+                                {childrenWithProps}
                             </Grid>
                         </Grid>
                         <Grid item xs={2}>
@@ -116,7 +133,6 @@ export default class Page extends React.Component {
                         </Grid>
                     </Grid>
                 </Grid>
-
                 <Grid item>
                     <Footer/>
                 </Grid>

@@ -94,6 +94,7 @@ class RatingWithButtons extends React.Component {
             comment: this.state.comment
         };
         this.props.rate(rating);
+        this.props.updatesidebar();
         this.handleCancel();
     }
 

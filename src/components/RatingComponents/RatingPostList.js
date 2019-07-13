@@ -24,7 +24,8 @@ export class RatingPostList extends React.Component {
             return (<Grid item>
                 <RatingPost rating={item}
                             deleteRating={this.props.deleteRating}
-                            loggedInUser={this.props.loggedInUser}/>
+                            loggedInUser={this.props.loggedInUser}
+                            updatesidebar={this.props.updatesidebar}/>
             </Grid>);
         })
     }

@@ -84,7 +84,7 @@ class SideBar extends React.Component {
                     openProfile: !this.state.openProfile
                 }) ;
                 break;
-            case "Studyplans":
+            case "My Studyplans":
                 this.setState({
                     openStudyplan: !this.state.openStudyplan
                 });
@@ -107,8 +107,8 @@ class SideBar extends React.Component {
         return (
             <Paper square={true} >
                 <List className={classes.root} id="SideBarListID">
-                    <ListItem button href="/studyplans" onClick={() => this.handleClick("Studyplans")}>
-                        <ListItemText color="primary" primary="Studyplans"/>
+                    <ListItem button href="/studyplans" onClick={() => this.handleClick("My Studyplans")}>
+                        <ListItemText color="primary" primary="My Studyplans"/>
                         {this.state.openStudyplan ? <ExpandLess />: <ExpandMore/>}
                     </ListItem>
                     <Collapse in={this.state.openStudyplan}>
@@ -117,7 +117,7 @@ class SideBar extends React.Component {
                         </List>
                     </Collapse>
                     <ListItem button onClick={() => this.handleClick("My Ratings")}>
-                        <ListItemText color="primary" primary="Rating"/>
+                        <ListItemText color="primary" primary="My Rating"/>
                         {this.state.openRatings ? <ExpandLess /> : <ExpandMore />}
                     </ListItem>
                     <Collapse in={this.state.openRatings}>
