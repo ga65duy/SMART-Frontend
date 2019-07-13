@@ -21,7 +21,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 const sideBar = theme => ({
     root: {
         width: '100%',
-        maxWidth: 260,
+        maxWidth: 230,
     },
     nested: {
         paddingLeft: theme.spacing(4),

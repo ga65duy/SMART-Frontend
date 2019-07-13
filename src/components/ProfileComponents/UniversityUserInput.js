@@ -204,14 +204,26 @@ class UniversityUserInput extends React.Component {
             error={!this.props.validations.authorizationValid}
             margin="dense"/>;
         const classes = this.props;
+        const ITEM_HEIGHT = 70;
+        const ITEM_PADDING_TOP = 8;
+        const MenuProps = {
+            PaperProps: {
+                style: {
+                    maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+                    width: 200,
+                },
+            },
+        };
         return (
             <Grid container direction="column">
                 <FormControl className={classes.formControl} disabled={!this.state.enableUniversities}
                              error={!this.props.validations.uniValid}>
                     <InputLabel> University </InputLabel>
                     <Select
+                        style={{maxWidth: 950}}
                         value={this.props.user.university}
                         onChange={this.handleDropdown}
+                        autoWidth={true}
                     >
                         {this.showUniverisitiesInDropdown(this.props.universities)}
                     </Select>
@@ -224,8 +236,10 @@ class UniversityUserInput extends React.Component {
                     <InputLabel htmlFor="select-multiple">Course</InputLabel>
                     <Select
                         multiple
+                        style={{maxWidth: 950}}
                         value={this.props.user.courses}
                         onChange={this.handleCourseChange}
+                        MenuProps={MenuProps}
                     >
                         {this.showCoursesInDropDown(this.state.coursesWithUniId)}
                     </Select>

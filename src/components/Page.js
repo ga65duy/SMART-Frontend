@@ -71,10 +71,8 @@ export default class Page extends React.Component {
     }
 
     updateSideBar(){
-        console.log("Updating sidebar");
         const user = this.state.loggedInUser;
         if(user.isUniversityUser){
-
             CourseService.listUniUserCourses(user).then((courses) =>{
                 console.log(courses);
                 this.setState({
