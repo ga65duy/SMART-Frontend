@@ -49,6 +49,7 @@
     "react-responsive": "^7.0.0",
     "react-router-dom": "4.2.2",
     "react-stars": "^2.2.5",
+    "react-vis": "^1.11.7",
     "styled-components": "3.1.6",
     "typeface-roboto": "0.0.54",
     "url-loader": "^2.0.0",
