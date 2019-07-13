@@ -19,6 +19,7 @@ import {Welcome} from "./components/Welcome"
 
 import {CourseView} from "./views/CourseView"
 
+import {CourseSelectionView} from "./views/CourseSelectionView"
 
 import UserService from "./services/UserService";
 
@@ -43,6 +44,7 @@ export default class App extends React.Component {
                 { component: ProfileView , path: '/profile'},
 
                 { component: CourseView, path: '/courses/:id'},
+                {component: CourseSelectionView, path: '/courses'},
 
                 { component: UserLoginView, path: '/login'},
                 { component: UserSignupView, path: '/register'},
@@ -90,7 +92,7 @@ export default class App extends React.Component {
 
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
-                            return (<ProfileView {... props} />)//Dummy for ProfileView
+                            return (<ProfileView {... props} />)
                         }
                         else {
                             return (<Redirect to={'/login'}/>)

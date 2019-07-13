@@ -35,6 +35,25 @@ export default class FieldOfStudyService {
         });
     }
 
+    /**
+     * Get all courses from a fos
+     * Author: Maria
+     */
+    static getCoursesForFos(id) {
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${FieldOfStudyService.baseURL()}/${id}/courses`, function(data) {
+                if(data != undefined || Object.keys(data).length !== 0) {
+                    resolve(data);
+                }
+                else {
+                    reject('Error while retrieving Field of Study');
+                }
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
     /*static deleteCourse(id) {
         return new Promise((resolve, reject) => {
             HttpService.remove(`${MovieService.baseURL()}/${id}`, function(data) {

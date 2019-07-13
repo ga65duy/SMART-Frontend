@@ -97,9 +97,11 @@ class SideBar extends React.Component {
                 }) ;
                 break;
             case "Courses":
-                this.setState({
+                /*this.setState({
                     openCourse: !this.state.openCourse
-                });
+                });*/
+                location.href=`/#/courses`;
+                location.reload();
                 break;
             case "My Courses":
                 this.setState({
@@ -129,8 +131,9 @@ class SideBar extends React.Component {
                                     </List>
                                 </Collapse>
                                 <ListItem button onClick={() => this.handleClick("Courses")}>
-                                    <ListItemText primary="Courses"/>
-                                    {this.state.openCourse ? <ExpandLess />: <ExpandMore/>}
+                                <ListItemText primary="Courses"/>
+                                </ListItem>
+                            {/*        {this.state.openCourse ? <ExpandLess />: <ExpandMore/>}
                                 </ListItem>
                                 <Collapse in={this.state.openCourse}>
                                     <List component="div" disablePadding>
@@ -138,7 +141,7 @@ class SideBar extends React.Component {
                                             <ListItemText primary="ExampleCourse" className={classes.nested}/>
                                         </ListItem>
                                     </List>
-                                </Collapse>
+                                </Collapse>*!/*/}
                             </List>;
 
         let uniContent =  <List>

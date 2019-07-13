@@ -40,6 +40,24 @@ export default class UniversityService {
         });
     }
 
+    /**
+     * Get all Fos from university by uniID
+     *Author: Maria
+     */
+    static getFosFromUniversity(universityId) {
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${UniversityService.baseURL()}/${universityId}/fos`, function (data) {
+                if (data != undefined || Object.keys(data).length !== 0) {
+                    resolve(data);
+                } else {
+                    reject('Error while retrieving fos from uni');
+                }
+            }, function (textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
 
     static updateUniversity(university) {
         return new Promise((resolve, reject) => {
