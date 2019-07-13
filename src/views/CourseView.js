@@ -44,8 +44,10 @@ export class CourseView extends React.Component {
                 console.error(e);
             });
         this.setState({
-            universityuser : UserService.getCurrentUser().isUniversityUser
-        })
+            isUniversityUser : UserService.getCurrentUser().isUniversityUser,
+
+        });
+
     }
 
     rateCourse(rating) {
@@ -99,7 +101,7 @@ export class CourseView extends React.Component {
             return (<h2>Loading...</h2>);
         } else {
             console.log(this.state.course);
-            if(this.state.universityuser) {
+            if(this.state.isUniversityUser) {
                 return (<CourseStatistics course={this.state.course} rate={this.rateCourse}
                                           loggedInUser={this.state.user}/>);
             }
