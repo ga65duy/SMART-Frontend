@@ -3,7 +3,7 @@ import React from 'react'
 
 import Page from "../components/Page";
 import CourseService from "../services/CourseService";
-import {CourseListWithDropDowns} from "../components/CourseSelection/CourseListWithDropDowns";
+import CourseListWithDropDowns from "../components/CourseSelection/CourseListWithDropDowns";
 import UniversityService from "../services/UniversityService";
 import FieldOfStudyService from "../services/FieldOfStudyService";
 
@@ -83,7 +83,6 @@ export class CourseSelectionView extends React.Component {
 
 
     render() {
-        console.log(this.state.courses)
         return (
             <Page>
                 <CourseListWithDropDowns courses={this.state.courses}
