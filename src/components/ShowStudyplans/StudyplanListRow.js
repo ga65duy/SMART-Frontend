@@ -48,12 +48,17 @@ class StudyplanListRow extends React.Component{
                         <Typography>{this.props.studyplan.img}</Typography>
                     </Grid>
                     <Grid item  container xs={2}>
-                        <Grid item container direction="column" >
+                        <Grid item container direction="column" spacing={2}>
                             <Grid item>
-                                <Button>Edit</Button>
+                                <Button variant="contained">
+                                    Edit
+                                </Button>
                             </Grid>
                             <Grid item>
-                                <Button onClick={this.handleRemove}>Delete</Button>
+                                <Button onClick={this.handleRemove}
+                                        variant="contained">
+                                    Delete
+                                </Button>
                             </Grid>
                         </Grid>
                     </Grid>
