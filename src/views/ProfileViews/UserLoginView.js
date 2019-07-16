@@ -20,7 +20,18 @@ export class UserLoginView extends React.Component {
 
     login(user) {
         UserService.login(user.username, user.password).then(() => {
-            this.props.history.push('/');
+            UserService.getLoggedInUserInfo().then((user) => {
+                if (user.isUniversityUser){
+                    this.props.history.push('/profile');
+                } else {
+                    this.props.history.push('/')
+                }
+            }).catch((e) => {
+                console.error(e);
+                this.setState({
+                    error: e
+                });
+            });
         }).catch((e) => {
             console.error(e);
             this.setState({
