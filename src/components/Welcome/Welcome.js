@@ -8,6 +8,8 @@ import { Paper } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import "./Welcome.css";
 import BackgroundImage from "../../Background.jpg";
+import Header from "../Header";
+import {Footer} from '../Footer';
 
 export class Welcome extends React.Component {
     constructor(props) {
@@ -33,7 +35,8 @@ export class Welcome extends React.Component {
                             <Grid item xs />
                             <Grid item xs={8}>
                                 <div className="welcome-topnav-content">
-                                    <h1>SMART Logo</h1>
+                                    <br />
+                                    <img href="/" src={require('../../Smart.jpg')}/>
                                     <div className="right-buttons">
                                         <Button variant="contained" color="primary">
                                             Sign In
@@ -99,6 +102,7 @@ export class Welcome extends React.Component {
                         </Grid>
                     </div>
                 </Grid>
+                <Footer />
             </Grid>
         );
     }
