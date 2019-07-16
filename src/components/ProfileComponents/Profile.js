@@ -123,7 +123,7 @@ class Profile extends React.Component {
                                                   />;
         return (
                 <Paper className={classes.paper}>
-                    <Typography> My Profile </Typography>
+                    <Typography variant="h4" color={"primary"} align={"center"} gutterBottom> My Profile </Typography>
                     <UserInput user={this.state.user}
                                profile={true}
                                onUpdate={this.changedFields}

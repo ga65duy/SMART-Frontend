@@ -1,5 +1,5 @@
 import React from "react";
-import StudyplanList from "../components/StudyplanList";
+import StudyplanList from "../components/ShowStudyplans/StudyplanList";
 import StudyplanService from '../services/StudyplanService';
 import Page from "../components/Page";
 

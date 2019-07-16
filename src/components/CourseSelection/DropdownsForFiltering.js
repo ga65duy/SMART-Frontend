@@ -1,7 +1,7 @@
 import React from "react";
-import {FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select} from "@material-ui/core";
-import{withStyles} from "@material-ui/core";
+import {FormControl, Grid, InputLabel, MenuItem, Select} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
+import Box from "@material-ui/core/Box";
 
 /**
  * DropdownsForFiltering
@@ -9,24 +9,7 @@ import TextField from "@material-ui/core/TextField";
  * Author: Maria
  */
 
-const styles = theme => ({
-    paper: {
-        padding: theme.spacing(2),
-        margin: "10px",
-        textAlign: "center",
-    },
-    button: {
-        marginRight: theme.spacing(2),
-    },
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-    },
-});
-
-
-
-export class DropdownsForFiltering extends React.Component{
+export default class DropdownsForFiltering extends React.Component{
 
     constructor(props){
         super(props);
@@ -49,7 +32,6 @@ export class DropdownsForFiltering extends React.Component{
 
 
     handleChange(e){
-        console.log("handleChage")
         const value = e.target.value;
         this.setState({
             courseSearch: value
@@ -75,46 +57,43 @@ export class DropdownsForFiltering extends React.Component{
     }
 
     render() {
-        console.log(this.state);
         return (
+            <Box m={2}>
             <Grid container direction="row" justify={"space-between"}>
-                <Grid item>
-                <FormControl>
+                <Grid item spacing={2}>
+                <FormControl >
                     <InputLabel> University </InputLabel>
                     <Select
-                        style={{maxWidth: 950}}
+                        style={{minWidth: 200,maxWidth: 200}}
                         value={this.state.uniId}
-                        autoWidth={true}
                         onChange={this.handleUniDropdown}
                     >
                         {this.showInDropdown(this.props.unis)}
                     </Select>
-                    {/*<FormHelperText>{this.state.textUni}</FormHelperText>*/}
                 </FormControl>
                 </Grid>
                 <Grid item>
                     <FormControl>
                         <InputLabel> Field of study </InputLabel>
                         <Select
-                            style={{maxWidth: 950}}
+                            style={{minWidth: 200,maxWidth: 200}}
                             value={this.state.fosId}
                             onChange={this.handleFosDropdown}
-                            autoWidth={true}
-
                         >
                             {this.showInDropdown(this.props.fos)}
                         </Select>
-                        {/*<FormHelperText>{this.state.textUni}</FormHelperText>*/}
                     </FormControl>
                 </Grid>
-                <Grid item>
+                <Box m={2}>
                     <TextField
+                        style={{minWidth: 220,maxWidth: 200}}
+                        placeholder={"Search your course"}
                         value={this.state.courseSearch}
                         onChange={this.handleChange}/>
-                </Grid>
+                </Box>
             </Grid>
+            </Box>
         )
     }
 }
-
 

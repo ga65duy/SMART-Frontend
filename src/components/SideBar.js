@@ -1,7 +1,6 @@
 import React from "react"
 
 import { withStyles } from '@material-ui/core/styles';
-import PropTypes from "prop-types";
 
 import { withRouter } from 'react-router-dom'
 import Paper from  "@material-ui/core/Paper"
@@ -43,9 +42,9 @@ class SideBar extends React.Component {
 
         this.state = {
             openProfile: false,
-            openStudyplan: false,
+           /* openStudyplan: false,
+            openCourse: false,*/
             openRatings: false,
-            openCourse: false,
             openMyCourse: false
         };
 
@@ -86,9 +85,9 @@ class SideBar extends React.Component {
                 }) ;
                 break;
             case "My Studyplans":
-                this.setState({
+               /* this.setState({
                     openStudyplan: !this.state.openStudyplan
-                });
+                });*/
                 location.href="/#/profile/studyplans";
                 break;
             case "My Ratings":
@@ -101,7 +100,7 @@ class SideBar extends React.Component {
                     openCourse: !this.state.openCourse
                 });*/
                 location.href=`/#/courses`;
-                location.reload();
+                //location.reload();
                 break;
             case "My Courses":
                 this.setState({
@@ -112,17 +111,18 @@ class SideBar extends React.Component {
     render() {
         const {classes} = this.props;
         let studentContent = <List>
-                                <ListItem button href="/studyplans" onClick={() => this.handleClick("My Studyplans")}>
+                                <ListItem button onClick={() => this.handleClick("My Studyplans")}>
                                     <ListItemText color="primary" primary="My Studyplans"/>
-                                    {this.state.openStudyplan ? <ExpandLess />: <ExpandMore/>}
+                                </ListItem>
+                                    {/*{this.state.openStudyplan ? <ExpandLess />: <ExpandMore/>}
                                 </ListItem>
                                 <Collapse in={this.state.openStudyplan}>
                                     <List component="div" disablePadding>
                                         {this.getStudyplanName(this.props.studyplans)}
                                     </List>
-                                </Collapse>
+                                </Collapse>*/}
                                 <ListItem button onClick={() => this.handleClick("My Ratings")}>
-                                    <ListItemText color="primary" primary="My Rating"/>
+                                    <ListItemText color="primary" primary="My Ratings"/>
                                     {this.state.openRatings ? <ExpandLess /> : <ExpandMore />}
                                 </ListItem>
                                 <Collapse in={this.state.openRatings}>
@@ -172,9 +172,5 @@ class SideBar extends React.Component {
         )
     }
 }
-
-SideBar.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
 
 export default withRouter(withStyles(sideBar)(SideBar));

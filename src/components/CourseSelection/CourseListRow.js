@@ -1,14 +1,9 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Button from "@material-ui/core/Button";
+import {Link} from "react-router-dom";
+import {Box,Grid, Paper} from "@material-ui/core";
 import ReactStars from 'react-stars'
 
 import {withStyles} from "@material-ui/core/styles";
-import PropTypes from "prop-types";
-import {Box} from "@material-ui/core";
-import {Link} from "react-router-dom";
 
 /**
  *CourseList Row
@@ -26,57 +21,52 @@ const styles = theme => ({
 });
 
 
-export default class CourseListRow extends React.Component{
-    constructor(props){
+class CourseListRow extends React.Component {
+    constructor(props) {
         super(props);
 
     }
 
-    render () {
-        //const {classes} = this.props;
+    render() {
+        const {classes} = this.props;
         return (
-            <Paper >
+            <Paper className={classes.paper}>
                 <Grid container direction={"column"}>
-                <Box component="div" m={1}>
-                    <Grid container direction={"row"} justify={"space-between"}>
-                        <Box m={1}>
-                            {this.props.course.name}
-                        </Box>
-                        <Box>
-                            <ReactStars
-                                value={this.props.course.avgRatingOverall}
-                                size={25}
-                                edit={false}
-                                color1={"#BDBDBD"}
-                                color2={"#FFB90F"}
-                            />
-                        </Box>
-                    </Grid>
-                </Box>
-                    <Grid container direction={"row"}>
-                    <Grid item>
-                        <Typography>
-                            Ects: {this.props.course.ects}
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <Typography>
-                            Available at: {this.props.course.availableAt}
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <Link to={`/courses/${this.props.course._id}`}> Details </Link>
-                    </Grid>
-                </Grid>
+                    <Box component="div">
+                        <Grid container direction={"row"} justify={"space-between"}>
+                            <Box m={1}>
+                                {this.props.course.name}
+                            </Box>
+                            <Box>
+                                <ReactStars
+                                    value={this.props.course.avgRatingOverall}
+                                    size={25}
+                                    edit={false}
+                                    color1={"#BDBDBD"}
+                                    color2={"#FFB90F"}
+                                />
+                            </Box>
+                        </Grid>
+                    </Box>
+                    <Box component="div" m={1}>
+                        <Grid container direction={"row"} justify={"space-between"}>
+                            <Box>
+                                Ects: {this.props.course.ects}
+                            </Box>
+                            <Box>
+                                Available in: {this.props.course.SS ? "SS" : "WS"}
+                            </Box>
+                            <Box>
+                                Area: {this.props.course.area}
+                            </Box>
+                            <Link to={`/courses/${this.props.course._id}`}> Details </Link>
+                        </Grid>
+                    </Box>
                 </Grid>
             </Paper>
         )
     }
 }
 
-CourseListRow.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-
-//export default withStyles(styles)(CourseListRow);
+export default withStyles(styles)(CourseListRow);
 
