@@ -12,6 +12,7 @@ import {StudyplanView} from './views/StudyplanView';
 import {CreateStudyplanQueryView} from './views/CreateStudyplanQueryView';
 import {ProfileView} from "./views/ProfileViews/ProfileView";
 import {Welcome} from "./components/Welcome/Welcome"
+import {WelcomeUniversity} from "./components/Welcome/WelcomeUniversity";
 
 import {CourseView} from "./views/CourseView"
 
@@ -35,6 +36,7 @@ export default class App extends React.Component {
                 { component: LoadStudyplanView, path: '/profile/studyplans'},
                 { component: CreateStudyplanQueryView, path: '/home'},
                 { component: Welcome, path: '/welcome'},
+                { component: WelcomeUniversity, path: '/welcomeUniversities'},
                // {component: CreateStudyplanView, path:'/home/:id'},
                 { component: ProfileView , path: '/profile'},
 
