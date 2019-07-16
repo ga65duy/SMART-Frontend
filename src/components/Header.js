@@ -23,7 +23,6 @@ import Link from '@material-ui/core/Link';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import UserService from '../services/UserService';
 
-//import logo from './src/Smart.jpg';
 
 
 

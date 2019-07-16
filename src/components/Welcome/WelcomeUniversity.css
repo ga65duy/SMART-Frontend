@@ -1,0 +1,50 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+.welcome-uni-topnav {
+    height: 64px;
+}
+
+.welcome-uni-main-grid {
+    height: 100%;
+}
+
+.welcome-uni-main-content {
+    box-sizing: border-box;
+    height: calc(100vh - 350px);
+    padding-top: 15%;
+    color: white;
+}
+.welcome-uni-main-content * {
+    color: white;
+}
+
+.welcome-uni-main-content button {
+    margin-top: 100px;
+    font-size: 22px;
+}
+
+.welcome-uni-text {
+    background: rgba(0,0,0,0.1);
+}
+
+.welcome-uni-text-content {
+    margin-top: -80px;
+    width: 100%;
+    min-height: 500px;
+    color: black;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 30px;
+
+}
+
+.welcome-uni-topnav-content h1 {
+    display: inline-block
+}
+
+.welcome-uni-topnav-content .uni-right-buttons {
+    float: right;
+}

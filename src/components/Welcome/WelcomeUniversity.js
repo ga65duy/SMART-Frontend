@@ -6,10 +6,12 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { Paper } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import "./Welcome.css";
+import "./WelcomeUniversity.css";
 import BackgroundImage from "../../Background.jpg";
+import Header from "../Header";
+import {Footer} from '../Footer';
 
-export class Welcome extends React.Component {
+export class WelcomeUniversity extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -21,85 +23,104 @@ export class Welcome extends React.Component {
                 return (<h2>Loading...</h2>);
             }*/
         return (
-            <Grid container direction="column">
-                <Grid item xs={12}>
-                    <section className="welcome-topnav">
-                        <Grid
-                            container
-                            direction="row"
-                            justify="center"
-                            alignItems="center"
-                        >
-                            <Grid item xs />
-                            <Grid item xs={8}>
-                                <div className="welcome-topnav-content">
-                                    <h1>SMART Logo</h1>
-                                    <div className="right-buttons">
-                                        <Button variant="contained" color="primary">
-                                            Sign In
-                                        </Button>
+            <div>
+                <Grid container direction="column">
+                    <Grid item xs={12}>
+                        <section className="welcome-uni-topnav">
+                            <Grid
+                                container
+                                direction="row"
+                                justify="center"
+                                alignItems="center"
+                            >
+                                <Grid item xs />
+                                <Grid item xs={8}>
+                                    <div className="welcome-uni-topnav-content">
+                                        <br />
+                                        <img href="/" src={require('../../Smart.jpg')}/>
+                                        <div className="uni-right-buttons">
+                                            <Button variant="contained" color="primary">
+                                                Log In
+                                            </Button>
+                                            &nbsp;
+                                            <Button variant="contained" color="primary">
+                                                Register
+                                            </Button>
+                                        </div>
                                     </div>
-                                </div>
+                                </Grid>
+                                <Grid item xs />
                             </Grid>
-                            <Grid item xs />
-                        </Grid>
-                    </section>
-                </Grid>
-                <Grid item>
-                    <section
-                        className="welcome-main"
-                        style={{ backgroundImage: BackgroundImage }}
-                        style={{ backgroundImage: "url(" + BackgroundImage + ")" }}
-                    >
-                        <Grid
-                            container
-                            direction="row"
-                            justify="center"
-                            alignItems="center"
+                        </section>
+                    </Grid>
+                    <Grid item>
+                        <section
+                            className="welcome-uni-main"
+                            style={{ backgroundImage: BackgroundImage }}
+                            style={{ backgroundImage: "url(" + BackgroundImage + ")" }}
                         >
-                            <Grid item xs />
-                            <Grid item xs={8}>
-                                <div className="welcome-main-content">
-                                    <h1>Welcome to SMART</h1>
-                                    <h2>
-                                        SMART is the online Studyplan Management And Rating Tool
-                                    </h2>
-                                    <p>
-                                        You can easily plan your entire Study for each individual
-                                        Semester in this WebApp! No need to check multiple Websites,
-                                        we have got you covered! Don't forget to SignIn to save,
-                                        edit and export your Studyplan and also to get Registration
-                                        Notifications!
-                                    </p>
-
-                                    <Button variant="contained" color="primary">
-                                        Start your Studyplan
-                                    </Button>
-                                </div>
+                            <Grid
+                                container
+                                direction="row"
+                                justify="center"
+                                alignItems="center"
+                            >
+                                <Grid item xs />
+                                <Grid item xs={8}>
+                                    <div className="welcome-uni-main-content">
+                                        <h1 style={{textAlign: 'center'}}>
+                                            SMART for Universities
+                                        </h1>
+                                        {/*<Button variant="contained" color="primary">
+                                            REGISTER NOW!
+                                        </Button>*/}
+                                    </div>
+                                </Grid>
+                                <Grid item xs />
                             </Grid>
-                            <Grid item xs />
-                        </Grid>
-                    </section>
-                </Grid>
-                <Grid item>
-                    <div className="welcome-text">
-                        <Grid
-                            container
-                            direction="row"
-                            justify="center"
-                            alignItems="center"
-                        >
-                            <Grid item xs />
-                            <Grid item xs={10}>
-                                <Paper>
-                                    <div className="welcome-text-content" />
-                                </Paper>
+                        </section>
+                    </Grid>
+                    <Grid item>
+                        <div className="welcome-uni-text">
+                            <Grid
+                                container
+                                direction="row"
+                                justify="space-evenly"
+                                alignItems="center"
+                            >
+                                <Grid item xs />
+                                <Grid item xs={10}>
+                                    <Paper>
+                                        <div className="welcome-uni-text-content">
+                                            <Grid
+                                                container
+                                                direction="column"
+                                                justify="space-evenly"
+                                                alignItems="flex-start"
+                                            >
+                                                {/*Überschrift*/}
+                                                <Grid item>
+                                                    <br/>
+                                                    <h2 style={{color:'black'}}> SHORT AND SWEET: </h2>
+                                                </Grid>
+                                                <br/>
+                                                <Grid item>
+                                                    <h4 style={{color:'black'}}>
+                                                        Join the SMART community. <br/>
+                                                        A lot more text is coming here
+                                                    </h4>
+                                                </Grid>
+                                            </Grid>
+                                        </div>
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs />
                             </Grid>
-                            <Grid item xs />
-                        </Grid>
-                    </div>
+                        </div>
+                    </Grid>
                 </Grid>
-            </Grid>
+                <Footer />
+            </div>
         );
     }
 }
