@@ -20,7 +20,9 @@ export class CourseSelectionView extends React.Component {
         this.state = {
             loading: true,
             fosId: "",
-            fos: []
+            fos: [],
+            courses: [],
+            unis: []
         };
 
         this.handleUniDropdown = this.handleUniDropdown.bind(this);
