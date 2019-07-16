@@ -4,15 +4,11 @@ import React from 'react';
 
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
-import { MovieListView } from './views/MovieListView';
-import { MovieDetailView }   from './views/MovieDetailView';
-import { MovieFormView }   from './views/MovieFormView';
 import { UserLoginView } from "./views/ProfileViews/UserLoginView";
 import { UserSignupView } from "./views/ProfileViews/UserSignupView";
 import {LoadStudyplanView} from './views/LoadStudyplanView';
 import {CreateStudyplanView} from './views/CreateStudyplanView';
 import {StudyplanView} from './views/StudyplanView';
-import { CourseListView } from './views/CourseListView';
 import {CreateStudyplanQueryView} from './views/CreateStudyplanQueryView';
 import {ProfileView} from "./views/ProfileViews/ProfileView";
 import {Welcome} from "./components/Welcome/Welcome"
@@ -40,7 +36,6 @@ export default class App extends React.Component {
                 { component: CreateStudyplanQueryView, path: '/home'},
                 { component: Welcome, path: '/welcome'},
                // {component: CreateStudyplanView, path:'/home/:id'},
-                { component: MovieDetailView , path: '/show/:id'},
                 { component: ProfileView , path: '/profile'},
 
                 { component: CourseView, path: '/courses/:id'},
@@ -49,7 +44,6 @@ export default class App extends React.Component {
                 { component: UserLoginView, path: '/login'},
                 { component: UserSignupView, path: '/register'},
                 { component: StudyplanView, path:'/studyplanView'},
-                { component: CourseListView, path:'/courselistView'},
 
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
@@ -69,26 +63,11 @@ export default class App extends React.Component {
                         }} , path: '/studyplan/:id'},
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
-                            return (<CourseListView {... props} />)
+                            return (<CourseSelectionView {... props} />)
                         }
                         else {
                             return (<Redirect to={'/login'}/>)
-                        }}, path: '/courseListView',},
-
-                { render: (props) => {
-                        if(UserService.isAuthenticated()) {
-                            return (<MovieFormView {... props} />)
-                        }
-                        else {
-                            return (<Redirect to={'/login'}/>)
-                        }} , path: '/edit/:id'},
-                { render: (props) => {
-                        if(UserService.isAuthenticated()) {
-                            return (<MovieFormView {... props} />)
-                        }
-                        else {
-                            return (<Redirect to={'/login'}/>)
-                        }}, path: '/add',},
+                        }}, path: '/courses',},
 
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
@@ -100,17 +79,6 @@ export default class App extends React.Component {
 
             ]
         };
-        //bind  set University & fieldofStudy
-    }
-
-    setUniversity( uni)
-    {
-        this.setState(this.state.university=uni);
-    }
-
-    setFieldOfStudy(fos)
-    {
-        this.setState(this.state.fieldOfStudy=fos);
     }
 
     componentDidMount(){
