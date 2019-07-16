@@ -1,0 +1,45 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+.welcome-topnav {
+    height: 64px;
+}
+
+.welcome-main-grid {
+    height: 100%;
+}
+
+.welcome-main-content {
+    box-sizing: border-box;
+    height: calc(100vh - 164px);
+    padding-top: 20%;
+    color: white;
+}
+.welcome-main-content * {
+    color: white;
+}
+
+.welcome-main-content button {
+    margin-top: 100px;
+    font-size: 22px;
+}
+
+.welcome-text {
+    background: rgba(0,0,0,0.1);
+}
+
+.welcome-text-content {
+    margin-top: -80px;
+    width: 100%;
+    min-height: 500px;
+}
+
+.welcome-topnav-content h1 {
+    display: inline-block
+}
+
+.welcome-topnav-content .right-buttons {
+    float: right;
+}

@@ -15,7 +15,7 @@ import {StudyplanView} from './views/StudyplanView';
 import { CourseListView } from './views/CourseListView';
 import {CreateStudyplanQueryView} from './views/CreateStudyplanQueryView';
 import {ProfileView} from "./views/ProfileViews/ProfileView";
-import {Welcome} from "./components/Welcome"
+import {Welcome} from "./components/Welcome/Welcome"
 
 import {CourseView} from "./views/CourseView"
 
