@@ -34,6 +34,7 @@ body, html {
     margin-top: -80px;
     width: 100%;
     min-height: 500px;
+    color: black;
 }
 
 .welcome-topnav-content h1 {
