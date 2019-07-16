@@ -4,9 +4,6 @@ import React from 'react';
 
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
-import { MovieListView } from './views/MovieListView';
-import { MovieDetailView }   from './views/MovieDetailView';
-import { MovieFormView }   from './views/MovieFormView';
 import { UserLoginView } from "./views/ProfileViews/UserLoginView";
 import { UserSignupView } from "./views/ProfileViews/UserSignupView";
 import {LoadStudyplanView} from './views/LoadStudyplanView';
@@ -39,7 +36,6 @@ export default class App extends React.Component {
                 { component: CreateStudyplanQueryView, path: '/home'},
                 { component: Welcome, path: '/welcome'},
                // {component: CreateStudyplanView, path:'/home/:id'},
-                { component: MovieDetailView , path: '/show/:id'},
                 { component: ProfileView , path: '/profile'},
 
                 { component: CourseView, path: '/courses/:id'},
@@ -75,21 +71,6 @@ export default class App extends React.Component {
 
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
-                            return (<MovieFormView {... props} />)
-                        }
-                        else {
-                            return (<Redirect to={'/login'}/>)
-                        }} , path: '/edit/:id'},
-                { render: (props) => {
-                        if(UserService.isAuthenticated()) {
-                            return (<MovieFormView {... props} />)
-                        }
-                        else {
-                            return (<Redirect to={'/login'}/>)
-                        }}, path: '/add',},
-
-                { render: (props) => {
-                        if(UserService.isAuthenticated()) {
                             return (<ProfileView {... props} />)
                         }
                         else {
@@ -98,19 +79,8 @@ export default class App extends React.Component {
 
             ]
         };
-        //bind  set University & fieldofStudy
     }
-
-    setUniversity( uni)
-    {
-        this.setState(this.state.university=uni);
-    }
-
-    setFieldOfStudy(fos)
-    {
-        this.setState(this.state.fieldOfStudy=fos);
-    }
-
+    
     componentDidMount(){
         document.title = this.state.title;
     }
