@@ -39,8 +39,23 @@ export class Welcome extends React.Component {
                                         <br />
                                         <img href="/" src={require('../../Smart.jpg')}/>
                                         <div className="right-buttons">
+                                            <Button>
+                                                <img href="/"
+                                                     src={require('./lupe.png')}
+                                                     width={10}
+                                                     height={10}
+                                                     mode="fit"
+                                                /> &nbsp;
+                                                    For Universities
+                                            </Button>
+                                            &nbsp;
+                                            &nbsp;
                                             <Button variant="contained" color="primary">
-                                                Sign In
+                                                Log In
+                                            </Button>
+                                            &nbsp;
+                                            <Button variant="contained" color="primary">
+                                                Register
                                             </Button>
                                         </div>
                                     </div>
@@ -101,7 +116,7 @@ export class Welcome extends React.Component {
                                             <Grid
                                                 container
                                                 direction="column"
-                                                justify="space-between"
+                                                justify="space-evenly"
                                                 alignItems="center"
                                             >
                                                 {/*Überschrift*/}
@@ -140,8 +155,9 @@ export class Welcome extends React.Component {
                                                             </Grid>
                                                             {/*Item erklärung*/}
                                                             <Grid item>
-                                                                <h4>
-                                                                    All in one page organization. Blablabla
+                                                                <h4 style={{textAlign: 'center'}}>
+                                                                    All in one page organization.<br/>
+                                                                    No need to check multiple websites!
                                                                 </h4>
                                                             </Grid>
                                                         </Grid>
@@ -168,8 +184,9 @@ export class Welcome extends React.Component {
                                                             </Grid>
                                                             {/*Item erklärung*/}
                                                             <Grid item>
-                                                                <h4>
-                                                                    You will never miss one deadline!
+                                                                <h4 style={{textAlign: 'center'}}>
+                                                                    You will never miss one deadline! <br/>
+                                                                    Get notified for your upcoming courses!
                                                                 </h4>
                                                             </Grid>
                                                         </Grid>
@@ -196,8 +213,9 @@ export class Welcome extends React.Component {
                                                             </Grid>
                                                             {/*Item erklärung*/}
                                                             <Grid item>
-                                                                <h4>
-                                                                    SMART will always be free to use for students!
+                                                                <h4 style={{textAlign: 'center'}}>
+                                                                    SMART will always be free for students! <br/>
+                                                                    Now and always!
                                                                 </h4>
                                                             </Grid>
                                                         </Grid>
@@ -233,8 +251,10 @@ export class Welcome extends React.Component {
                                                             </Grid>
                                                             {/*Item erklärung*/}
                                                             <Grid item>
-                                                                <h4>
-                                                                    SMART gives you help in every direction!
+                                                                <h4 style={{textAlign: 'center'}}>
+                                                                    SMART gives you help in every direction! <br/>
+                                                                    Mandatory or elective courses, <br/>
+                                                                    make your own individual plan!
                                                                 </h4>
                                                             </Grid>
                                                         </Grid>
@@ -261,8 +281,9 @@ export class Welcome extends React.Component {
                                                             </Grid>
                                                             {/*Item erklärung*/}
                                                             <Grid item>
-                                                                <h4>
-                                                                    All in one page organization. Blablabla
+                                                                <h4 style={{textAlign: 'center'}}>
+                                                                    Hello I am a nice placeholder! <br/>
+                                                                    I will be replaced for a better idea!
                                                                 </h4>
                                                             </Grid>
                                                         </Grid>
@@ -289,8 +310,9 @@ export class Welcome extends React.Component {
                                                             </Grid>
                                                             {/*Item erklärung*/}
                                                             <Grid item>
-                                                                <h4>
-                                                                    All in one page organization. Blablabla
+                                                                <h4 style={{textAlign: 'center'}}>
+                                                                    Hello I am a nice placeholder! <br/>
+                                                                    I will be replaced for a better idea!
                                                                 </h4>
                                                             </Grid>
                                                         </Grid>
