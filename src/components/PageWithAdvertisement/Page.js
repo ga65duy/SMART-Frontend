@@ -2,15 +2,21 @@
 
 import React from 'react';
 
-import Header from './Header';
-import {Footer} from './Footer';
+import Header from '../Header';
+import {Footer} from '../Footer';
 
 import {createMuiTheme} from '@material-ui/core/styles';
-import SideBar from "../components/SideBar";
+import SideBar from "../SideBar";
 import Grid from '@material-ui/core/Grid';
-import StudyplanService from "../services/StudyplanService";
-import CourseService from "../services/CourseService";
-import UserService from "../services/UserService";
+import StudyplanService from "../../services/StudyplanService";
+import CourseService from "../../services/CourseService";
+import UserService from "../../services/UserService";
+
+/**
+ * Page
+ * Sourrounding all views
+ * Author: Maria and Gerhard
+ */
 
 
 const theme = createMuiTheme({
@@ -42,6 +48,9 @@ function recursiveMap(children, fn) {
     });
 }
 
+const rectangleAdvertisement = ["rectangle1.jpg", "rectangle2.jpg"];
+const skyscraperAdvertisement = ["skyscraper1.jpg", "skyscraper2.jpg"];
+
 export default class Page extends React.Component {
 
     constructor(props) {
@@ -53,6 +62,7 @@ export default class Page extends React.Component {
             studyplans: []
         };
         this.updateSideBar = this.updateSideBar.bind(this);
+        this.getRandomAdvertisement = this.getRandomAdvertisement.bind(this);
     }
 
     componentWillMount() {
@@ -68,6 +78,11 @@ export default class Page extends React.Component {
             });
             this.updateSideBar();
         });
+    }
+
+
+    getRandomAdvertisement(){
+        return Math.floor(Math.random()*2)
     }
 
     updateSideBar(){
@@ -125,13 +140,7 @@ export default class Page extends React.Component {
                                     <SideBar studyplans={this.state.studyplans} courses={this.state.courses} loggedInUser={this.state.loggedInUser}/>
                                 </Grid>
                                 <Grid item>
-                                    <div style={{
-                                        width: "200px",
-                                        height: "200px",
-                                        background: "#428bca",
-                                        color: "#fff"
-                                    }}>RECTANGLE
-                                    </div>
+                                    <img style={{minWidth: 230}} src={require(`./${rectangleAdvertisement[this.getRandomAdvertisement()]}`)}/>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -141,13 +150,7 @@ export default class Page extends React.Component {
                             </Grid>
                         </Grid>
                         <Grid item xs={2}>
-                            <div style={{
-                                width: "220px",
-                                height: "600px",
-                                background: "#428bca",
-                                color: "#fff"
-                            }}>SKYSCRAPER
-                            </div>
+                            <img style={{minWidth: 230}} src={require(`./${skyscraperAdvertisement[this.getRandomAdvertisement()]}`)}/>
                         </Grid>
                     </Grid>
                 </Grid>

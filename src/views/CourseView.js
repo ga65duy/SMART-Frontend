@@ -6,7 +6,7 @@ import RateCourseService from "../services/RateCourseService";
 import UserService from "../services/UserService";
 import moment from "moment";
 import {CourseStatistics} from "../components/CourseStatistics";
-import Page from "../components/Page";
+import Page from "../components/PageWithAdvertisement/Page";
 
 
 /**

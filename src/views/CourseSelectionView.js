@@ -1,7 +1,7 @@
 "use strict";
 import React from 'react'
 
-import Page from "../components/Page";
+import Page from "../components/PageWithAdvertisement/Page";
 import CourseService from "../services/CourseService";
 import CourseListWithDropDowns from "../components/CourseSelection/CourseListWithDropDowns";
 import UniversityService from "../services/UniversityService";

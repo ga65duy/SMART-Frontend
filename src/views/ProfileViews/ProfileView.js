@@ -2,7 +2,7 @@ import React from "react";
 import Profile from "../../components/ProfileComponents/Profile";
 import UserService from "../../services/UserService";
 import UniversityService from "../../services/UniversityService";
-import Page from "../../components/Page";
+import Page from "../../components/PageWithAdvertisement/Page";
 
 /**
  * ProfileView

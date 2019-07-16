@@ -4,7 +4,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom'
 
 import { AlertMessage } from './AlertMessage';
-import Page from './Page';
+import Page from './PageWithAdvertisement/Page';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';

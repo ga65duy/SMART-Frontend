@@ -1,7 +1,7 @@
 import React from "react";
 import StudyplanList from "../components/ShowStudyplans/StudyplanList";
 import StudyplanService from '../services/StudyplanService';
-import Page from "../components/Page";
+import Page from "../components/PageWithAdvertisement/Page";
 
 /**
  * LoadStudyplanView

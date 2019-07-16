@@ -1,6 +1,6 @@
 "use strict";
 import React from 'react'
-import Page from "./Page";
+import Page from "./PageWithAdvertisement/Page";
 import {Box, Grid, Typography} from "@material-ui/core";
 import {RatingPostList} from "./RatingComponents/RatingPostList";
 import Stars from "./RatingComponents/Stars";
