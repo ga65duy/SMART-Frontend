@@ -115,12 +115,17 @@ class StudyplanPreQuery extends React.Component {
         studyplan.semester6 = this.state.selectedFoS.recommendedSemester6;
 
 
-            //TODO  add studyplan to user (in update Studyplan)
-
 
 
 
         this.props.updateStudyplan(studyplan, this.state.university);
+
+
+
+
+        //push /studyplan/${this.state.studyplan._id}
+
+       // location.href='/#/studyplan/${studyplan._id}';
 
     }
 
