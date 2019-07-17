@@ -197,7 +197,7 @@ export class Welcome extends React.Component {
                                                     alignItems="center"
                                                 >
                                                     {/*Grid 1. Item*/}
-                                                    <Grid>
+                                                    <Grid item xs>
                                                         <Grid
                                                             container
                                                             direction="column"
@@ -226,7 +226,7 @@ export class Welcome extends React.Component {
                                                         </Grid>
                                                     </Grid>
                                                     {/*Grid 2. Item*/}
-                                                    <Grid>
+                                                    <Grid item xs>
                                                         <Grid
                                                             container
                                                             direction="column"
@@ -255,7 +255,7 @@ export class Welcome extends React.Component {
                                                         </Grid>
                                                     </Grid>
                                                     {/*Grid 3. Item*/}
-                                                    <Grid>
+                                                    <Grid item xs>
                                                         <Grid
                                                             container
                                                             direction="column"
@@ -293,7 +293,7 @@ export class Welcome extends React.Component {
                                                     alignItems="center"
                                                 >
                                                     {/*Grid 1. Item*/}
-                                                    <Grid>
+                                                    <Grid item xs>
                                                         <Grid
                                                             container
                                                             direction="column"
@@ -323,7 +323,7 @@ export class Welcome extends React.Component {
                                                         </Grid>
                                                     </Grid>
                                                     {/*Grid 2. Item*/}
-                                                    <Grid>
+                                                    <Grid item xs>
                                                         <Grid
                                                             container
                                                             direction="column"
@@ -352,7 +352,7 @@ export class Welcome extends React.Component {
                                                         </Grid>
                                                     </Grid>
                                                     {/*Grid 3. Item*/}
-                                                    <Grid>
+                                                    <Grid item xs>
                                                         <Grid
                                                             container
                                                             direction="column"
