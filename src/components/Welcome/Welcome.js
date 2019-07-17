@@ -5,10 +5,8 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { Paper } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
 import "./Welcome.css";
 import BackgroundImage from "../../Background.jpg";
-import Header from "../Header";
 import {Footer} from '../Footer';
 import UserLoginView from "../../views/ProfileViews/UserLoginView";
 import Dialog from "@material-ui/core/Dialog";
@@ -102,9 +100,9 @@ export class Welcome extends React.Component {
                                         <div className="right-buttons">
                                             <Button id="uni" onClick={this.buttonClicked}>
                                                 <img href="/"
-                                                     src={require('./lupe.png')}
-                                                     width={10}
-                                                     height={10}
+                                                     src={require('./work.png')}
+                                                     width={15}
+                                                     height={15}
                                                      mode="fit"
                                                 /> &nbsp;
                                                     For Universities

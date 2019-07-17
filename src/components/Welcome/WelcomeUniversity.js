@@ -160,10 +160,10 @@ export class WelcomeUniversity extends React.Component {
                                                 </Grid>
                                                 <br/>
                                                 <Grid item>
-                                                    <h4 style={{color:'black'}}>
+                                                    <h3 style={{color:'black'}}>
                                                         Join the SMART community. <br/>
                                                         A lot more text is coming here
-                                                    </h4>
+                                                    </h3>
                                                 </Grid>
                                             </Grid>
                                         </div>
