@@ -45,14 +45,22 @@ export default class CommentAndStars extends React.Component {
                                 margin="dense"/>
                             </Grid>
                             <Grid item >
+
                                 <Box component="div" m={1}>
-                                    <ReactStars
-                                        value={this.props.rating.overallRating}
-                                        size={25}
-                                        edit={false}
-                                        color1={"#BDBDBD"}
-                                        color2={"#FFB90F"}
-                                    />
+                                    <Grid container direction={"row"} justify={"space-between"}>
+                                        <Box m={1}>
+                                            Average
+                                        </Box>
+                                        <Box>
+                                            <ReactStars
+                                                value={this.props.rating.overallRating}
+                                                size={25}
+                                                edit={false}
+                                                color1={"#BDBDBD"}
+                                                color2={"#FFB90F"}
+                                            />
+                                        </Box>
+                                    </Grid>
                                 </Box>
                             </Grid>
                     </Grid>
