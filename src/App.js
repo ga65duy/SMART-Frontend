@@ -7,9 +7,9 @@ import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import { UserLoginView } from "./views/ProfileViews/UserLoginView";
 import { UserSignupView } from "./views/ProfileViews/UserSignupView";
 import {LoadStudyplanView} from './views/LoadStudyplanView';
-import {CreateStudyplanView} from './views/CreateStudyplanView';
-import {StudyplanView} from './views/StudyplanView';
-import {CreateStudyplanQueryView} from './views/CreateStudyplanQueryView';
+import {CreateStudyplanView} from './views/Studyplan/CreateStudyplanView';
+import {StudyplanView} from './views/Studyplan/StudyplanView';
+import {CreateStudyplanQueryView} from './views/Studyplan/CreateStudyplanQueryView';
 import {ProfileView} from "./views/ProfileViews/ProfileView";
 import {Welcome} from "./components/Welcome/Welcome"
 import {WelcomeUniversity} from "./components/Welcome/WelcomeUniversity";
@@ -34,7 +34,7 @@ export default class App extends React.Component {
             routes: [
                 { component: Welcome, path: '/', exact:true},
                 { component: LoadStudyplanView, path: '/profile/studyplans'},
-                { component: CreateStudyplanQueryView, path: '/home'},
+                { component: StudyplanView, path: '/home'},
                 { component: WelcomeUniversity, path: '/welcomeUniversities'},
                // {component: CreateStudyplanView, path:'/home/:id'},
                 { component: ProfileView , path: '/profile'},

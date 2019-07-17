@@ -120,9 +120,7 @@ class StudyplanPreQuery extends React.Component {
 
 
 
-
-
-        this.props.updateStudyplan(studyplan);
+        this.props.updateStudyplan(studyplan, this.state.university);
 
     }
 
