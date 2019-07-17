@@ -10,10 +10,64 @@ import "./Welcome.css";
 import BackgroundImage from "../../Background.jpg";
 import Header from "../Header";
 import {Footer} from '../Footer';
+import UserLoginView from "../../views/ProfileViews/UserLoginView";
+import Dialog from "@material-ui/core/Dialog";
+import UserSignupView from "../../views/ProfileViews/UserSignupView";
+
+/**
+ * Welcome
+ * Initial page showing to every user, when visiting SMART
+ * Author: Susanne: Creating and visualizing welcome page
+ *         Maria: Button functionalities
+ */
 
 export class Welcome extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            showLogin: false,
+            showSignup: false
+        };
+
+        this.buttonClicked = this.buttonClicked.bind(this);
+        this.handleCloseSignup = this.handleCloseSignup.bind(this);
+        this.handleCloseLogin = this.handleCloseLogin.bind(this);
+
+    }
+
+    buttonClicked(e) {
+        console.log("clicked");
+        const name = e.currentTarget.id;
+        switch (name) {
+            case "signup":
+                this.setState({
+                    showSignup: true
+                });
+                break;
+            case "login":
+                this.setState({
+                    showLogin: true
+                });
+                break;
+            case "uni":
+                location.href ="/#/welcomeUniversities";
+                break;
+            default:
+                console.log("Error")
+        }
+    }
+
+    handleCloseLogin() {
+        this.setState({
+            showLogin: false
+        });
+
+    }
+
+    handleCloseSignup() {
+        this.setState({
+            showSignup: false
+        });
     }
 
     render() {
@@ -22,6 +76,13 @@ export class Welcome extends React.Component {
         /* if (this.state.loading) {
                 return (<h2>Loading...</h2>);
             }*/
+
+        let loginModal = <Dialog open={this.state.showLogin} onClose={this.handleCloseLogin} id={"login"}>
+                            <UserLoginView />
+                        </Dialog>;
+        let signupModal = <Dialog open={this.state.showSignup} onClose={this.handleCloseSignup} id={"signup"}>
+                                <UserSignupView />
+                        </Dialog>;
         return (
             <div>
                 <Grid container direction="column">
@@ -39,7 +100,7 @@ export class Welcome extends React.Component {
                                         <br />
                                         <img href="/" src={require('../../Smart.jpg')}/>
                                         <div className="right-buttons">
-                                            <Button>
+                                            <Button id="uni" onClick={this.buttonClicked}>
                                                 <img href="/"
                                                      src={require('./lupe.png')}
                                                      width={10}
@@ -50,13 +111,15 @@ export class Welcome extends React.Component {
                                             </Button>
                                             &nbsp;
                                             &nbsp;
-                                            <Button variant="contained" color="primary">
+                                            <Button id="login" variant="contained" color="primary" onClick={this.buttonClicked}>
                                                 Log In
                                             </Button>
+                                            {loginModal}
                                             &nbsp;
-                                            <Button variant="contained" color="primary">
+                                            <Button id="signup" variant="contained" color="primary" onClick={this.buttonClicked}>
                                                 Register
                                             </Button>
+                                            {signupModal}
                                         </div>
                                     </div>
                                 </Grid>

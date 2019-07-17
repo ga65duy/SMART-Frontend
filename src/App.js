@@ -32,10 +32,9 @@ export default class App extends React.Component {
             fieldOfStudy:'',
 
             routes: [
-                { component: LoadStudyplanView, path: '/', exact:true},
+                { component: Welcome, path: '/', exact:true},
                 { component: LoadStudyplanView, path: '/profile/studyplans'},
                 { component: CreateStudyplanQueryView, path: '/home'},
-                { component: Welcome, path: '/welcome'},
                 { component: WelcomeUniversity, path: '/welcomeUniversities'},
                // {component: CreateStudyplanView, path:'/home/:id'},
                 { component: ProfileView , path: '/profile'},
@@ -43,7 +42,6 @@ export default class App extends React.Component {
                 { component: CourseView, path: '/courses/:id'},
                 {component: CourseSelectionView, path: '/courses'},
 
-                { component: UserLoginView, path: '/login'},
                 { component: UserSignupView, path: '/register'},
                 { component: StudyplanView, path:'/studyplanView'},
 
@@ -52,7 +50,7 @@ export default class App extends React.Component {
                             return (<LoadStudyplanView {... props} />)
                         }
                         else {
-                            return (<Redirect to={'/login'}/>)
+                            return (<Redirect to={'/'}/>)
                         }} , path: '/profile/studyplans'},
 
 
@@ -61,14 +59,14 @@ export default class App extends React.Component {
                             return (<StudyplanView {... props} />)
                         }
                         else {
-                            return (<Redirect to={'/login'}/>)
+                            return (<Redirect to={'/'}/>)
                         }} , path: '/studyplan/:id'},
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
                             return (<CourseSelectionView {... props} />)
                         }
                         else {
-                            return (<Redirect to={'/login'}/>)
+                            return (<Redirect to={'/'}/>)
                         }}, path: '/courses',},
 
                 { render: (props) => {
@@ -76,7 +74,7 @@ export default class App extends React.Component {
                             return (<ProfileView {... props} />)
                         }
                         else {
-                            return (<Redirect to={'/login'}/>)
+                            return (<Redirect to={'/'}/>)
                         }}, path: '/profile',},
 
             ]

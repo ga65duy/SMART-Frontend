@@ -6,13 +6,14 @@ import UserSignup from '../../components/ProfileComponents/UserSignup';
 
 import UserService from '../../services/UserService';
 import UniversityService from "../../services/UniversityService";
+import {withRouter} from "react-router-dom";
 
 /**
  * UserSignUpView
  *
  * Author: Maria
  */
-export class UserSignupView extends React.Component {
+ class UserSignupView extends React.Component {
 
     constructor(props) {
         super(props);
@@ -62,7 +63,6 @@ export class UserSignupView extends React.Component {
 
         UserService.register(new_user, user.isUniversityUser).then((data) => {
             if (user.isUniversityUser) {
-                //TODO: go to courses of uni
                 this.props.history.push('/profile')
             } else {
                 this.props.history.push('/profile/studyplans')
@@ -80,3 +80,5 @@ export class UserSignupView extends React.Component {
         );
     }
 }
+
+export default withRouter(UserSignupView)

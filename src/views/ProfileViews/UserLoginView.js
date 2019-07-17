@@ -3,6 +3,7 @@
 import React from 'react';
 import Login from '../../components/ProfileComponents/Login'
 import UserService from '../../services/UserService';
+import {withRouter} from "react-router-dom";
 
 /**
  * UserLoginView
@@ -10,7 +11,7 @@ import UserService from '../../services/UserService';
  * Author: Maria
  */
 
-export class UserLoginView extends React.Component {
+class UserLoginView extends React.Component {
 
     constructor(props) {
         super(props);
@@ -24,7 +25,7 @@ export class UserLoginView extends React.Component {
                 if (user.isUniversityUser){
                     this.props.history.push('/profile');
                 } else {
-                    this.props.history.push('/')
+                    this.props.history.push('/profile/studyplans')
                 }
             }).catch((e) => {
                 console.error(e);
@@ -46,3 +47,5 @@ export class UserLoginView extends React.Component {
         )
     }
 }
+
+export default withRouter(UserLoginView)
