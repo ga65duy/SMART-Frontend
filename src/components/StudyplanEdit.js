@@ -275,7 +275,6 @@ export default class StudyplanEdit extends React.Component {
       this.setState({
             studyplan:sp,
         });
-      console.log(sp);
     }
 
     onDropSem2(e)

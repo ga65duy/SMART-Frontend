@@ -67,7 +67,7 @@ export default class App extends React.Component {
 
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
-                            return (<StudyplanView {... props} />)
+                            return (<CreateStudyplanView {... props} />)
                         }
                         else {
                             return (<Redirect to={'/'}/>)
