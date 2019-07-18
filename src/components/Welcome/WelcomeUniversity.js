@@ -42,6 +42,9 @@ export class WelcomeUniversity extends React.Component {
                     showLogin: true
                 });
                 break;
+            case "student":
+                location.href ="/#/";
+                break;
             default:
                 console.log("Error")
         }
@@ -92,6 +95,17 @@ export class WelcomeUniversity extends React.Component {
                                         <br />
                                         <img href="/" src={require('../../Smart.jpg')}/>
                                         <div className="uni-right-buttons">
+                                            <Button id="student" onClick={this.buttonClicked}>
+                                                <img href="/"
+                                                     src={require('./student.png')}
+                                                     width={15}
+                                                     height={15}
+                                                     mode="fit"
+                                                /> &nbsp;
+                                                For Students
+                                            </Button>
+                                            &nbsp;
+                                            &nbsp;
                                             <Button id="login" variant="contained" color="primary" onClick={this.buttonClicked}>
                                                 Log In
                                             </Button>
@@ -161,8 +175,9 @@ export class WelcomeUniversity extends React.Component {
                                                 <br/>
                                                 <Grid item>
                                                     <h3 style={{color:'black'}}>
-                                                        Join the SMART community. <br/>
-                                                        A lot more text is coming here
+                                                        Join the SMART community! <br/>
+                                                        You want your courses to be more attractive and give students
+                                                        the possibility to find all information for your courses easily and in one place? <br/>
                                                     </h3>
                                                 </Grid>
                                             </Grid>
