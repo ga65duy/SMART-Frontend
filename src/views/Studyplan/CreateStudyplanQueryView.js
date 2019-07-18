@@ -87,7 +87,6 @@ import {withRouter} from "react-router-dom";
             UserService.updateUser(u).catch((e)=>{console.error(e);});
                     //TODO  get add studyplan to user (in update Studyplan) to work
 
-                    UserService.updateUser(u).catch((e)=>{console.error(e);});
 
             // TODO get: this.props.history.push('/studyplan/'+data._id); working
 

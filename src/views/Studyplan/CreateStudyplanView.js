@@ -5,12 +5,14 @@ import React from 'react';
 import StudyplanEdit from '../../components/StudyplanEdit';
 
 import StudyplanService from '../../services/StudyplanService';
+import UserService from "../../services/UserService";
 
 
 export class CreateStudyplanView extends React.Component {
 
     constructor(props) {
         super(props);
+        this.updateStudyplan=this.updateStudyplan.bind(this);
     }
 
     componentWillMount(props){
@@ -31,6 +33,21 @@ export class CreateStudyplanView extends React.Component {
 
     }
 
+    updateStudyplan(studyplan){
+
+        console.log(studyplan);
+
+
+        StudyplanService.updateStudyplan(studyplan).then((data) => {
+        }).catch((e) => {
+            console.error(e);
+            this.setState(Object.assign({}, this.state, {error: 'Error while creating studyplan'}));
+        });
+
+        /* TODO meldung dass erfolgreich gespeichert wurde */
+
+    }
+
 
 
     render() {
@@ -39,7 +56,7 @@ export class CreateStudyplanView extends React.Component {
         }
 
         return (
-            <StudyplanEdit studyplan={this.state.studyplan}  />
+            <StudyplanEdit studyplan={this.state.studyplan} updateStudyplan={this.updateStudyplan}  />
         );
     }
 }

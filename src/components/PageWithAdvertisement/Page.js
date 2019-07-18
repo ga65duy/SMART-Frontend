@@ -142,9 +142,9 @@ export default class Page extends React.Component {
                             </Grid>
                         </Grid>
                         <Grid item style={{flexGrow: 1}} xs={8}>
-                            <Grid item>
+
                                 {childrenWithProps}
-                            </Grid>
+
                         </Grid>
                         <Grid item xs={2}>
                             <img style={{minWidth: 230}} src={require(`./${skyscraperAdvertisement[this.getRandomAdvertisement()]}`)}/>
