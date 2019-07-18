@@ -2,6 +2,7 @@ import React from "react";
 import StudyplanList from "../components/ShowStudyplans/StudyplanList";
 import StudyplanService from '../services/StudyplanService';
 import Page from "../components/PageWithAdvertisement/Page";
+import UserService from "../services/UserService";
 
 /**
  * LoadStudyplanView
@@ -24,16 +25,20 @@ export class LoadStudyplanView extends React.Component {
 
     removeStudyplan(studyplan){
         StudyplanService.deleteStudyplan(studyplan._id)
-            .then((studyplan) => {
-                StudyplanService.getStudyplan()
+            .then(() => {
+                const userid = UserService.getCurrentUser().id;
+                StudyplanService.listStudyplansForUser(userid)
                     .then( (studyplans) => {
+                        console.log("Getting new sucess")
                         this.setState({
                             studyplans: [...studyplans]
                         });
                     })
             }).catch((e) => {
                 console.error(e)
-        });
+        }).catch((e) => {
+            console.error(e)
+        })
     }
 
     componentWillMount(){
@@ -41,7 +46,8 @@ export class LoadStudyplanView extends React.Component {
             loading: true
         });
 
-        StudyplanService.listStudyplans().then((studyplans) => {
+        const userid = UserService.getCurrentUser().id;
+        StudyplanService.listStudyplansForUser(userid).then(studyplans => {
             this.setState({
                 studyplans: [...studyplans],
                 loading: false
