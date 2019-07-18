@@ -8,7 +8,6 @@ import { UserLoginView } from "./views/ProfileViews/UserLoginView";
 import { UserSignupView } from "./views/ProfileViews/UserSignupView";
 import {LoadStudyplanView} from './views/LoadStudyplanView';
 import {CreateStudyplanView} from './views/Studyplan/CreateStudyplanView';
-import {StudyplanView} from './views/Studyplan/StudyplanView';
 import {CreateStudyplanQueryView} from './views/Studyplan/CreateStudyplanQueryView';
 import {ProfileView} from "./views/ProfileViews/ProfileView";
 import {Welcome} from "./components/Welcome/Welcome"
@@ -39,18 +38,14 @@ export default class App extends React.Component {
 
                 { component: Welcome, path: '/', exact:true},
                 { component: LoadStudyplanView, path: '/profile/studyplans'},
-                { component: StudyplanView, path: '/home'},
+                { component: CreateStudyplanQueryView, path: '/home'},
+                { component: CreateStudyplanView, path: '/studyplan/:id'},
                 { component: WelcomeUniversity, path: '/welcomeUniversities'},
-               // {component: CreateStudyplanView, path:'/home/:id'},
                 { component: ProfileView , path: '/profile'},
-
                 { component: CourseView, path: '/courses/:id'},
                 {component: CourseSelectionView, path: '/courses'},
-
                 { component: UserSignupView, path: '/register'},
 
-
-                { component: StudyplanView, path:'/studyplanView'},
 
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
