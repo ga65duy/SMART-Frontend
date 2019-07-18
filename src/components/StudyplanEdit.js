@@ -54,8 +54,8 @@ export default class StudyplanEdit extends React.Component {
         super(props);
 
         this.state = {
-            studyplan : props.studyplan,
-            courses: props.courses,
+            studyplan : {},
+            courses: [],
 
 
 
@@ -65,7 +65,10 @@ export default class StudyplanEdit extends React.Component {
     }
 
     componentWillMount() {
-
+        this.setState({
+            studyplan: this.props.studyplan,
+            courses: this.props.courses
+        })
     }
 
     displaySemesters(){
@@ -526,7 +529,7 @@ export default class StudyplanEdit extends React.Component {
     render() {
         const classes = useStyles;
 
-
+        console.log(this.props)
 
         return(
             <Page>

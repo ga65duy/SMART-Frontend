@@ -4,6 +4,7 @@ import React from 'react';
 
 import Grid from "@material-ui/core/Grid";
 import Filter from "./Filter"
+import StudyplanEdit from "../StudyplanEdit";
 
 /**
  * Create Studyplan with filter
@@ -20,7 +21,7 @@ export default class CreateStudyplanWithFilter extends React.Component{
         return (
             <Grid container direction={"row"}>
                 <Grid item>
-                    <h2> Create studyplan</h2>
+                    <StudyplanEdit courses={this.props.courses} studyplan={this.props.studyplan}/>
                 </Grid>
                 <Grid item>
                     <Filter courses = {this.props.courses} areas={this.props.areas}/>

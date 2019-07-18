@@ -46,9 +46,7 @@ export class CreateStudyplanView extends React.Component {
         }
 
         return (
-            <Page>
-            <CreateStudyplanWithFilter courses={this.state.courses} areas={this.state.areas}/>
-            </Page>
+            <CreateStudyplanWithFilter studyplan={this.props.studyplan} courses={this.state.courses} areas={this.state.areas}/>
         );
     }
 }

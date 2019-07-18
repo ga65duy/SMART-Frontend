@@ -102,7 +102,7 @@ class StudyplanPreQuery extends React.Component {
     }
 
     handleSubmit(event) {
-        let studyplan={};
+        let studyplan = {};
         studyplan.name= this.state.SName;
         studyplan.fieldOfStudy=this.state.selectedFoS;
         studyplan.startSemester=this.state.startSemester;
@@ -113,7 +113,8 @@ class StudyplanPreQuery extends React.Component {
         studyplan.semester4 = this.state.selectedFoS.recommendedSemester4;
         studyplan.semester5 = this.state.selectedFoS.recommendedSemester5;
         studyplan.semester6 = this.state.selectedFoS.recommendedSemester6;
-
+        studyplan.semester7 = [];
+        studyplan.semester8 = [];
 
 
 
