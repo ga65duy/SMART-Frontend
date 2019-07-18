@@ -59,28 +59,21 @@ export default class Page extends React.Component {
         this.state = {
             title: '',
             loading: true,
-            studyplans: []
+            studyplans: [],
+            courses: []
         };
         this.updateSideBar = this.updateSideBar.bind(this);
         this.getRandomAdvertisement = this.getRandomAdvertisement.bind(this);
     }
 
     componentWillMount() {
-
-        this.setState({
-            title: document.title,
-            loading: false
-        });
-
-
-        //TODO check isUserLoggedIn so Page can be used everywhere (login, register, etc.) without problems
-        /*
         UserService.getLoggedInUserInfo().then((user) => {
             this.setState({
+                title: document.title,
                 loggedInUser: user
-            });
-            this.updateSideBar();
-        }); */
+            }, () =>  this.updateSideBar());
+
+        });
 
     }
 
@@ -104,7 +97,7 @@ export default class Page extends React.Component {
 
         } else {
 
-            StudyplanService.getStudyplan().then((studyplans) => {
+            StudyplanService.listStudyplans().then((studyplans) => {
                 CourseService.listCoursesWithRatingsOfUser(user).then((courses) => {
                     this.setState({
                         courses: courses,
@@ -141,8 +134,7 @@ export default class Page extends React.Component {
                         <Grid item>
                             <Grid container direction="column" spacing={1}>
                                 <Grid item>
-                                    {// <SideBar studyplans={this.state.studyplans} courses={this.state.courses} loggedInUser={this.state.loggedInUser}/>
-                                         }
+                                    <SideBar studyplans={this.state.studyplans} courses={this.state.courses} loggedInUser={this.state.loggedInUser}/>
                                 </Grid>
                                 <Grid item>
                                     <img style={{minWidth: 230}} src={require(`./${rectangleAdvertisement[this.getRandomAdvertisement()]}`)}/>

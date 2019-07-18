@@ -41,7 +41,7 @@ export class LoadStudyplanView extends React.Component {
             loading: true
         });
 
-        StudyplanService.getStudyplan().then((studyplans) => {
+        StudyplanService.listStudyplans().then((studyplans) => {
             this.setState({
                 studyplans: [...studyplans],
                 loading: false
