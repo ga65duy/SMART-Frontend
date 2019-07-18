@@ -83,7 +83,7 @@ export default class UserService {
         }
 
         return new Promise((resolve, reject) => {
-            HttpService.put(`${UserService.baseURL()}/${path}`, userData, function (data) {
+            HttpService.put(`${UserService.baseURL()}${path}`, userData, function (data) {
                 resolve(data);
             }, function (textStatus) {
                 reject(textStatus);

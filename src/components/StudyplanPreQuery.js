@@ -103,6 +103,7 @@ class StudyplanPreQuery extends React.Component {
 
     handleSubmit(event) {
         let studyplan = {};
+        studyplan.user = UserService.getCurrentUser().id;
         studyplan.name= this.state.SName;
         studyplan.fieldOfStudy=this.state.selectedFoS;
         studyplan.startSemester=this.state.startSemester;
@@ -116,10 +117,7 @@ class StudyplanPreQuery extends React.Component {
         studyplan.semester7 = [];
         studyplan.semester8 = [];
 
-
-
-
-        this.props.updateStudyplan(studyplan, this.state.university);
+        this.props.createStudyplan(studyplan, this.state.university);
 
 
 
