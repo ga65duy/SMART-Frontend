@@ -67,11 +67,12 @@ import {withRouter} from "react-router-dom";
 
 
 
-    updateStudyplan(studyplan, uni){
+    updateStudyplan(studyplan){
+
         console.log(studyplan);
-        console.log(uni);
+
         console.log(this.props);
-        this.props.onSubmit(studyplan, uni);
+        this.props.onSubmit(studyplan);
         StudyplanService.createStudyplan(studyplan).then((data) => {
 
             let u = UserService.getCurrentUser();
@@ -82,12 +83,14 @@ import {withRouter} from "react-router-dom";
                 u.studyplans = u.studyplans.push(data._id);
             }
 
+
             UserService.updateUser(u).catch((e)=>{console.error(e);});
                     //TODO  get add studyplan to user (in update Studyplan) to work
 
                     UserService.updateUser(u).catch((e)=>{console.error(e);});
 
-            //history push /studyplan/id
+            // TODO get: this.props.history.push('/studyplan/'+data._id); working
+
             console.log(u);
 
 

@@ -113,12 +113,14 @@ class StudyplanPreQuery extends React.Component {
         studyplan.semester4 = this.state.selectedFoS.recommendedSemester4;
         studyplan.semester5 = this.state.selectedFoS.recommendedSemester5;
         studyplan.semester6 = this.state.selectedFoS.recommendedSemester6;
+        studyplan.semester7 = [];
+        studyplan.semester8 = [];
 
 
 
 
 
-        this.props.updateStudyplan(studyplan, this.state.university);
+        this.props.updateStudyplan(studyplan);
 
 
 

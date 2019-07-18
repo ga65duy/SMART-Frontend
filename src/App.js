@@ -13,6 +13,7 @@ import {CreateStudyplanQueryView} from './views/Studyplan/CreateStudyplanQueryVi
 import {ProfileView} from "./views/ProfileViews/ProfileView";
 import {Welcome} from "./components/Welcome/Welcome"
 import {WelcomeUniversity} from "./components/Welcome/WelcomeUniversity";
+import {CreateStudyplanWithFilter} from "./components/CreateStudyplan/CreateStudyplanWithFilter"
 
 import {CourseView} from "./views/CourseView"
 
@@ -32,6 +33,10 @@ export default class App extends React.Component {
             fieldOfStudy:'',
 
             routes: [
+
+                {component:CreateStudyplanWithFilter, path:'/test'},
+
+
                 { component: Welcome, path: '/', exact:true},
                 { component: LoadStudyplanView, path: '/profile/studyplans'},
                 { component: StudyplanView, path: '/home'},
