@@ -69,6 +69,7 @@ import {withRouter} from "react-router-dom";
             }
         }).catch((e) => {
             console.error(e);
+            console.log(e.message);
             this.setState({error: true})
         });
     };

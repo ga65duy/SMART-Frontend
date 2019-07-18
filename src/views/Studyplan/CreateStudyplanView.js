@@ -20,7 +20,8 @@ export class CreateStudyplanView extends React.Component {
             loading: true
         });
 
-        let id = this.props.match.params.id;
+        //let id = this.props.match.params.id;
+        let id = this.props.studyplan._id;
 
         StudyplanService.getStudyplan(id).then((data) => {
             this.setState({

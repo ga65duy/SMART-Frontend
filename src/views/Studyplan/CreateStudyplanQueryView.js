@@ -66,7 +66,7 @@ import {withRouter} from "react-router-dom";
     }
 
     createStudyplan(studyplan, uni){
-        StudyplanService.createStudyplan(studyplan).then(() => {
+        StudyplanService.createStudyplan(studyplan).then((studyplan) => {
             this.props.onSubmit(studyplan, uni);
         }).catch((e) => {
             console.error(e);
