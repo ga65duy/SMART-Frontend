@@ -1,6 +1,7 @@
 "use strict";
 
 import HttpService from './HttpService';
+import UniversityService from "./UniversityService";
 
 /**
  * StudyplanService
@@ -16,11 +17,25 @@ export default class StudyplanService {
 
     static baseURL() {return "http://localhost:3000/studyplan" }
 
-    static getStudyplan(){
+    static listStudyplans(){
         return new Promise((resolve, reject) => {
             HttpService.get(this.baseURL(), function(data) {
                 resolve(data);
             }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
+    static getStudyplan(id) {
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${StudyplanService.baseURL()}/${id}`, function (data) {
+                if (data != undefined || Object.keys(data).length !== 0) {
+                    resolve(data);
+                } else {
+                    reject('Error while retrieving studyplan');
+                }
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });

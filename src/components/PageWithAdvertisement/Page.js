@@ -69,15 +69,19 @@ export default class Page extends React.Component {
 
         this.setState({
             title: document.title,
-            loading: true
+            loading: false
         });
 
+
+        //TODO check isUserLoggedIn so Page can be used everywhere (login, register, etc.) without problems
+        /*
         UserService.getLoggedInUserInfo().then((user) => {
             this.setState({
                 loggedInUser: user
             });
             this.updateSideBar();
-        });
+        }); */
+
     }
 
 
@@ -137,7 +141,8 @@ export default class Page extends React.Component {
                         <Grid item>
                             <Grid container direction="column" spacing={1}>
                                 <Grid item>
-                                    <SideBar studyplans={this.state.studyplans} courses={this.state.courses} loggedInUser={this.state.loggedInUser}/>
+                                    {// <SideBar studyplans={this.state.studyplans} courses={this.state.courses} loggedInUser={this.state.loggedInUser}/>
+                                         }
                                 </Grid>
                                 <Grid item>
                                     <img style={{minWidth: 230}} src={require(`./${rectangleAdvertisement[this.getRandomAdvertisement()]}`)}/>

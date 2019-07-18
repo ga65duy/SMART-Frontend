@@ -83,6 +83,9 @@ import {withRouter} from "react-router-dom";
             }
 
             UserService.updateUser(u).catch((e)=>{console.error(e);});
+                    //TODO  get add studyplan to user (in update Studyplan) to work
+
+                    UserService.updateUser(u).catch((e)=>{console.error(e);});
 
             //history push /studyplan/id
             console.log(u);
@@ -99,6 +102,11 @@ import {withRouter} from "react-router-dom";
 
 
 
+
+
+
+
+
     render() {
         if(this.state.loading){
             return (<div>Loading...</div>);
@@ -108,4 +116,4 @@ import {withRouter} from "react-router-dom";
             <StudyplanPreQuery foss={this.state.foss} courses={this.state.courses} universities={this.state.universities} updateStudyplan={(data) => this.updateStudyplan(data)} />
         );
     }
-}
+};

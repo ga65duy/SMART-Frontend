@@ -43,6 +43,8 @@ export default class App extends React.Component {
                 {component: CourseSelectionView, path: '/courses'},
 
                 { component: UserSignupView, path: '/register'},
+
+
                 { component: StudyplanView, path:'/studyplanView'},
 
                 { render: (props) => {
@@ -52,6 +54,15 @@ export default class App extends React.Component {
                         else {
                             return (<Redirect to={'/'}/>)
                         }} , path: '/profile/studyplans'},
+
+
+                { render: (props) => {
+                        if(UserService.isAuthenticated()) {
+                            return (<CreateStudyplanQueryView {... props} />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'}/>)
+                        }} , path: '/home'},
 
 
                 { render: (props) => {
@@ -79,6 +90,17 @@ export default class App extends React.Component {
 
             ]
         };
+        //bind  set University & fieldofStudy
+    }
+
+    setUniversity( uni)
+    {
+        this.setState(this.state.university=uni);
+    }
+
+    setFieldOfStudy(fos)
+    {
+        this.setState(this.state.fieldOfStudy=fos);
     }
 
     componentDidMount(){
