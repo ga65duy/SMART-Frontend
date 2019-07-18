@@ -116,6 +116,10 @@ class StudyplanPreQuery extends React.Component {
         studyplan.semester6 = this.state.selectedFoS.recommendedSemester6;
         studyplan.semester7 = [];
         studyplan.semester8 = [];
+        studyplan.notChosenCourses = this.state.selectedFoS.elective;
+
+
+
 
         this.props.createStudyplan(studyplan, this.state.university);
 

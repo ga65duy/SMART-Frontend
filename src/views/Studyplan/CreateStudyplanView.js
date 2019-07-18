@@ -2,52 +2,57 @@
 
 import React from 'react';
 
-import CreateStudyplanWithFilter from "../../components/CreateStudyplan/CreateStudyplanWithFilter";
-import FieldOfStudyService from "../../services/FieldOfStudyService";
-import Page from "../../components/PageWithAdvertisement/Page";
+import StudyplanEdit from '../../components/StudyplanEdit';
 
-/**
- * Create Studyplan view
- * Showing the the courses and structure for creating a studyplan
- * Author: Maria
- */
+import StudyplanService from '../../services/StudyplanService';
+import UserService from "../../services/UserService";
+
+
 export class CreateStudyplanView extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            loading: true,
-            courses: []
-        }
+        this.updateStudyplan=this.updateStudyplan.bind(this);
     }
 
     componentWillMount(props){
-        FieldOfStudyService.getCoursesForFos(this.props.studyplan.fieldOfStudy._id).then((courses)  =>{
+        this.setState({
+            loading: true
+        });
+
+        let id = this.props.match.params.id;
+
+        StudyplanService.getStudyplan(id).then((data) => {
             this.setState({
-                loading: false,
-                courses: courses,
-                areas: this.getAllAreasFromFOS(courses)
-            })
-        })
+                studyplan: data,
+                loading: false
+            });
+        }).catch((e) => {
+            console.error(e);
+        });
+
     }
 
-    getAllAreasFromFOS(courses){
-        let areas = [""];
-        for (let i = 0; i<courses.length; i++){
-            areas.push(...courses[i].area)
-        }
-        let unique = [...new Set(areas)];
-        return unique;
+    updateStudyplan(studyplan){
+        StudyplanService.updateStudyplan(studyplan).then((data) => {
+        }).catch((e) => {
+            console.error(e);
+            this.setState(Object.assign({}, this.state, {error: 'Error while creating studyplan'}));
+        });
+
+        /* TODO meldung dass erfolgreich gespeichert wurde */
+
     }
 
-    render(){
+
+
+    render() {
         if (this.state.loading) {
             return (<h2>Loading...</h2>);
         }
 
         return (
-            <CreateStudyplanWithFilter studyplan={this.props.studyplan} courses={this.state.courses} areas={this.state.areas}/>
+            <StudyplanEdit studyplan={this.state.studyplan} updateStudyplan={this.updateStudyplan}  />
         );
     }
 }
-

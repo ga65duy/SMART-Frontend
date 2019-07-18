@@ -2,18 +2,15 @@
 
 import React from 'react';
 
-
 import StudyplanService from '../../services/StudyplanService';
 import UserService from '../../services/UserService';
 import StudyplanPreQuery from '../../components/StudyplanPreQuery';
 import UniversityService from '../../services/UniversityService';
 import CourseService from '../../services/CourseService';
 import FieldOfStudyService from '../../services/FieldOfStudyService';
-import {withRouter} from "react-router-dom";
 
 
-
- export default class CreateStudyplanQueryView extends React.Component {
+export class CreateStudyplanQueryView extends React.Component {
 
     constructor(props) {
         super(props);
@@ -66,8 +63,9 @@ import {withRouter} from "react-router-dom";
     }
 
     createStudyplan(studyplan, uni){
-        StudyplanService.createStudyplan(studyplan).then(() => {
-            this.props.onSubmit(studyplan, uni);
+        StudyplanService.createStudyplan(studyplan).then((studyplan) => {
+            this.props.history.push(`/studyplan/${studyplan._id}`)
+
         }).catch((e) => {
             console.error(e);
             this.setState(Object.assign({}, this.state, {error: 'Error while creating studyplan'}));
@@ -83,4 +81,4 @@ import {withRouter} from "react-router-dom";
             <StudyplanPreQuery foss={this.state.foss} courses={this.state.courses} universities={this.state.universities} createStudyplan={(data) => this.createStudyplan(data)} />
         );
     }
-};
+}
