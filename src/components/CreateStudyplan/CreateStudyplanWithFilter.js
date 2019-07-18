@@ -23,7 +23,7 @@ export default class CreateStudyplanWithFilter extends React.Component{
                     <h2> Create studyplan</h2>
                 </Grid>
                 <Grid item>
-                    <Filter courses = {this.props.courses}/>
+                    <Filter courses = {this.props.courses} areas={this.props.areas}/>
                 </Grid>
             </Grid>
         )

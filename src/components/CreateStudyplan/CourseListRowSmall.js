@@ -6,9 +6,10 @@ import ReactStars from 'react-stars'
 import {withStyles} from "@material-ui/core/styles";
 
 /**
- *CourseList Row
+ *CourseListRowSmall
  *
  * Single Course is shown. This component is used in the CourseList to show all Courses, depending on filtering
+ * in the create studyplan view
  * Author: Maria
  */
 
@@ -21,7 +22,7 @@ const styles = theme => ({
 });
 
 
-class CourseListRow extends React.Component {
+class CourseListRowSmall extends React.Component {
     constructor(props) {
         super(props);
 
@@ -32,7 +33,6 @@ class CourseListRow extends React.Component {
         return (
             <Paper className={classes.paper}>
                 <Grid container direction={"column"}>
-                    <Box component="div">
                         <Grid container direction={"row"} justify={"space-between"}>
                             <Box m={1}>
                                 {this.props.course.name}
@@ -47,26 +47,14 @@ class CourseListRow extends React.Component {
                                 />
                             </Box>
                         </Grid>
-                    </Box>
-                    <Box component="div" m={1}>
-                        <Grid container direction={"row"} justify={"space-between"}>
-                            <Box>
-                                Ects: {this.props.course.ects}
-                            </Box>
-                            <Box>
-                                Available in: {this.props.course.SS ? "SS" : "WS"}
-                            </Box>
-                            <Box>
-                                Area: {this.props.course.area.join(", ")}
-                            </Box>
-                            <Link to={`/courses/${this.props.course._id}`}> Details </Link>
-                        </Grid>
-                    </Box>
+                    <Grid item alignItems={"flex-end"}>
+                        <Link to={`/courses/${this.props.course._id}`}> Details </Link>
+                    </Grid>
                 </Grid>
             </Paper>
         )
     }
 }
 
-export default withStyles(styles)(CourseListRow);
+export default withStyles(styles)(CourseListRowSmall);
 

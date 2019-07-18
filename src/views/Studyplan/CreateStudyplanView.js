@@ -16,7 +16,8 @@ export class CreateStudyplanView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: true
+            loading: true,
+            courses: []
         }
     }
 
@@ -24,9 +25,19 @@ export class CreateStudyplanView extends React.Component {
         FieldOfStudyService.getCoursesForFos(this.props.studyplan.fieldOfStudy._id).then((courses)  =>{
             this.setState({
                 loading: false,
-                courses: courses
+                courses: courses,
+                areas: this.getAllAreasFromFOS(courses)
             })
         })
+    }
+
+    getAllAreasFromFOS(courses){
+        let areas = [""];
+        for (let i = 0; i<courses.length; i++){
+            areas.push(...courses[i].area)
+        }
+        let unique = [...new Set(areas)];
+        return unique;
     }
 
     render(){
@@ -36,7 +47,7 @@ export class CreateStudyplanView extends React.Component {
 
         return (
             <Page>
-            <CreateStudyplanWithFilter courses={this.state.courses}/>
+            <CreateStudyplanWithFilter courses={this.state.courses} areas={this.state.areas}/>
             </Page>
         );
     }
