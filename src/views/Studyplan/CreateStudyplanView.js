@@ -31,12 +31,37 @@ export class CreateStudyplanView extends React.Component {
 
             this.setState({
                 studyplan: data,
+                areas: this.getAllAreasFromFOS(data),
                 loading: false
             });
         }).catch((e) => {
             console.error(e);
         });
 
+    }
+
+    getAllAreasFromFOS(studyplan){
+        let areas = [""];
+        let allCourses = [];
+        console.log(studyplan)
+        allCourses.push(studyplan.semester1);
+        allCourses.push(studyplan.semester2);
+        allCourses.push(studyplan.semester3);
+        allCourses.push(studyplan.semester4);
+        allCourses.push(studyplan.semester5);
+        allCourses.push(studyplan.semester6);
+        allCourses.push(studyplan.semester7);
+        allCourses.push(studyplan.semester8);
+        allCourses.push(studyplan.notChosenCourses);
+        allCourses = allCourses.flat();
+        console.log(allCourses)
+
+        for (let i = 0; i<allCourses.length; i++){
+            areas.push(...allCourses[i].area)
+        }
+        let unique = [...new Set(areas)];
+        console.log(unique)
+        return unique;
     }
 
     updateStudyplan(studyplan){
