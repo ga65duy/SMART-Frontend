@@ -12,6 +12,10 @@ export class CreateStudyplanView extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state={
+            areas:[],
+
+        };
         this.updateStudyplan=this.updateStudyplan.bind(this);
     }
 
@@ -23,6 +27,8 @@ export class CreateStudyplanView extends React.Component {
         let id = this.props.match.params.id;
 
         StudyplanService.getStudyplan(id).then((data) => {
+            //studyplan.allcourses.area -> this.state.areas
+
             this.setState({
                 studyplan: data,
                 loading: false
@@ -35,6 +41,8 @@ export class CreateStudyplanView extends React.Component {
 
     updateStudyplan(studyplan){
         StudyplanService.updateStudyplan(studyplan).then((data) => {
+
+
         }).catch((e) => {
             console.error(e);
             this.setState(Object.assign({}, this.state, {error: 'Error while creating studyplan'}));
@@ -52,7 +60,9 @@ export class CreateStudyplanView extends React.Component {
         }
 
         return (
-            <StudyplanEdit studyplan={this.state.studyplan} updateStudyplan={this.updateStudyplan}  />
+            <StudyplanEdit studyplan={this.state.studyplan} updateStudyplan={this.updateStudyplan} areas={this.state.areas}  />
         );
+
+
     }
 }

@@ -3,6 +3,10 @@ import {FormControl, Grid, InputLabel, MenuItem, Select} from "@material-ui/core
 import TextField from "@material-ui/core/TextField";
 import Box from "@material-ui/core/Box";
 
+import IconButton from '@material-ui/core/IconButton';
+
+import Settings from '@material-ui/icons/Settings';
+
 /**
  * FilterComponents
  * Drop down for Area,Ects,Rating
@@ -22,7 +26,8 @@ export default class FilterComponents extends React.Component {
             ectsSearch: "",
             ratingSearch: "",
             nameSearch: "",
-            semesterSearch: ""
+            semesterSearch: "",
+            displayFilters: false,
         });
 
         this.handleAreaDropdown = this.handleAreaDropdown.bind(this);
@@ -30,6 +35,8 @@ export default class FilterComponents extends React.Component {
         this.handleRatingDropdown = this.handleRatingDropdown.bind(this);
         this.handleNameSearch = this.handleNameSearch.bind(this);
         this.handleSemesterDropdown = this.handleSemesterDropdown.bind(this);
+        this.handleSettingsClick=this.handleSettingsClick.bind(this);
+        this.displayFilters=this.displayFilters.bind(this);
     }
 
     showInDropdown(items) {
@@ -84,22 +91,20 @@ export default class FilterComponents extends React.Component {
         }, () => this.triggerFilter())
     }
 
-    render() {
-        return (
-            <Box m={2}>
-                <Grid container direction={"column"}>
-                    < Grid item>
-                        <TextField
-                            placeholder="Search coursename"
-                            variant="outlined"
-                            margin="dense"
-                            value={this.state.nameSearch}
-                            onChange={this.handleNameSearch}
-                        />
-                    </Grid>
+    handleSettingsClick(e){
+        let a = !this.state.displayFilters;
+        this.setState({
+            displayFilters: a,
+        })
+    }
+
+
+    displayFilters(){
+        if(this.state.displayFilters){
+            return(
 
                     <Grid container direction="row" justify={"space-between"}>
-                        <Grid item spacing={2}>
+                        <Grid item >
                             <FormControl>
                                 <InputLabel> Area </InputLabel>
                                 <Select
@@ -148,6 +153,38 @@ export default class FilterComponents extends React.Component {
                             </FormControl>
                         </Grid>
                     </Grid>
+
+
+            )
+        }
+        else {
+            return (<div/>);
+        }
+    }
+
+    render() {
+        return (
+            <Box m={2}>
+                <Grid container direction={"column"}>
+                    < Grid item>
+                        <TextField
+                            placeholder="Search coursename"
+                            variant="outlined"
+                            margin="dense"
+                            value={this.state.nameSearch}
+                            onChange={this.handleNameSearch}
+                        />
+                    </Grid>
+
+                    <Grid item>
+                        <IconButton  onClick={this.handleSettingsClick}>
+                            <Settings />
+                        </IconButton>
+                    </Grid>
+
+                    {this.displayFilters()}
+
+
                 </Grid>
             </Box>
         )
