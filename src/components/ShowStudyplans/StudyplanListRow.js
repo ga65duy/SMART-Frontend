@@ -28,13 +28,19 @@ class StudyplanListRow extends React.Component{
     constructor(props){
         super(props);
         this.handleRemove= this.handleRemove.bind(this);
+        this.studyplan = this.studyplan.bind(this);
     }
 
     handleRemove() {
         this.props.remove(this.props.studyplan);
     }
 
+    studyplan(){
+        location.href = `/#/studyplan/${this.props.studyplan._id}`;
+    }
+
     render () {
+        console.log(this.props.studyplan)
         const {classes} = this.props;
         return (
             <Paper className={classes.paper}>
@@ -44,13 +50,16 @@ class StudyplanListRow extends React.Component{
                             {this.props.studyplan.name}
                         </Typography>
                     </Grid>
-                    <Grid item xs={8}>
-                        <Typography>{this.props.studyplan.img}</Typography>
+                    <Grid container direction={"column"} xs={8}>
+                    <Grid item>
+                        <Typography> Beginn: {this.props.studyplan.startSemester}</Typography>
+                        <Typography> {this.props.studyplan.fieldOfStudy.name}</Typography>
+                    </Grid>
                     </Grid>
                     <Grid item  container xs={2}>
                         <Grid item container direction="column" spacing={2}>
                             <Grid item>
-                                <Button variant="contained">
+                                <Button variant="contained" onClick={this.studyplan}>
                                     Edit
                                 </Button>
                             </Grid>

@@ -5,6 +5,7 @@ import Page from "../PageWithAdvertisement/Page";
 import {Typography} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import withStyles from "@material-ui/core/styles/withStyles";
+import Button from "@material-ui/core/Button";
 
 /**
  * StudyplanList
@@ -24,6 +25,8 @@ const styles = theme => ({
 class StudyplanList extends React.Component {
     constructor(props) {
         super(props);
+
+        this.createStudyplan = this.createStudyplan.bind(this);
     }
 
     getStudyplanListItems(studyplanItems) {
@@ -34,6 +37,10 @@ class StudyplanList extends React.Component {
         })
     }
 
+    createStudyplan(){
+        location.href = `/#/home`;
+    }
+
     render() {
         const {classes} = this.props;
         return (
@@ -41,6 +48,7 @@ class StudyplanList extends React.Component {
                 <Typography variant="h4" color={"primary"} gutterBottom>
                     My Studyplans
                 </Typography>
+                <Button variant="contained" color="primary" onClick={this.createStudyplan}> Create new studyplan </Button>
                 <Grid style={{maxHeight: 500, overflow: 'auto'}}>
                     {this.getStudyplanListItems(this.props.studyplans)}
                 </Grid>

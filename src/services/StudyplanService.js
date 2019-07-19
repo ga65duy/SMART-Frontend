@@ -1,7 +1,6 @@
 "use strict";
 
 import HttpService from './HttpService';
-import UniversityService from "./UniversityService";
 
 /**
  * StudyplanService
@@ -17,6 +16,15 @@ export default class StudyplanService {
 
     static baseURL() {return "http://localhost:3000/studyplan" }
 
+    static listStudyplansForUser(userid){
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${this.baseURL()}/user/${userid}`, function(data){
+                resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            })
+        })
+    }
     static listStudyplans(){
         return new Promise((resolve, reject) => {
             HttpService.get(this.baseURL(), function(data) {
