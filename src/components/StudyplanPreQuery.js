@@ -5,12 +5,14 @@ import { withRouter } from 'react-router-dom'
 
 import { AlertMessage } from './AlertMessage';
 import Page from './PageWithAdvertisement/Page';
+import {Paper} from "@material-ui/core";
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 
 import UserService from '../services/UserService';
+import {withStyles} from "@material-ui/core";
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
@@ -20,10 +22,20 @@ import FieldOfStudyService from '../services/FieldOfStudyService';
 import UniversityService from '../services/UniversityService';
 import CourseService from "../services/CourseService";
 
-const style = { maxWidth: 500 };
+/***
+ * StudyplanPreQuery
+ * Asking the student for university, fieldofstudy, start year of studies and studyplan name
+ * Author: Gerhard / Maria
+ */
+
 const semester=["2019", "2020", "2021", "2022","2023"];
 
-
+const styles = theme => ({
+    paper: {
+        padding: theme.spacing(2),
+        margin: "10px"
+    },
+});
 
 class StudyplanPreQuery extends React.Component {
 
@@ -169,14 +181,14 @@ class StudyplanPreQuery extends React.Component {
 
 
     render() {
-
+        const {classes} = this.props;
         return (
             <Page>
-
+                <Paper className={classes.paper}>
+                <Typography variant="h4" color={"primary"} gutterBottom align={"center"}> Studyplan selection </Typography>
                 <Grid container
                       direction="column"
-                      justify="flex-start"
-                      alignItems="center"
+                      alignContent="center"
                       spacing={2}>
 
                     <Grid item >
@@ -184,13 +196,13 @@ class StudyplanPreQuery extends React.Component {
                             <TextField
                                 id="standard-select-university"
                                 select
-                                label="Select your university"
-
+                                label="Select my university"
+                                style={{minWidth: 400,maxWidth: 400}}
                                 value={this.state.university}
                                 onChange={this.handleChangeUniveristy}
 
 
-                                helperText="Please select your university"
+                                helperText="Please select my university"
                                 margin="normal"
                             >
                                 {this.props.universities.map(option => (
@@ -207,12 +219,12 @@ class StudyplanPreQuery extends React.Component {
                                 id="standard-select-FoS"
                                 select
                                 label="Select FoS"
-
+                                style={{minWidth: 400,maxWidth: 400}}
                                 value={this.state.selectedFoS}
                                 onChange={this.handleChangeFoS}
 
 
-                                helperText="Please select your Field of Study"
+                                helperText="Please select my Field of Study"
                                 margin="normal"
                             >
                                 {this.state.FoSs.map(option2 => (
@@ -230,12 +242,12 @@ class StudyplanPreQuery extends React.Component {
                                 id="standard-select-StartSemester"
                                 select
                                 label="Select Start Year"
-
+                                style={{minWidth: 400,maxWidth: 400}}
                                 value={this.state.startSemester}
                                 onChange={this.handleChangeStartSemester}
 
 
-                                helperText="Please select the start year of your study"
+                                helperText="My first year of study"
                                 margin="normal"
                             >
                                 {semester.map(option3 => (
@@ -251,28 +263,26 @@ class StudyplanPreQuery extends React.Component {
                         <TextField
                             id="standard-uncontrolled"
                             label="Studyplan Name"
-
+                            style={{minWidth: 400,maxWidth: 400}}
                             onChange={this.handleChangeName}
 
                             margin="normal"
                         />
                     </Grid>
 
-                    <Grid item>
-                        <Button disabled={!(this.state.nameValid&&this.state.fosValid&&this.state.uniValid)}
-                            onClick={this.handleSubmit} variant="contained" > Create New Studyplan</Button>
+                    <Button disabled={!(this.state.nameValid&&this.state.fosValid&&this.state.uniValid)}
+                            onClick={this.handleSubmit} color ="primary" variant="contained" > Create New Studyplan</Button>
 
-                    </Grid>
 
 
                 </Grid>
 
 
 
-
+                </Paper>
             </Page>
         );
     }
 }
 
-export default withRouter(StudyplanPreQuery);
+export default withRouter(withStyles(styles)(StudyplanPreQuery));
