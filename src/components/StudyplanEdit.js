@@ -429,14 +429,16 @@ export default class StudyplanEdit extends React.Component {
         let sp=this.state.studyplan;
 
         if (sp.semester1.findIndex(function (i) {
-            return i._id == id._id;}) > -1) {
+            return i._id == id._id;}) > -1)
+        {
             sp.semester1.splice(sp.semester1.findIndex(function (i) {
                 return i._id == id._id;
             }), 1);
         }
 
         if (sp.semester2.findIndex(function (i) {
-            return i._id == id._id;}) > -1) {
+            return i._id == id._id;}) > -1)
+        {
             sp.semester2.splice(sp.semester2.findIndex(function (i) {
                 return i._id == id._id;
             }), 1);
@@ -495,18 +497,24 @@ export default class StudyplanEdit extends React.Component {
         this.setState({studyplan:sp});
 
     }
-
+    /**
+     * CourseService Parts: attendee update for course statistics
+     * Author: Jan
+     */
     onDropSem1(e)
     {
         let id= JSON.parse(e.dataTransfer.getData("course"));
         this.removeFromAll(id);
         let sp=this.state.studyplan;
         sp.semester1.push(id);
-      this.setState({
+        this.setState({
             studyplan:sp,
         });
-
-
+        CourseService.getCourse(id._id).then(function (result) {
+            result.attendees[1] = 0;
+            result.attendees[1] = result.attendees[1]+1;
+            CourseService.updateCourse(result);
+        });
     }
 
     onDropSem2(e)
@@ -517,6 +525,12 @@ export default class StudyplanEdit extends React.Component {
         sp.semester2.push(id);
         this.setState({
             studyplan:sp,
+        });
+        CourseService.getCourse(id._id).then(function (result) {
+            result.attendees[2] = 0;
+            result.attendees[2] = result.attendees[2]+1;
+            console.log(result);
+            CourseService.updateCourse(result);
         });
     }
 
@@ -531,6 +545,12 @@ export default class StudyplanEdit extends React.Component {
         this.setState({
             studyplan:sp,
         });
+        CourseService.getCourse(id._id).then(function (result) {
+            result.attendees[3] = 0;
+            result.attendees[3] = result.attendees[3]+1;
+            console.log(result);
+            CourseService.updateCourse(result);
+        });
     }
 
     onDropSem4(e)
@@ -541,6 +561,12 @@ export default class StudyplanEdit extends React.Component {
         sp.semester4.push(id);
         this.setState({
             studyplan:sp,
+        });
+        CourseService.getCourse(id._id).then(function (result) {
+            result.attendees[4] = 0;
+            result.attendees[4] = result.attendees[4]+1;
+            console.log(result);
+            CourseService.updateCourse(result);
         });
     }
 
@@ -553,6 +579,12 @@ export default class StudyplanEdit extends React.Component {
         this.setState({
             studyplan:sp,
         });
+        CourseService.getCourse(id._id).then(function (result) {
+            result.attendees[5] = 0;
+            result.attendees[5] = result.attendees[5]+1;
+            console.log(result);
+            CourseService.updateCourse(result);
+        });
     }
 
     onDropSem6(e)
@@ -563,6 +595,12 @@ export default class StudyplanEdit extends React.Component {
         sp.semester6.push(id);
         this.setState({
             studyplan:sp,
+        });
+        CourseService.getCourse(id._id).then(function (result) {
+            result.attendees[6] = 0;
+            result.attendees[6] = result.attendees[6]+1;
+            console.log(result);
+            CourseService.updateCourse(result);
         });
     }
 
@@ -575,6 +613,12 @@ export default class StudyplanEdit extends React.Component {
         this.setState({
             studyplan:sp,
         });
+        CourseService.getCourse(id._id).then(function (result) {
+            result.attendees[7] = 0;
+            result.attendees[7] = result.attendees[7]+1;
+            console.log(result);
+            CourseService.updateCourse(result);
+        });
     }
 
     onDropSem8(e)
@@ -585,6 +629,12 @@ export default class StudyplanEdit extends React.Component {
         sp.semester8.push(id);
         this.setState({
             studyplan:sp,
+        });
+        CourseService.getCourse(id._id).then(function (result) {
+            result.attendees[8] = 0;
+            result.attendees[8] = result.attendees[8]+1;
+            console.log(result);
+            CourseService.updateCourse(result);
         });
     }
 

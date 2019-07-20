@@ -5,6 +5,7 @@ import {Box, Grid, Typography} from "@material-ui/core";
 import {RatingPostList} from "./RatingComponents/RatingPostList";
 import Stars from "./RatingComponents/Stars";
 import ReactStars from "react-stars";
+import CourseService from "../services/CourseService";
 import {XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, LineSeries, VerticalBarSeries, LabelSeries} from 'react-vis';
 /**
  * CourseStatistics
@@ -40,15 +41,14 @@ export class CourseStatistics extends React.Component {
                                         <YAxis />
                                         <VerticalBarSeries
                                             data={[
-                                             {x: 1, y: 4},
-                                                {x: 2, y: 5},
-                                                {x: 3, y: 2},
-                                                {x: 4, y: 2},
-                                                {x: 5, y: 4},
-                                                {x: 6, y: 5},
-                                                {x: 7, y: 6},
-                                             {x: 8, y: 2},
-                                             {x: 9, y: 6}
+                                                {x: 1, y: this.props.course.attendees[1]},
+                                                {x: 2, y: this.props.course.attendees[2]},
+                                                {x: 3, y: this.props.course.attendees[3]},
+                                                {x: 4, y: this.props.course.attendees[4]},
+                                                {x: 5, y: this.props.course.attendees[5]},
+                                                {x: 6, y: this.props.course.attendees[6]},
+                                                {x: 7, y: this.props.course.attendees[7]},
+                                                {x: 8, y: this.props.course.attendees[8]}
                                             ]}/>
                                     </XYPlot>
                                 </Grid>
