@@ -19,6 +19,8 @@ import Button from '@material-ui/core/Button';
 import StudyplanService from "../services/StudyplanService";
 import CourseService from "../services/CourseService";
 import UserService from "../services/UserService";
+import html2canvas from "html2canvas";
+import jsPDF from 'jspdf';
 
 
 
@@ -54,6 +56,7 @@ export default class StudyplanEdit extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.filter=this.filter.bind(this);
+        this.createPDF = this.createPDF.bind(this);
         this.updateECTS();
 
     }
@@ -634,7 +637,16 @@ export default class StudyplanEdit extends React.Component {
     }
 
 
-
+    createPDF () {
+        const input = document.getElementById("studyplanDiv");
+        html2canvas(input).
+            then((canvas) => {
+                const imgData = canvas.toDataURL(`${this.state.studyplan.name}.png`);
+                const pdf = new jsPDF({orientation: "l"});
+                pdf.addImage(imgData, "PNG", 0, 0);
+                pdf.save(`${this.state.studyplan.name}.pdf`)
+        })
+    }
 
 
     render() {
@@ -644,7 +656,8 @@ export default class StudyplanEdit extends React.Component {
         return(
             <Page>
                 <Paper>
-                    <Grid container direction = "row"  >
+                    <Grid container direction = "row">
+                        <div id={"studyplanDiv"}>
                         <Grid item >
                             <Paper square={true} >
                                 <Typography variant="h3" >{this.state.studyplan.name} </Typography>
@@ -719,7 +732,7 @@ export default class StudyplanEdit extends React.Component {
                                 </Grid>
                             </Paper>
                         </Grid>
-
+                        </div>
                         <Grid item >
                             <Grid container direction="column" style={{maxHeight: 600,maxWidth:350, overflow: 'auto'}} onDragOver={(e)=>this.onDragOver(e)} onDrop={(e)=>this.onDropAvailable(e)}>
                                <Grid item>
@@ -740,6 +753,9 @@ export default class StudyplanEdit extends React.Component {
                     </Button>
                     <Button href={"/#/profile/studyplans"} >
                         CANCEL
+                    </Button>
+                    <Button onClick={this.createPDF} >
+                        PDF
                     </Button>
 
 
