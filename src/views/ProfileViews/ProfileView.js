@@ -3,6 +3,7 @@ import Profile from "../../components/ProfileComponents/Profile";
 import UserService from "../../services/UserService";
 import UniversityService from "../../services/UniversityService";
 import Page from "../../components/PageWithAdvertisement/Page";
+import LoadingOverlay from 'react-loading-overlay';
 
 /**
  * ProfileView
@@ -59,15 +60,21 @@ export class ProfileView extends React.Component {
     }
 
     render() {
-        if (this.state.loading) {
-            return (<h2>Loading...</h2>);
-        }
+        //if (this.state.loading) {
+           // return (<h2>Loading...</h2>);
+        //}
         return (
-            <Page>
-                <Profile user={this.state.user} universities={this.state.universities}
+            <LoadingOverlay
+                active={this.state.loading}
+                spinner
+                text='Loading the content...'
+            >
+                <Page>
+                    <Profile user={this.state.user} universities={this.state.universities}
                          updateProfile={this.updateProfile} resetSaveButton={this.resetSaveButton}
                          userUpdated={this.state.userUpdated}/>
             </Page>
+            </LoadingOverlay>
         );
     }
 }
