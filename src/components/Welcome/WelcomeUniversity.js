@@ -165,7 +165,7 @@ export class WelcomeUniversity extends React.Component {
                                                 container
                                                 direction="column"
                                                 justify="space-evenly"
-                                                alignItems="flex-start"
+                                                alignItems="center"
                                             >
                                                 {/*Überschrift*/}
                                                 <Grid item>
@@ -173,12 +173,101 @@ export class WelcomeUniversity extends React.Component {
                                                     <h2 style={{color:'black'}}> SHORT AND SWEET: </h2>
                                                 </Grid>
                                                 <br/>
-                                                <Grid item>
-                                                    <h3 style={{color:'black'}}>
-                                                        Join the SMART community! <br/>
-                                                        You want your courses to be more attractive and give students
-                                                        the possibility to find all information for your courses easily and in one place? <br/>
-                                                    </h3>
+                                                <br/>
+                                                <br/>
+                                                {/*Grid 1. Zeile mit 3 Items*/}
+                                                <Grid
+                                                    container
+                                                    direction="row"
+                                                    justify="space-evenly"
+                                                    alignItems="center"
+                                                >
+                                                    {/*Grid 1. Item*/}
+                                                    <Grid item xs>
+                                                        <Grid
+                                                            container
+                                                            direction="column"
+                                                            justify="center"
+                                                            alignItems="center"
+                                                        >
+                                                            {/*Item Bild*/}
+                                                            <Grid item>
+                                                                <img href="/"
+                                                                     src={require('./lupe.png')}
+                                                                     width={100}
+                                                                     height={100}
+                                                                     mode="fit"/>
+                                                            </Grid>
+                                                            {/*Item Überschrift*/}
+                                                            <Grid item>
+                                                                <h2>EASY</h2>
+                                                            </Grid>
+                                                            {/*Item erklärung*/}
+                                                            <Grid item>
+                                                                <h4 style={{textAlign: 'center'}}>
+                                                                    Help your students find courses easily.<br/>
+                                                                </h4>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                    {/*Grid 2. Item*/}
+                                                    <Grid item xs>
+                                                        <Grid
+                                                            container
+                                                            direction="column"
+                                                            justify="center"
+                                                            alignItems="center"
+                                                        >
+                                                            {/*Item Bild*/}
+                                                            <Grid item>
+                                                                <img href="/"
+                                                                     src={require('./counsel.png')}
+                                                                     width={100}
+                                                                     height={100}
+                                                                     mode="fit"/>
+                                                            </Grid>
+                                                            {/*Item Überschrift*/}
+                                                            <Grid item>
+                                                                <h2>COUNSEL</h2>
+                                                            </Grid>
+                                                            {/*Item erklärung*/}
+                                                            <Grid item>
+                                                                <h4 style={{textAlign: 'center'}}>
+                                                                    Give your counsellors a clear platform.<br/>
+                                                                    SMART simplifies their work to give students better support!
+                                                                </h4>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                    {/*Grid 3. Item*/}
+                                                    <Grid item xs>
+                                                        <Grid
+                                                            container
+                                                            direction="column"
+                                                            justify="center"
+                                                            alignItems="center"
+                                                        >
+                                                            {/*Item Bild*/}
+                                                            <Grid item>
+                                                                <img href="/"
+                                                                     src={require('./statistics.png')}
+                                                                     width={100}
+                                                                     height={100}
+                                                                     mode="fit"/>
+                                                            </Grid>
+                                                            {/*Item Überschrift*/}
+                                                            <Grid item>
+                                                                <h2>STATISTICS</h2>
+                                                            </Grid>
+                                                            {/*Item erklärung*/}
+                                                            <Grid item>
+                                                                <h4 style={{textAlign: 'center'}}>
+                                                                    Get predictions on student count for upcoming semester.<br/>
+                                                                    Receive student feedback on lecturer, content and exam!
+                                                                </h4>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
                                                 </Grid>
                                             </Grid>
                                         </div>
