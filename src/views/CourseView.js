@@ -7,6 +7,7 @@ import UserService from "../services/UserService";
 import moment from "moment";
 import {CourseStatistics} from "../components/CourseStatistics";
 import Page from "../components/PageWithAdvertisement/Page";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 
 /**
@@ -100,8 +101,12 @@ export class CourseView extends React.Component {
 
     render() {
         if (this.state.loading) {
-            return (<h2>Loading...</h2>);
-        } else {
+            return <Page>
+                <div style={{display: "flex", flexDirection: "column", alignItems: "center", margin: 200}}>
+                    <CircularProgress color={"primary"}/>
+                </div>
+                    </Page>}
+        else {
             console.log(this.state.course);
             if(this.state.isUniversityUser) {
                 return (<CourseStatistics course={this.state.course} rate={this.rateCourse}

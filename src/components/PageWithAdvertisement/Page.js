@@ -11,13 +11,13 @@ import Grid from '@material-ui/core/Grid';
 import StudyplanService from "../../services/StudyplanService";
 import CourseService from "../../services/CourseService";
 import UserService from "../../services/UserService";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 /**
  * Page
  * Sourrounding all views
  * Author: Maria and Gerhard
  */
-
 
 const theme = createMuiTheme({
     palette: {
@@ -67,10 +67,12 @@ export default class Page extends React.Component {
     }
 
     componentWillMount() {
+        const showAdvertisement = this.getRandomAdvertisement();
         UserService.getLoggedInUserInfo().then((user) => {
             this.setState({
                 title: document.title,
-                loggedInUser: user
+                loggedInUser: user,
+                showAdvertisement: showAdvertisement
             }, () =>  this.updateSideBar());
 
         });
@@ -118,7 +120,9 @@ export default class Page extends React.Component {
     render() {
         const childrenWithProps = recursiveMap(this.props.children, child => {return React.cloneElement(child, {updatesidebar: this.updateSideBar})});
         if (this.state.loading) {
-            return (<h2>Loading...</h2>);
+            return <div style={{display: "flex", flexDirection: "column", alignItems: "center", margin: 200}}>
+                <CircularProgress color={"primary"}/>
+                </div>
         }
         return (
             <Grid container direction="column" spacing={1}>
@@ -137,7 +141,7 @@ export default class Page extends React.Component {
                                     <SideBar studyplans={this.state.studyplans} courses={this.state.courses} loggedInUser={this.state.loggedInUser}/>
                                 </Grid>
                                 <Grid item>
-                                    <img style={{minWidth: 230}} src={require(`./${rectangleAdvertisement[this.getRandomAdvertisement()]}`)}/>
+                                    <img style={{minWidth: 230}} src={require(`./${rectangleAdvertisement[this.state.showAdvertisement]}`)}/>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -147,7 +151,7 @@ export default class Page extends React.Component {
 
                         </Grid>
                         <Grid item xs={2}>
-                            <img style={{minWidth: 230}} src={require(`./${skyscraperAdvertisement[this.getRandomAdvertisement()]}`)}/>
+                            <img style={{minWidth: 230}} src={require(`./${skyscraperAdvertisement[this.state.showAdvertisement]}`)}/>
                         </Grid>
                     </Grid>
                 </Grid>

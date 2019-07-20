@@ -3,6 +3,7 @@ import StudyplanList from "../components/ShowStudyplans/StudyplanList";
 import StudyplanService from '../services/StudyplanService';
 import Page from "../components/PageWithAdvertisement/Page";
 import UserService from "../services/UserService";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 /**
  * LoadStudyplanView
@@ -59,8 +60,11 @@ export class LoadStudyplanView extends React.Component {
 
     render() {
         if (this.state.loading) {
-            return (<h2>Loading...</h2>);
-        }
+            return <Page>
+                <div style={{display: "flex", flexDirection: "column", alignItems: "center", margin: 200}}>
+                    <CircularProgress color={"primary"}/>
+                </div>
+            </Page>}
         else {
             return (
                 <Page>
