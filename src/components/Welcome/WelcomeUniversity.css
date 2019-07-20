@@ -13,7 +13,7 @@ body, html {
 
 .welcome-uni-main-content {
     box-sizing: border-box;
-    height: calc(100vh - 350px);
+    height: calc(100vh - 400px);
     padding-top: 15%;
     color: white;
 }
