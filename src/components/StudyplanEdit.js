@@ -3,6 +3,7 @@
 import React from 'react';
 
 import Page from './PageWithAdvertisement/Page';
+import FilterComponents from './FilterComponents'
 
 import Header from './Header';
 import {Footer} from './Footer';
@@ -18,6 +19,8 @@ import Button from '@material-ui/core/Button';
 import StudyplanService from "../services/StudyplanService";
 import CourseService from "../services/CourseService";
 import UserService from "../services/UserService";
+import html2canvas from "html2canvas";
+import jsPDF from 'jspdf';
 
 
 
@@ -46,20 +49,21 @@ export default class StudyplanEdit extends React.Component {
             availableCourses: props.courses,
             ects:[],
             filteredCourses:props.studyplan.notChosenCourses,
-
+            selections:{},
 
 
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.filter=this.filter.bind(this);
+        this.createPDF = this.createPDF.bind(this);
         this.updateECTS();
+
     }
 
     componentWillMount(){
 
-        console.log(this.props.studyplan.semester1);
 
-        console.log(this.props.studyplan.notChosenCourses);
        /* let ele=this.state.studyplan.fieldOfStudy.elective;
         this.setState({
             filteredCourses: ele,
@@ -183,7 +187,7 @@ export default class StudyplanEdit extends React.Component {
     }
 
 
-    //änderungen an den Drag and Drop Cards hier machen
+    //änderungen an den Drag and Drop Cards in displaySemesters() machen
 
     displaySemesters(){
         var courses={
@@ -366,15 +370,14 @@ export default class StudyplanEdit extends React.Component {
 
 
     filter(selections){
-        //TODO
-        //From this.state.studyplan.elective -> this.state.filteredCourses
+
 
        // let courses = JSON.parse(JSON.stringify(this.props.courses));
 
         let courses= [];
 
-        if(this.state.studyplan.fieldOfStudy.elective !== undefined) {
-             courses = this.state.studyplan.fieldOfStudy.elective;
+        if(this.state.studyplan.notChosenCourses !== undefined) {
+             courses = this.state.studyplan.notChosenCourses;
         }
 
         courses = courses.filter((course) => {
@@ -419,7 +422,8 @@ export default class StudyplanEdit extends React.Component {
         });
 
         this.setState({
-            filteredCourses: courses
+            filteredCourses: courses,
+            selections:selections,
         })
     }
 
@@ -427,6 +431,7 @@ export default class StudyplanEdit extends React.Component {
     removeFromAll(id){
 
         let sp=this.state.studyplan;
+        let fc=this.state.filteredCourses;
 
         if (sp.semester1.findIndex(function (i) {
             return i._id == id._id;}) > -1)
@@ -494,7 +499,15 @@ export default class StudyplanEdit extends React.Component {
                 }), 1);
             }
 
-        this.setState({studyplan:sp});
+        if (fc.findIndex(function (i) {
+            return i._id == id._id;}) > -1) {
+            fc.splice(fc.findIndex(function (i) {
+                return i._id == id._id;
+            }), 1);
+        }
+
+        this.setState({studyplan:sp,
+        filteredCourses:fc});
 
     }
     /**
@@ -644,8 +657,11 @@ export default class StudyplanEdit extends React.Component {
         this.removeFromAll(id);
         let sp= this.state.studyplan;
         sp.notChosenCourses.push(id);
+
         this.setState({
-            studyplan:sp,
+            studyplan: sp,
+        }, ()=>{
+            this.filter(this.state.selections);
         });
     }
 
@@ -671,22 +687,27 @@ export default class StudyplanEdit extends React.Component {
     }
 
 
-
+    createPDF () {
+        const input = document.getElementById("studyplanDiv");
+        html2canvas(input).
+            then((canvas) => {
+                const imgData = canvas.toDataURL(`${this.state.studyplan.name}.png`);
+                const pdf = new jsPDF({orientation: "l"});
+                pdf.addImage(imgData, "PNG", 0, 0);
+                pdf.save(`${this.state.studyplan.name}.pdf`)
+        })
+    }
 
 
     render() {
         const classes = useStyles;
-
         const ects= this.updateECTS();
-
-        console.log(this.displaySemesters().available);
-
-
 
         return(
             <Page>
                 <Paper>
-                    <Grid container direction = "row"  >
+                    <Grid container direction = "row">
+                        <div id={"studyplanDiv"}>
                         <Grid item >
                             <Paper square={true} >
                                 <Typography variant="h3" >{this.state.studyplan.name} </Typography>
@@ -761,20 +782,17 @@ export default class StudyplanEdit extends React.Component {
                                 </Grid>
                             </Paper>
                         </Grid>
-
+                        </div>
                         <Grid item >
                             <Grid container direction="column" style={{maxHeight: 600,maxWidth:350, overflow: 'auto'}} onDragOver={(e)=>this.onDragOver(e)} onDrop={(e)=>this.onDropAvailable(e)}>
+                               <Grid item>
+                                   <FilterComponents areas={this.props.areas} onSelection={this.filter}/>
+                               </Grid>
                                 <Grid item>
                                     Select
                                 </Grid>
 
-
                                     {this.displaySemesters().available}
-
-
-
-
-
 
                             </Grid>
                         </Grid>
@@ -782,6 +800,12 @@ export default class StudyplanEdit extends React.Component {
                     </Grid>
                     <Button onClick={this.handleSubmit}>
                         SAVE STUDYPLAN
+                    </Button>
+                    <Button href={"/#/profile/studyplans"} >
+                        CANCEL
+                    </Button>
+                    <Button onClick={this.createPDF} >
+                        PDF
                     </Button>
 
 

@@ -154,7 +154,7 @@ export class Welcome extends React.Component {
                                             Notifications!
                                         </p>
 
-                                        <Button variant="contained" color="primary">
+                                        <Button id="signup" variant="contained" color="primary" onClick={this.buttonClicked}>
                                             Start your Studyplan
                                         </Button>
                                     </div>
@@ -333,7 +333,7 @@ export class Welcome extends React.Component {
                                                             {/*Item Bild*/}
                                                             <Grid item>
                                                                 <img href="/"
-                                                                     src={require('./lupe.png')}
+                                                                     src={require('./feedback.png')}
                                                                      width={100}
                                                                      height={100}
                                                                      mode="fit"/>
@@ -362,20 +362,20 @@ export class Welcome extends React.Component {
                                                             {/*Item Bild*/}
                                                             <Grid item>
                                                                 <img href="/"
-                                                                     src={require('./lupe.png')}
+                                                                     src={require('./register.png')}
                                                                      width={100}
                                                                      height={100}
                                                                      mode="fit"/>
                                                             </Grid>
                                                             {/*Item Überschrift*/}
                                                             <Grid item>
-                                                                <h2>Easy to use</h2>
+                                                                <h2>Registration</h2>
                                                             </Grid>
                                                             {/*Item erklärung*/}
                                                             <Grid item>
                                                                 <h4 style={{textAlign: 'center'}}>
-                                                                    Hello I am a nice placeholder! <br/>
-                                                                    I will be replaced for a better idea!
+                                                                    Coming soon! <br/>
+                                                                    Direct course registration on SMART!
                                                                 </h4>
                                                             </Grid>
                                                         </Grid>

@@ -3,7 +3,7 @@
 import React from 'react';
 
 import Grid from "@material-ui/core/Grid";
-import FilterComponents from "./FilterComponents";
+import FilterComponents from "../FilterComponents";
 import CourseListSmall from "./CourseListSmall";
 
 /**
