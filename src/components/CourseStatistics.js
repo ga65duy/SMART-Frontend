@@ -23,7 +23,7 @@ export class CourseStatistics extends React.Component {
         return (
             <Page>
                 <paper>
-                    <Grid container direction="column" wrap="nowrap">
+                    <Grid container direction="column" wrap="nowrap" align={"center"}>
                         <Grid item>
                             <Typography variant="h4" color={"primary"} gutterBottom>
                                 {this.props.course.name + " Statistics"}

@@ -529,7 +529,11 @@ export default class StudyplanEdit extends React.Component {
         this.setState({
             studyplan:sp,
         });
-
+        CourseService.getCourse(id._id).then(function (result) {
+            result.attendees[1] = 0;
+            result.attendees[1] = result.attendees[1]+1;
+            CourseService.updateCourse(result);
+        });
     }
 
     onDropSem2(e)
@@ -541,7 +545,12 @@ export default class StudyplanEdit extends React.Component {
         this.setState({
             studyplan:sp,
         });
-
+        CourseService.getCourse(id._id).then(function (result) {
+            result.attendees[2] = 0;
+            result.attendees[2] = result.attendees[2]+1;
+            console.log(result);
+            CourseService.updateCourse(result);
+        });
     }
 
     onDropSem3(e)
@@ -553,7 +562,12 @@ export default class StudyplanEdit extends React.Component {
         this.setState({
             studyplan:sp,
         });
-
+        CourseService.getCourse(id._id).then(function (result) {
+            result.attendees[3] = 0;
+            result.attendees[3] = result.attendees[3]+1;
+            console.log(result);
+            CourseService.updateCourse(result);
+        });
     }
 
     onDropSem4(e)
@@ -565,7 +579,12 @@ export default class StudyplanEdit extends React.Component {
         this.setState({
             studyplan:sp,
         });
-
+        CourseService.getCourse(id._id).then(function (result) {
+            result.attendees[4] = 0;
+            result.attendees[4] = result.attendees[4]+1;
+            console.log(result);
+            CourseService.updateCourse(result);
+        });
     }
 
     onDropSem5(e)
@@ -577,7 +596,12 @@ export default class StudyplanEdit extends React.Component {
         this.setState({
             studyplan:sp,
         });
-
+        CourseService.getCourse(id._id).then(function (result) {
+            result.attendees[5] = 0;
+            result.attendees[5] = result.attendees[5]+1;
+            console.log(result);
+            CourseService.updateCourse(result);
+        });
     }
 
     onDropSem6(e)
@@ -589,7 +613,12 @@ export default class StudyplanEdit extends React.Component {
         this.setState({
             studyplan:sp,
         });
-
+        CourseService.getCourse(id._id).then(function (result) {
+            result.attendees[6] = 0;
+            result.attendees[6] = result.attendees[6]+1;
+            console.log(result);
+            CourseService.updateCourse(result);
+        });
     }
 
     onDropSem7(e)
@@ -601,7 +630,12 @@ export default class StudyplanEdit extends React.Component {
         this.setState({
             studyplan:sp,
         });
-
+        CourseService.getCourse(id._id).then(function (result) {
+            result.attendees[7] = 0;
+            result.attendees[7] = result.attendees[7]+1;
+            console.log(result);
+            CourseService.updateCourse(result);
+        });
     }
 
     onDropSem8(e)
@@ -613,7 +647,12 @@ export default class StudyplanEdit extends React.Component {
         this.setState({
             studyplan:sp,
         });
-
+        CourseService.getCourse(id._id).then(function (result) {
+            result.attendees[8] = 0;
+            result.attendees[8] = result.attendees[8]+1;
+            console.log(result);
+            CourseService.updateCourse(result);
+        });
     }
 
     onDropAvailable(e)
