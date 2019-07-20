@@ -10,7 +10,7 @@ import Settings from '@material-ui/icons/Settings';
 /**
  * FilterComponents
  * Drop down for Area,Ects,Rating
- * Author: Maria
+ * Author: Maria & Gerhard
  */
 
 const ects = ["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];

@@ -55,7 +55,7 @@ class Profile extends React.Component {
     }
 
 
-    componentWillMount(): void {
+    componentWillMount() {
         this.originalUser = JSON.parse(JSON.stringify(this.props.user))
     }
 

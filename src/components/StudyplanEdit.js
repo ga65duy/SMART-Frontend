@@ -49,7 +49,11 @@ export default class StudyplanEdit extends React.Component {
             availableCourses: props.courses,
             ects:[],
             filteredCourses:props.studyplan.notChosenCourses,
-            selections:{},
+            selections:{area: "",
+                ects: "",
+                name: "",
+                rating: "",
+                semester: ""},
 
 
         };
@@ -141,7 +145,7 @@ export default class StudyplanEdit extends React.Component {
 
     displayECTS(semester){
         let sp= this.state.studyplan;
-        if(sp.fieldOfStudy.degree=="Bachelor" || semester<7){
+        if(sp.fieldOfStudy.degree=="Bachelor" || semester<5){
             return(
                 <div>
                     <Typography> Semester {semester}</Typography>
@@ -170,6 +174,7 @@ export default class StudyplanEdit extends React.Component {
     displayOverallECTS()
     {
         let sp= this.state.studyplan;
+        console.log(sp.fieldOfStudy.degree);
         if(sp.fieldOfStudy.degree=="Master"){
             return(
                 <Typography>
@@ -374,52 +379,56 @@ export default class StudyplanEdit extends React.Component {
 
        // let courses = JSON.parse(JSON.stringify(this.props.courses));
 
+
         let courses= [];
 
         if(this.state.studyplan.notChosenCourses !== undefined) {
              courses = this.state.studyplan.notChosenCourses;
         }
 
-        courses = courses.filter((course) => {
-            if (selections.ects.length === 0) {
-                return true;
-            } else {
-                return course.ects === selections.ects;
-            }
-        });
+        if(selections!==undefined) {
 
-        courses = courses.filter((course) => {
-            if (selections.area.length === 0) {
-                return true;
-            } else {
-                return course.area.includes(selections.area);
-            }
-        });
+            courses = courses.filter((course) => {
+                if (selections.ects.length === 0) {
+                    return true;
+                } else {
+                    return course.ects === selections.ects;
+                }
+            });
 
-        courses = courses.filter((course) => {
-            if (selections.rating.length === 0) {
-                return true;
-            } else {
-                return course.avgRatingOverall >= selections.rating;
-            }
-        });
+            courses = courses.filter((course) => {
+                if (selections.area.length === 0) {
+                    return true;
+                } else {
+                    return course.area.includes(selections.area);
+                }
+            });
 
-        courses = courses.filter((course) => {
-            if (selections.semester.length === 0) {
-                return true;
-            } else {
-                let offeredIn = course.SS ? "SS" : "WS";
-                return offeredIn === selections.semester;
-            }
-        });
+            courses = courses.filter((course) => {
+                if (selections.rating.length === 0) {
+                    return true;
+                } else {
+                    return course.avgRatingOverall >= selections.rating;
+                }
+            });
 
-        courses = courses.filter((course) => {
-            if (selections.name.length === 0) {
-                return true;
-            } else {
-                return course.name.toLowerCase().includes(selections.name.toLowerCase())
-            }
-        });
+            courses = courses.filter((course) => {
+                if (selections.semester.length === 0) {
+                    return true;
+                } else {
+                    let offeredIn = course.SS ? "SS" : "WS";
+                    return offeredIn === selections.semester;
+                }
+            });
+
+            courses = courses.filter((course) => {
+                if (selections.name.length === 0) {
+                    return true;
+                } else {
+                    return course.name.toLowerCase().includes(selections.name.toLowerCase())
+                }
+            });
+        }
 
         this.setState({
             filteredCourses: courses,
@@ -510,10 +519,7 @@ export default class StudyplanEdit extends React.Component {
         filteredCourses:fc});
 
     }
-    /**
-     * CourseService Parts: attendee update for course statistics
-     * Author: Jan
-     */
+
     onDropSem1(e)
     {
         let id= JSON.parse(e.dataTransfer.getData("course"));
@@ -523,11 +529,7 @@ export default class StudyplanEdit extends React.Component {
         this.setState({
             studyplan:sp,
         });
-        CourseService.getCourse(id._id).then(function (result) {
-            result.attendees[1] = 0;
-            result.attendees[1] = result.attendees[1]+1;
-            CourseService.updateCourse(result);
-        });
+
     }
 
     onDropSem2(e)
@@ -539,15 +541,8 @@ export default class StudyplanEdit extends React.Component {
         this.setState({
             studyplan:sp,
         });
-        CourseService.getCourse(id._id).then(function (result) {
-            result.attendees[2] = 0;
-            result.attendees[2] = result.attendees[2]+1;
-            console.log(result);
-            CourseService.updateCourse(result);
-        });
+
     }
-
-
 
     onDropSem3(e)
     {
@@ -558,12 +553,7 @@ export default class StudyplanEdit extends React.Component {
         this.setState({
             studyplan:sp,
         });
-        CourseService.getCourse(id._id).then(function (result) {
-            result.attendees[3] = 0;
-            result.attendees[3] = result.attendees[3]+1;
-            console.log(result);
-            CourseService.updateCourse(result);
-        });
+
     }
 
     onDropSem4(e)
@@ -575,12 +565,7 @@ export default class StudyplanEdit extends React.Component {
         this.setState({
             studyplan:sp,
         });
-        CourseService.getCourse(id._id).then(function (result) {
-            result.attendees[4] = 0;
-            result.attendees[4] = result.attendees[4]+1;
-            console.log(result);
-            CourseService.updateCourse(result);
-        });
+
     }
 
     onDropSem5(e)
@@ -592,12 +577,7 @@ export default class StudyplanEdit extends React.Component {
         this.setState({
             studyplan:sp,
         });
-        CourseService.getCourse(id._id).then(function (result) {
-            result.attendees[5] = 0;
-            result.attendees[5] = result.attendees[5]+1;
-            console.log(result);
-            CourseService.updateCourse(result);
-        });
+
     }
 
     onDropSem6(e)
@@ -609,12 +589,7 @@ export default class StudyplanEdit extends React.Component {
         this.setState({
             studyplan:sp,
         });
-        CourseService.getCourse(id._id).then(function (result) {
-            result.attendees[6] = 0;
-            result.attendees[6] = result.attendees[6]+1;
-            console.log(result);
-            CourseService.updateCourse(result);
-        });
+
     }
 
     onDropSem7(e)
@@ -626,12 +601,7 @@ export default class StudyplanEdit extends React.Component {
         this.setState({
             studyplan:sp,
         });
-        CourseService.getCourse(id._id).then(function (result) {
-            result.attendees[7] = 0;
-            result.attendees[7] = result.attendees[7]+1;
-            console.log(result);
-            CourseService.updateCourse(result);
-        });
+
     }
 
     onDropSem8(e)
@@ -643,12 +613,7 @@ export default class StudyplanEdit extends React.Component {
         this.setState({
             studyplan:sp,
         });
-        CourseService.getCourse(id._id).then(function (result) {
-            result.attendees[8] = 0;
-            result.attendees[8] = result.attendees[8]+1;
-            console.log(result);
-            CourseService.updateCourse(result);
-        });
+
     }
 
     onDropAvailable(e)
@@ -679,8 +644,7 @@ export default class StudyplanEdit extends React.Component {
         // (all mandatory courses must be "zugewiesen" in the studyplan)
         //also check for ects & groups
         var sp = this.state.studyplan;
-        console.log("submit: ");
-        console.log(sp);
+
         this.props.updateStudyplan(sp);
 
 

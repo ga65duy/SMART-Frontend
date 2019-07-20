@@ -21,7 +21,7 @@ import UniversityService from '../services/UniversityService';
 import CourseService from "../services/CourseService";
 
 const style = { maxWidth: 500 };
-const semester=["Sommer Semester 19", "Winter Semester 19", "Sommer Semester 20", "Winter Semester 20", "Sommer Semester 21", "Winter Semester 21"];
+const semester=["2019", "2020", "2021", "2022","2023"];
 
 
 
@@ -41,6 +41,11 @@ class StudyplanPreQuery extends React.Component {
                 startSemester:semester[0],
                 SName: "", //StudyplanName
 
+                    uniValid:false,
+                    fosValid: false,
+                    nameValid: false,
+
+                isValid: false,
 
             };
         } else {
@@ -53,7 +58,11 @@ class StudyplanPreQuery extends React.Component {
                 startSemester:semester[0],
                 SName:"", //StudyplanName
 
+                    uniValid:false,
+                    fosValid: false,
+                    nameValid: false,
 
+                isValid: false,
             };
         }
 
@@ -66,6 +75,7 @@ class StudyplanPreQuery extends React.Component {
         this.handleChangeStartSemester=this.handleChangeStartSemester.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChangeName=this.handleChangeName.bind(this);
+        this.checkIfAllValid=this.checkIfAllValid.bind(this);
 
         //this.handleChangeSynopsis = this.handleChangeSynopsis.bind(this);
         //this.handleCourseSubmit=this.handleCourseSubmit.bind(this);
@@ -79,26 +89,36 @@ class StudyplanPreQuery extends React.Component {
 
     }
 
+    checkIfAllValid(){
+
+
+
+
+    }
+
 
 
     handleChangeUniveristy(event) {
         var uni=event.target.value;
-        this.setState({university: uni});
+        this.setState({university: uni, uniValid:true});
 
         var FoSs= uni.fieldsOfStudy;
         this.setState({FoSs:FoSs});
+
 
     }
 
 
     handleChangeFoS(event){
         var FoS=event.target.value;
-        this.setState({selectedFoS:FoS});
+        this.setState({selectedFoS:FoS, fosValid:true});
+        this.checkIfAllValid();
     }
 
     handleChangeStartSemester(event){
         var sS=event.target.value;
         this.setState({startSemester: sS});
+
     }
 
     handleSubmit(event) {
@@ -133,7 +153,15 @@ class StudyplanPreQuery extends React.Component {
     }
 
     handleChangeName(event) {
-        this.setState({SName: event.target.value})
+        if(event.target.value != ""){
+            this.setState({SName: event.target.value, nameValid: true })
+        }
+        else {
+            this.setState({SName:event.target.value, nameValid:false})
+        }
+
+
+
     }
 
 
@@ -196,18 +224,18 @@ class StudyplanPreQuery extends React.Component {
                         </form>
                     </Grid>
 
-                    <Grid item >
+                      <Grid item >
                         <form>
                             <TextField
                                 id="standard-select-StartSemester"
                                 select
-                                label="Select Start Semester"
+                                label="Select Start Year"
 
                                 value={this.state.startSemester}
                                 onChange={this.handleChangeStartSemester}
 
 
-                                helperText="Please select your Start Semester"
+                                helperText="Please select the start year of your study"
                                 margin="normal"
                             >
                                 {semester.map(option3 => (
@@ -231,7 +259,8 @@ class StudyplanPreQuery extends React.Component {
                     </Grid>
 
                     <Grid item>
-                        <Button onClick={this.handleSubmit} variant="contained" > Create New Studyplan</Button>
+                        <Button disabled={!(this.state.nameValid&&this.state.fosValid&&this.state.uniValid)}
+                            onClick={this.handleSubmit} variant="contained" > Create New Studyplan</Button>
 
                     </Grid>
 
@@ -247,221 +276,3 @@ class StudyplanPreQuery extends React.Component {
 }
 
 export default withRouter(StudyplanPreQuery);
-
-/*
- <form>
-                    <Grid container direction="column" alignContent="center">
-                    <TextField
-                        id="standard-name"
-                        label="UName (Name)"
-
-                        onChange={this.handleChangeName}
-                        margin="normal"
-                    />
-                    <TextField
-                        id="standard-uncontrolled"
-                        label="FoS (Uncontrolled)"
-                        defaultValue="foo"
-                        onChange={this.handleChangeFieldOfStudy}
-
-                        margin="normal"
-                    />
-                    <TextField
-                        required
-                        id="standard-required"
-                        label="Required"
-                        defaultValue="Hello World"
-
-                        margin="normal"
-                    />
-
-                    <TextField
-                        id="standard-select-currency"
-                        select
-                        label="Select"
-
-                        value={""}
-                        onChange={this.handleChangeUniveristy}
-
-
-                        helperText="Please select your currency"
-                        margin="normal"
-                    >
-                        {this.props.universities.map(option => (
-                            <MenuItem key={option.id} value={option.name}>
-                                {option.name}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-
-
-                    <Button onClick={this.handleSubmit}>SUBMIT</Button>
-                    </Grid>
-                </form>
-
-                <form>
-                    <TextField
-                        id="standard-uncontrolled"
-                        label="Course Name"
-                        defaultValue="CourseName"
-                        onChange={this.handleChangeSynopsis}
-
-                        margin="normal"
-                    />
-
-                    <Button onClick={this.handleCourseSubmit}> SUBMIT COURSE </Button>
-                </form>
-
-                <form>
-                <TextField
-                    id="standard-uncontrolled"
-                    label="FoS Name"
-
-                    onChange={this.handleChangeFieldOfStudy}
-
-                    margin="normal"
-                />
-
-                    {this.props.courses.map(option => (
-
-                        <Typography>{option.name}</Typography>
-
-                    ))}
-
-
-
-
-                <Button onClick={this.handleChangeFoSCommit}> SUBMIT FoS </Button>
-            </form>
-
-
-               <Grid container>
-
-
-
-                   {
-                  // function(event: object) => void
-                    //event: The event source of the callback. You can pull out the new value by accessing event.target.value.
-                    }
-
-
-
-</Grid>
-
-handleChangeS(event,name){
-
-  //    this.setState({[name]: event.target.checked });
-
-
-       console.log(this.state[name])
-
-    }
-
-
-    checkBoxes(){
-
-        const courses=this.props.courses;
-
-        courses.map(o=>(
-
-            this.setState({[o.name]:false})
-        ))
-
-
-       return(
-        courses.map(option => (
-
-
-            <FormControlLabel
-                control={
-                    <Checkbox
-                        key={option.id}
-                        checked= {this.state.checkedA}
-                        onChange={this.handleChangeS(option.name)}
-                        value={option.name}
-                        inputProps={{
-                            'aria-label': 'primary checkbox',
-                        }}
-                    />
-                }
-                label={option.name}
-            />
-
-
-        )))
-    }
-
-
-
-      handleCourseSubmit(event){
-        event.preventDefault();
-
-        let course=this.props.course;
-        if (course==undefined)
-        {
-            course={};
-        }
-
-        course.name=this.state.courseName;
-        this.props.updateCourse(course);
-        console.log(course);
-    }
-
-    handleChangeFoSCommit(event){
-
-        event.preventDefault();
-
-        let FoS=this.props.fieldOfStudy;
-        if (FoS==undefined)
-        {
-            FoS={};
-        }
-
-        FoS.name=this.state.fieldOfStudyName;
-        FoS.mandatory=[]+this.props.courses;
-
-        this.props.updateFoS(FoS);
-
-
-
-    }
-
-
-      handleChangeName(event) {
-        //this.setState(Object.assign({}, this.state, {name: value}));
-        this.setState({Uname: event.target.value})
-        console.log(this.state.Uname);
-
-    }
-
-
- handleChangeFieldOfStudy(event) {
-        this.setState({fieldOfStudyName:event.target.value});
-    }
-
-    handleChangeSynopsis(event) {
-        this.setState({courseName:event.target.value});
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-
-
-        let university = this.props.university;
-        if(university == undefined) {
-            university = {};
-        }
-
-        university.name = this.state.Uname;
-        university.fieldsOfStudy = [];
-
-
-       // this.props.onSubmit(university);
-        this.props.updateUniversity(university);
-
-
-        console.log(university);
-
-    }
-
- */
