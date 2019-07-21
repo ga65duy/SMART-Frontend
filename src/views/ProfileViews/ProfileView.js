@@ -3,6 +3,7 @@ import Profile from "../../components/ProfileComponents/Profile";
 import UserService from "../../services/UserService";
 import UniversityService from "../../services/UniversityService";
 import Page from "../../components/PageWithAdvertisement/Page";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 /**
  * ProfileView
@@ -60,14 +61,18 @@ export class ProfileView extends React.Component {
 
     render() {
         if (this.state.loading) {
-            return (<h2>Loading...</h2>);
-        }
-        return (
-            <Page>
-                <Profile user={this.state.user} universities={this.state.universities}
+            return <Page>
+                <div style={{display: "flex", flexDirection: "column", alignItems: "center", margin: 200}}>
+                    <CircularProgress color={"primary"}/>
+                </div>
+            </Page>}
+        else{
+            return (
+                <Page>
+                    <Profile user={this.state.user} universities={this.state.universities}
                          updateProfile={this.updateProfile} resetSaveButton={this.resetSaveButton}
                          userUpdated={this.state.userUpdated}/>
-            </Page>
-        );
+                </Page>);
+        }
     }
 }

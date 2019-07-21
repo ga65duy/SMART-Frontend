@@ -8,6 +8,8 @@ import StudyplanPreQuery from '../../components/StudyplanPreQuery';
 import UniversityService from '../../services/UniversityService';
 import CourseService from '../../services/CourseService';
 import FieldOfStudyService from '../../services/FieldOfStudyService';
+import Page from "../../components/PageWithAdvertisement/Page";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 
 export class CreateStudyplanQueryView extends React.Component {
@@ -73,12 +75,18 @@ export class CreateStudyplanQueryView extends React.Component {
     }
 
     render() {
-        if(this.state.loading){
-            return (<div>Loading...</div>);
+        if (this.state.loading) {
+            return <Page>
+                <div style={{display: "flex", flexDirection: "column", alignItems: "center", margin: 200}}>
+                    <CircularProgress color={"primary"}/>
+                </div>
+            </Page>}
+        else {
+            return (
+                <StudyplanPreQuery foss={this.state.foss} courses={this.state.courses}
+                                   universities={this.state.universities}
+                                   createStudyplan={(data) => this.createStudyplan(data)}/>
+            );
         }
-
-        return (
-            <StudyplanPreQuery foss={this.state.foss} courses={this.state.courses} universities={this.state.universities} createStudyplan={(data) => this.createStudyplan(data)} />
-        );
     }
 }

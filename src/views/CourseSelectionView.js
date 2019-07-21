@@ -6,6 +6,7 @@ import CourseService from "../services/CourseService";
 import CourseListWithDropDowns from "../components/CourseSelection/CourseListWithDropDowns";
 import UniversityService from "../services/UniversityService";
 import FieldOfStudyService from "../services/FieldOfStudyService";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 
 /**
@@ -85,15 +86,23 @@ export class CourseSelectionView extends React.Component {
 
 
     render() {
-        return (
-            <Page>
-                <CourseListWithDropDowns courses={this.state.courses}
-                                         unis={this.state.unis}
-                                         fos={this.state.fos}
-                                         onUniDropdown={this.handleUniDropdown}
-                                         onFosDropdown={this.handleFosDropdown}
-                                         handleTextField={this.filterByTextfield}/>
-            </Page>
-        )
+        if (this.state.loading) {
+            return <Page>
+                <div style={{display: "flex", flexDirection: "column", alignItems: "center", margin: 200}}>
+                    <CircularProgress color={"primary"}/>
+                </div>
+            </Page>}
+        else {
+            return (
+                <Page>
+                    <CourseListWithDropDowns courses={this.state.courses}
+                                             unis={this.state.unis}
+                                             fos={this.state.fos}
+                                             onUniDropdown={this.handleUniDropdown}
+                                             onFosDropdown={this.handleFosDropdown}
+                                             handleTextField={this.filterByTextfield}/>
+                </Page>
+            )
+        }
     }
 }

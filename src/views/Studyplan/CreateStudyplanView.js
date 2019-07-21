@@ -6,6 +6,8 @@ import StudyplanEdit from '../../components/StudyplanEdit';
 
 import StudyplanService from '../../services/StudyplanService';
 import UserService from "../../services/UserService";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Page from "../../components/PageWithAdvertisement/Page";
 
 
 export class CreateStudyplanView extends React.Component {
@@ -81,13 +83,16 @@ export class CreateStudyplanView extends React.Component {
 
     render() {
         if (this.state.loading) {
-            return (<h2>Loading...</h2>);
+            return <Page>
+                <div style={{display: "flex", flexDirection: "column", alignItems: "center", margin: 200}}>
+                    <CircularProgress color={"primary"}/>
+                </div>
+            </Page>}
+        else {
+            return (
+                <StudyplanEdit studyplan={this.state.studyplan} updateStudyplan={this.updateStudyplan}
+                               areas={this.state.areas}/>
+            );
         }
-
-        return (
-            <StudyplanEdit studyplan={this.state.studyplan} updateStudyplan={this.updateStudyplan} areas={this.state.areas}  />
-        );
-
-
     }
 }
