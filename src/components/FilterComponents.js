@@ -9,8 +9,8 @@ import Settings from '@material-ui/icons/Settings';
 
 /**
  * FilterComponents
- * Drop down for Area,Ects,Rating
- * Author: Maria & Gerhard
+ * Drop down for Area,Ects, Min.Rating, Semester
+ * Author: Maria
  */
 
 const ects = ["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
@@ -164,27 +164,24 @@ export default class FilterComponents extends React.Component {
 
     render() {
         return (
-            <Box m={2}>
-                <Grid container direction={"column"}>
+            <Box m={1}>
+                <Grid container direction={"row"}>
                     < Grid item>
                         <TextField
                             placeholder="Search coursename"
                             variant="outlined"
                             margin="dense"
+                            style={{maxWidth: 160}}
                             value={this.state.nameSearch}
                             onChange={this.handleNameSearch}
                         />
                     </Grid>
-
                     <Grid item>
                         <IconButton  onClick={this.handleSettingsClick}>
                             <Settings />
                         </IconButton>
                     </Grid>
-
                     {this.displayFilters()}
-
-
                 </Grid>
             </Box>
         )

@@ -8,8 +8,7 @@ import FilterComponents from './FilterComponents'
 import Header from './Header';
 import {Footer} from './Footer';
 
-import {createMuiTheme} from '@material-ui/core/styles';
-import { makeStyles } from '@material-ui/core/styles';
+import {withStyles} from "@material-ui/core/styles";
 
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -21,147 +20,155 @@ import CourseService from "../services/CourseService";
 import UserService from "../services/UserService";
 import html2canvas from "html2canvas";
 import jsPDF from 'jspdf';
+import {withRouter} from "react-router-dom";
+import Box from "@material-ui/core/Box";
 
+/**
+ *StudyplanEdit
+ * Component for creating and editing a studyplan
+ * Author: Gerhard,  Maria: pdf and styling
+ */
 
-
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        padding: theme.spacing(3, 2),
+const styles = theme => ({
+    paper: {
+        padding: theme.spacing(2),
+        margin: "10px",
+        textAlign: "center",
     },
-    paper:{
-        width: 750,
-        height: 250,
-
-
+    button: {
+        marginRight: theme.spacing(2),
     },
-}));
+});
 
-
-
-export default class StudyplanEdit extends React.Component {
+class StudyplanEdit extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            studyplan : props.studyplan,
+            studyplan: props.studyplan,
             availableCourses: props.courses,
-            ects:[],
-            filteredCourses:props.studyplan.notChosenCourses,
-            selections:{area: "",
+            ects: [],
+            filteredCourses: props.studyplan.notChosenCourses,
+            selections: {
+                area: "",
                 ects: "",
                 name: "",
                 rating: "",
-                semester: ""},
+                semester: ""
+            },
 
 
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.filter=this.filter.bind(this);
+        this.filter = this.filter.bind(this);
         this.createPDF = this.createPDF.bind(this);
         this.updateECTS();
 
     }
 
-    componentWillMount(){
+    componentWillMount() {
 
 
-       /* let ele=this.state.studyplan.fieldOfStudy.elective;
-        this.setState({
-            filteredCourses: ele,
-        })*/
+        /* let ele=this.state.studyplan.fieldOfStudy.elective;
+         this.setState({
+             filteredCourses: ele,
+         })*/
 
     }
 
-    updateECTS()
-    {
+    updateECTS() {
         // ects for the corresnponding semesters
         //ects[9] is for overall ects of whole studyplan
-        let sp=this.state.studyplan;
-        let ects=[];
+        let sp = this.state.studyplan;
+        let ects = [];
 
-        ects[1]=0;
+        ects[1] = 0;
         sp.semester1.forEach(
-            (e)=>{ ects[1]+=e.ects;
+            (e) => {
+                ects[1] += e.ects;
             }
         );
 
-        ects[2]=0;
+        ects[2] = 0;
         sp.semester2.forEach(
-            (e)=>{ ects[2]+=e.ects;
+            (e) => {
+                ects[2] += e.ects;
             }
         );
 
-        ects[3]=0;
+        ects[3] = 0;
         sp.semester3.forEach(
-            (e)=>{ ects[3]+=e.ects;
+            (e) => {
+                ects[3] += e.ects;
             }
         );
 
-        ects[4]=0;
+        ects[4] = 0;
         sp.semester4.forEach(
-            (e)=>{ ects[4]+=e.ects;
+            (e) => {
+                ects[4] += e.ects;
             }
         );
 
-        ects[5]=0;
+        ects[5] = 0;
         sp.semester5.forEach(
-            (e)=>{ ects[5]+=e.ects;
+            (e) => {
+                ects[5] += e.ects;
             }
         );
 
-        ects[6]=0;
+        ects[6] = 0;
         sp.semester6.forEach(
-            (e)=>{ ects[6]+=e.ects;
+            (e) => {
+                ects[6] += e.ects;
             }
         );
 
-        ects[7]=0;
+        ects[7] = 0;
         sp.semester7.forEach(
-            (e)=>{ ects[7]+=e.ects;
+            (e) => {
+                ects[7] += e.ects;
             }
         );
 
-        ects[8]=0;
+        ects[8] = 0;
         sp.semester8.forEach(
-            (e)=>{ ects[8]+=e.ects;
+            (e) => {
+                ects[8] += e.ects;
             }
         );
 
 
-        ects[9]=0;
+        ects[9] = 0;
 
         var x;
-        for(x=1; x<9; x++){
-            ects[9] = ects[9]+ ects[x];
+        for (x = 1; x < 9; x++) {
+            ects[9] = ects[9] + ects[x];
         }
-
 
 
         return ects;
     }
 
-    displayECTS(semester){
-        let sp= this.state.studyplan;
-        if(sp.fieldOfStudy.degree=="Bachelor" || semester<5){
-            return(
+    displayECTS(semester) {
+        let sp = this.state.studyplan;
+        if (sp.fieldOfStudy.degree == "Bachelor" || semester < 5) {
+            return (
                 <div>
                     <Typography> Semester {semester}</Typography>
-                    <Typography style={{flex:1}}/>
+                    <Typography style={{flex: 1}}/>
                     <Typography>
-                    {this.updateECTS()[semester]}/30 ECTS
+                        {this.updateECTS()[semester]}/30 ECTS
                     </Typography>
-
                 </div>
             )
-        }
-        else{
-            return(
+        } else {
+            return (
                 <div>
                     <Typography> Semester {semester}</Typography>
-                    <Typography style={{flex:1}}/>
+                    <Typography style={{flex: 1}}/>
                     <Typography>
                         {this.updateECTS()[semester]}/0 ECTS
                     </Typography>
@@ -171,19 +178,17 @@ export default class StudyplanEdit extends React.Component {
         }
     }
 
-    displayOverallECTS()
-    {
-        let sp= this.state.studyplan;
+    displayOverallECTS() {
+        let sp = this.state.studyplan;
         console.log(sp.fieldOfStudy.degree);
-        if(sp.fieldOfStudy.degree=="Master"){
-            return(
+        if (sp.fieldOfStudy.degree == "Master") {
+            return (
                 <Typography>
                     {this.updateECTS()[9]}/120 ECTS
                 </Typography>
             )
-        }
-        else {
-            return(
+        } else {
+            return (
                 <Typography>
                     {this.updateECTS()[9]}/180 ECTS
                 </Typography>
@@ -194,27 +199,27 @@ export default class StudyplanEdit extends React.Component {
 
     //änderungen an den Drag and Drop Cards in displaySemesters() machen
 
-    displaySemesters(){
-        var courses={
-            semester1:[],
-            semester2:[],
-            semester3:[],
-            semester4:[],
-            semester5:[],
-            semester6:[],
-            semester7:[],
-            semester8:[],
-            available:[]
+    displaySemesters() {
+        var courses = {
+            semester1: [],
+            semester2: [],
+            semester3: [],
+            semester4: [],
+            semester5: [],
+            semester6: [],
+            semester7: [],
+            semester8: [],
+            available: []
         };
 
-        this.state.studyplan.semester1.forEach((t)=>{
+        this.state.studyplan.semester1.forEach((t) => {
             courses.semester1.push(
                 <Grid item key={t.name}
-                     draggable
-                     onDragStart={(e)=>this.onDragStart(e, t)}
-                     style={{width:150}}
+                      draggable
+                      onDragStart={(e) => this.onDragStart(e, t)}
+                      style={{width: 150}}
                 >
-                    <Paper>
+                    <Paper className={this.props.classes.paper}>
                         {t.name}
                     </Paper>
 
@@ -222,14 +227,14 @@ export default class StudyplanEdit extends React.Component {
             )
         });
 
-        this.state.studyplan.semester2.forEach((t)=>{
+        this.state.studyplan.semester2.forEach((t) => {
             courses.semester2.push(
                 <Grid item key={t.name}
-                     draggable
-                     onDragStart={(e)=>this.onDragStart(e, t)}
-                     style={{width:150}}
+                      draggable
+                      onDragStart={(e) => this.onDragStart(e, t)}
+                      style={{width: 150}}
                 >
-                    <Paper>
+                    <Paper className={this.props.classes.paper}>
                         {t.name}
                     </Paper>
 
@@ -237,14 +242,14 @@ export default class StudyplanEdit extends React.Component {
             )
         });
 
-        this.state.studyplan.semester3.forEach((t)=>{
+        this.state.studyplan.semester3.forEach((t) => {
             courses.semester3.push(
                 <Grid item key={t.name}
-                     draggable
-                     onDragStart={(e)=>this.onDragStart(e, t)}
-                     style={{width:150}}
+                      draggable
+                      onDragStart={(e) => this.onDragStart(e, t)}
+                      style={{width: 150}}
                 >
-                    <Paper>
+                    <Paper className={this.props.classes.paper}>
                         {t.name}
                     </Paper>
 
@@ -252,14 +257,14 @@ export default class StudyplanEdit extends React.Component {
             )
         });
 
-        this.state.studyplan.semester4.forEach((t)=>{
+        this.state.studyplan.semester4.forEach((t) => {
             courses.semester4.push(
                 <Grid item key={t.name}
-                     draggable
-                     onDragStart={(e)=>this.onDragStart(e, t)}
-                     style={{width:150}}
+                      draggable
+                      onDragStart={(e) => this.onDragStart(e, t)}
+                      style={{width: 150}}
                 >
-                    <Paper>
+                    <Paper className={this.props.classes.paper}>
                         {t.name}
                     </Paper>
 
@@ -267,15 +272,15 @@ export default class StudyplanEdit extends React.Component {
             )
         });
 
-        this.state.studyplan.semester5.forEach((t)=>{
+        this.state.studyplan.semester5.forEach((t) => {
             courses.semester5.push(
                 <Grid item
                       key={t.name}
-                     draggable
-                     onDragStart={(e)=>this.onDragStart(e, t)}
-                     style={{width:150}}
+                      draggable
+                      onDragStart={(e) => this.onDragStart(e, t)}
+                      style={{width: 150}}
                 >
-                    <Paper>
+                    <Paper className={this.props.classes.paper}>
                         {t.name}
                     </Paper>
 
@@ -283,15 +288,15 @@ export default class StudyplanEdit extends React.Component {
             )
         });
 
-        this.state.studyplan.semester6.forEach((t)=>{
+        this.state.studyplan.semester6.forEach((t) => {
             courses.semester6.push(
                 <Grid item
                       key={t.name}
-                     draggable
-                     onDragStart={(e)=>this.onDragStart(e, t)}
-                     style={{width:150}}
+                      draggable
+                      onDragStart={(e) => this.onDragStart(e, t)}
+                      style={{width: 150}}
                 >
-                    <Paper>
+                    <Paper className={this.props.classes.paper}>
                         {t.name}
                     </Paper>
 
@@ -299,15 +304,15 @@ export default class StudyplanEdit extends React.Component {
             )
         });
 
-        this.state.studyplan.semester7.forEach((t)=>{
+        this.state.studyplan.semester7.forEach((t) => {
             courses.semester7.push(
                 <Grid item
                       key={t.name}
-                     draggable
-                     onDragStart={(e)=>this.onDragStart(e, t)}
-                     style={{width:150}}
+                      draggable
+                      onDragStart={(e) => this.onDragStart(e, t)}
+                      style={{width: 150}}
                 >
-                    <Paper>
+                    <Paper className={this.props.classes.paper}>
                         {t.name}
                     </Paper>
 
@@ -315,16 +320,16 @@ export default class StudyplanEdit extends React.Component {
             )
         });
 
-        this.state.studyplan.semester8.forEach((t)=>{
+        this.state.studyplan.semester8.forEach((t) => {
             courses.semester8.push(
                 <Grid
-                     item
-                     key={t.name}
-                     draggable
-                     onDragStart={(e)=>this.onDragStart(e, t)}
-                     style={{width:150}}
+                    item
+                    key={t.name}
+                    draggable
+                    onDragStart={(e) => this.onDragStart(e, t)}
+                    style={{width: 150}}
                 >
-                    <Paper>
+                    <Paper className={this.props.classes.paper}>
                         {t.name}
                     </Paper>
 
@@ -333,19 +338,18 @@ export default class StudyplanEdit extends React.Component {
         });
 
 
-
-        if(this.state.filteredCourses!==undefined) {
+        if (this.state.filteredCourses !== undefined) {
 
 
             this.state.filteredCourses.forEach((t) => {
                 if (true /*is in courses*/) {
                     courses.available.push(
                         <Grid item key={t.name}
-                             draggable
-                             onDragStart={(e) => this.onDragStart(e, t)}
-                             style={{width: 150}}
+                              draggable
+                              onDragStart={(e) => this.onDragStart(e, t)}
+                              style={{maxWidth: 220, minWidth: 220}}
                         >
-                            <Paper>
+                            <Paper className={this.props.classes.paper}>
                                 {t.name}
                             </Paper>
 
@@ -358,35 +362,28 @@ export default class StudyplanEdit extends React.Component {
         }
 
 
-
-
-
-
-
         return courses;
     }
 
 
-    onDragOver(e)
-    {
+    onDragOver(e) {
         e.preventDefault();
     }
 
 
-
-    filter(selections){
-
-
-       // let courses = JSON.parse(JSON.stringify(this.props.courses));
+    filter(selections) {
 
 
-        let courses= [];
+        // let courses = JSON.parse(JSON.stringify(this.props.courses));
 
-        if(this.state.studyplan.notChosenCourses !== undefined) {
-             courses = this.state.studyplan.notChosenCourses;
+
+        let courses = [];
+
+        if (this.state.studyplan.notChosenCourses !== undefined) {
+            courses = this.state.studyplan.notChosenCourses;
         }
 
-        if(selections!==undefined) {
+        if (selections !== undefined) {
 
             courses = courses.filter((course) => {
                 if (selections.ects.length === 0) {
@@ -432,253 +429,253 @@ export default class StudyplanEdit extends React.Component {
 
         this.setState({
             filteredCourses: courses,
-            selections:selections,
+            selections: selections,
         })
     }
 
 
-    removeFromAll(id){
+    removeFromAll(id) {
 
-        let sp=this.state.studyplan;
-        let fc=this.state.filteredCourses;
+        let sp = this.state.studyplan;
+        let fc = this.state.filteredCourses;
 
         if (sp.semester1.findIndex(function (i) {
-            return i._id == id._id;}) > -1)
-        {
+            return i._id == id._id;
+        }) > -1) {
             sp.semester1.splice(sp.semester1.findIndex(function (i) {
                 return i._id == id._id;
             }), 1);
         }
 
         if (sp.semester2.findIndex(function (i) {
-            return i._id == id._id;}) > -1)
-        {
+            return i._id == id._id;
+        }) > -1) {
             sp.semester2.splice(sp.semester2.findIndex(function (i) {
                 return i._id == id._id;
             }), 1);
         }
 
         if (sp.semester3.findIndex(function (i) {
-            return i._id == id._id;}) > -1) {
+            return i._id == id._id;
+        }) > -1) {
             sp.semester3.splice(sp.semester3.findIndex(function (i) {
                 return i._id == id._id;
             }), 1);
         }
 
         if (sp.semester4.findIndex(function (i) {
-            return i._id == id._id;}) > -1) {
+            return i._id == id._id;
+        }) > -1) {
             sp.semester4.splice(sp.semester4.findIndex(function (i) {
                 return i._id == id._id;
             }), 1);
         }
 
         if (sp.semester5.findIndex(function (i) {
-            return i._id == id._id;}) > -1) {
+            return i._id == id._id;
+        }) > -1) {
             sp.semester5.splice(sp.semester5.findIndex(function (i) {
                 return i._id == id._id;
             }), 1);
         }
 
         if (sp.semester6.findIndex(function (i) {
-            return i._id == id._id;}) > -1) {
+            return i._id == id._id;
+        }) > -1) {
             sp.semester6.splice(sp.semester6.findIndex(function (i) {
                 return i._id == id._id;
             }), 1);
         }
 
         if (sp.semester7.findIndex(function (i) {
-            return i._id == id._id;}) > -1) {
+            return i._id == id._id;
+        }) > -1) {
             sp.semester7.splice(sp.semester7.findIndex(function (i) {
                 return i._id == id._id;
             }), 1);
         }
 
         if (sp.semester8.findIndex(function (i) {
-            return i._id == id._id;}) > -1) {
+            return i._id == id._id;
+        }) > -1) {
             sp.semester8.splice(sp.semester8.findIndex(function (i) {
                 return i._id == id._id;
             }), 1);
         }
 
 
-            if (sp.notChosenCourses.findIndex(function (i) {
-                return i._id == id._id;}) > -1) {
-                sp.notChosenCourses.splice(sp.notChosenCourses.findIndex(function (i) {
-                    return i._id == id._id;
-                }), 1);
-            }
+        if (sp.notChosenCourses.findIndex(function (i) {
+            return i._id == id._id;
+        }) > -1) {
+            sp.notChosenCourses.splice(sp.notChosenCourses.findIndex(function (i) {
+                return i._id == id._id;
+            }), 1);
+        }
 
         if (fc.findIndex(function (i) {
-            return i._id == id._id;}) > -1) {
+            return i._id == id._id;
+        }) > -1) {
             fc.splice(fc.findIndex(function (i) {
                 return i._id == id._id;
             }), 1);
         }
 
-        this.setState({studyplan:sp,
-        filteredCourses:fc});
+        this.setState({
+            studyplan: sp,
+            filteredCourses: fc
+        });
 
     }
 
-    onDropSem1(e)
-    {
-        let id= JSON.parse(e.dataTransfer.getData("course"));
+    onDropSem1(e) {
+        let id = JSON.parse(e.dataTransfer.getData("course"));
         this.removeFromAll(id);
-        let sp=this.state.studyplan;
+        let sp = this.state.studyplan;
         sp.semester1.push(id);
         this.setState({
-            studyplan:sp,
+            studyplan: sp,
         });
         CourseService.getCourse(id._id).then(function (result) {
             result.attendees[1] = 0;
-            result.attendees[1] = result.attendees[1]+1;
+            result.attendees[1] = result.attendees[1] + 1;
             CourseService.updateCourse(result);
         });
     }
 
-    onDropSem2(e)
-    {
-        let id= JSON.parse(e.dataTransfer.getData("course"));
+    onDropSem2(e) {
+        let id = JSON.parse(e.dataTransfer.getData("course"));
         this.removeFromAll(id);
-        let sp= this.state.studyplan;
+        let sp = this.state.studyplan;
         sp.semester2.push(id);
         this.setState({
-            studyplan:sp,
+            studyplan: sp,
         });
         CourseService.getCourse(id._id).then(function (result) {
             result.attendees[2] = 0;
-            result.attendees[2] = result.attendees[2]+1;
+            result.attendees[2] = result.attendees[2] + 1;
             console.log(result);
             CourseService.updateCourse(result);
         });
     }
 
-    onDropSem3(e)
-    {
-        let id= JSON.parse(e.dataTransfer.getData("course"));
+    onDropSem3(e) {
+        let id = JSON.parse(e.dataTransfer.getData("course"));
         this.removeFromAll(id);
-        let sp= this.state.studyplan;
+        let sp = this.state.studyplan;
         sp.semester3.push(id);
         this.setState({
-            studyplan:sp,
+            studyplan: sp,
         });
         CourseService.getCourse(id._id).then(function (result) {
             result.attendees[3] = 0;
-            result.attendees[3] = result.attendees[3]+1;
+            result.attendees[3] = result.attendees[3] + 1;
             console.log(result);
             CourseService.updateCourse(result);
         });
     }
 
-    onDropSem4(e)
-    {
-        let id= JSON.parse(e.dataTransfer.getData("course"));
+    onDropSem4(e) {
+        let id = JSON.parse(e.dataTransfer.getData("course"));
         this.removeFromAll(id);
-        let sp= this.state.studyplan;
+        let sp = this.state.studyplan;
         sp.semester4.push(id);
         this.setState({
-            studyplan:sp,
+            studyplan: sp,
         });
         CourseService.getCourse(id._id).then(function (result) {
             result.attendees[4] = 0;
-            result.attendees[4] = result.attendees[4]+1;
+            result.attendees[4] = result.attendees[4] + 1;
             console.log(result);
             CourseService.updateCourse(result);
         });
     }
 
-    onDropSem5(e)
-    {
-        let id= JSON.parse(e.dataTransfer.getData("course"));
+    onDropSem5(e) {
+        let id = JSON.parse(e.dataTransfer.getData("course"));
         this.removeFromAll(id);
-        let sp= this.state.studyplan;
+        let sp = this.state.studyplan;
         sp.semester5.push(id);
         this.setState({
-            studyplan:sp,
+            studyplan: sp,
         });
         CourseService.getCourse(id._id).then(function (result) {
             result.attendees[5] = 0;
-            result.attendees[5] = result.attendees[5]+1;
+            result.attendees[5] = result.attendees[5] + 1;
             console.log(result);
             CourseService.updateCourse(result);
         });
     }
 
-    onDropSem6(e)
-    {
-        let id= JSON.parse(e.dataTransfer.getData("course"));
+    onDropSem6(e) {
+        let id = JSON.parse(e.dataTransfer.getData("course"));
         this.removeFromAll(id);
-        let sp= this.state.studyplan;
+        let sp = this.state.studyplan;
         sp.semester6.push(id);
         this.setState({
-            studyplan:sp,
+            studyplan: sp,
         });
         CourseService.getCourse(id._id).then(function (result) {
             result.attendees[6] = 0;
-            result.attendees[6] = result.attendees[6]+1;
+            result.attendees[6] = result.attendees[6] + 1;
             console.log(result);
             CourseService.updateCourse(result);
         });
     }
 
-    onDropSem7(e)
-    {
-        let id= JSON.parse(e.dataTransfer.getData("course"));
+    onDropSem7(e) {
+        let id = JSON.parse(e.dataTransfer.getData("course"));
         this.removeFromAll(id);
-        let sp= this.state.studyplan;
+        let sp = this.state.studyplan;
         sp.semester7.push(id);
         this.setState({
-            studyplan:sp,
+            studyplan: sp,
         });
         CourseService.getCourse(id._id).then(function (result) {
             result.attendees[7] = 0;
-            result.attendees[7] = result.attendees[7]+1;
+            result.attendees[7] = result.attendees[7] + 1;
             console.log(result);
             CourseService.updateCourse(result);
         });
     }
 
-    onDropSem8(e)
-    {
-        let id= JSON.parse(e.dataTransfer.getData("course"));
+    onDropSem8(e) {
+        let id = JSON.parse(e.dataTransfer.getData("course"));
         this.removeFromAll(id);
-        let sp= this.state.studyplan;
+        let sp = this.state.studyplan;
         sp.semester8.push(id);
         this.setState({
-            studyplan:sp,
+            studyplan: sp,
         });
         CourseService.getCourse(id._id).then(function (result) {
             result.attendees[8] = 0;
-            result.attendees[8] = result.attendees[8]+1;
+            result.attendees[8] = result.attendees[8] + 1;
             console.log(result);
             CourseService.updateCourse(result);
         });
     }
 
-    onDropAvailable(e)
-    {
-        let id= JSON.parse(e.dataTransfer.getData("course"));
+    onDropAvailable(e) {
+        let id = JSON.parse(e.dataTransfer.getData("course"));
         this.removeFromAll(id);
-        let sp= this.state.studyplan;
+        let sp = this.state.studyplan;
         sp.notChosenCourses.push(id);
 
         this.setState({
             studyplan: sp,
-        }, ()=>{
+        }, () => {
             this.filter(this.state.selections);
         });
     }
 
-    onDragStart(e, course){
-
+    onDragStart(e, course) {
 
 
         var c = JSON.stringify(course);
-        e.dataTransfer.setData("course",c);
+        e.dataTransfer.setData("course", c);
 
     }
 
-    handleSubmit(){
+    handleSubmit() {
         //check if mandatory is in available => if yes, dont save
         // (all mandatory courses must be "zugewiesen" in the studyplan)
         //also check for ects & groups
@@ -690,35 +687,36 @@ export default class StudyplanEdit extends React.Component {
     }
 
 
-    createPDF () {
+    createPDF() {
         const input = document.getElementById("studyplanDiv");
-        html2canvas(input).
-            then((canvas) => {
-                const imgData = canvas.toDataURL(`${this.state.studyplan.name}.png`);
-                const pdf = new jsPDF({orientation: "l"});
-                pdf.addImage(imgData, "PNG", 0, 0);
-                pdf.save(`${this.state.studyplan.name}.pdf`)
+        html2canvas(input).then((canvas) => {
+            const imgData = canvas.toDataURL(`${this.state.studyplan.name}.png`);
+            const pdf = new jsPDF({orientation: "l"});
+            pdf.addImage(imgData, "PNG", 0, 0);
+            pdf.save(`${this.state.studyplan.name}.pdf`)
         })
     }
 
 
     render() {
-        const classes = useStyles;
-        const ects= this.updateECTS();
+        const {classes} = this.props;
+        const ects = this.updateECTS();
 
-        return(
+        return (
             <Page>
-                <Paper>
-                    <Grid container direction = "row">
+                <Paper className={classes.paper}>
+                    <Grid container direction="row">
                         <div id={"studyplanDiv"}>
-                        <Grid item >
-                            <Paper square={true} >
-                                <Typography variant="h3" >{this.state.studyplan.name} </Typography>
+                            <Grid item xs={5}>
+                                <Typography variant="h4" color={"primary"}
+                                            gutterBottom>{this.state.studyplan.name} </Typography>
                                 {this.displayOverallECTS()}
-                                <Grid container direction="column" style={{ width:500,maxHeight:650,maxWidth:500, overflow: 'auto'}} >
+                                <Grid container direction="row" alignItems={"stretch"}
+                                      style={{width: 700, maxHeight: 650, maxWidth: 700, overflow: 'auto'}}>
 
-                                    <Grid item onDrop={(e)=>this.onDropSem1(e)} onDragOver={(e)=>this.onDragOver(e)} >
-                                        <Paper square={true} style={{height:200}}>
+                                    <Grid onDrop={(e) => this.onDropSem1(e)}
+                                          onDragOver={(e) => this.onDragOver(e)}>
+                                        <Paper className={classes.paper}>
 
                                             {this.displayECTS(1)}
                                             {this.displaySemesters().semester1}
@@ -726,89 +724,94 @@ export default class StudyplanEdit extends React.Component {
                                         </Paper>
                                     </Grid>
 
-                                    <Grid item onDrop={(e)=>this.onDropSem2(e)} onDragOver={(e)=>this.onDragOver(e)} >
-                                        <Paper square={true} style={{height:200}}>
+                                    <Grid item onDrop={(e) => this.onDropSem2(e)}
+                                          onDragOver={(e) => this.onDragOver(e)}>
+                                        <Paper className={classes.paper}>
                                             {this.displayECTS(2)}
                                             {this.displaySemesters().semester2}
 
                                         </Paper>
                                     </Grid>
 
-                                    <Grid item onDrop={(e)=>this.onDropSem3(e)} onDragOver={(e)=>this.onDragOver(e)}>
-                                        <Paper square={true} style={{height:200}}>
+                                    <Grid item onDrop={(e) => this.onDropSem3(e)}
+                                          onDragOver={(e) => this.onDragOver(e)}>
+                                        <Paper className={classes.paper}>
                                             {this.displayECTS(3)}
                                             {this.displaySemesters().semester3}
 
                                         </Paper>
                                     </Grid>
 
-                                    <Grid item onDrop={(e)=>this.onDropSem4(e)} onDragOver={(e)=>this.onDragOver(e)}>
-                                        <Paper square={true} style={{height:200}}>
+                                    <Grid item onDrop={(e) => this.onDropSem4(e)}
+                                          onDragOver={(e) => this.onDragOver(e)}>
+                                        <Paper className={classes.paper}>
                                             {this.displayECTS(4)}
                                             {this.displaySemesters().semester4}
 
                                         </Paper>
                                     </Grid>
 
-                                    <Grid item onDrop={(e)=>this.onDropSem5(e)} onDragOver={(e)=>this.onDragOver(e)}>
-                                        <Paper square={true} style={{height:200}}>
+                                    <Grid item onDrop={(e) => this.onDropSem5(e)}
+                                          onDragOver={(e) => this.onDragOver(e)}>
+                                        <Paper className={classes.paper}>
                                             {this.displayECTS(5)}
                                             {this.displaySemesters().semester5}
 
                                         </Paper>
                                     </Grid>
 
-                                    <Grid item onDrop={(e)=>this.onDropSem6(e)} onDragOver={(e)=>this.onDragOver(e)}>
-                                        <Paper style={{height:200}}>
+                                    <Grid item onDrop={(e) => this.onDropSem6(e)}
+                                          onDragOver={(e) => this.onDragOver(e)}>
+                                        <Paper className={classes.paper}>
                                             {this.displayECTS(6)}
                                             {this.displaySemesters().semester6}
 
                                         </Paper>
                                     </Grid>
 
-                                    <Grid item onDrop={(e)=>this.onDropSem7(e)} onDragOver={(e)=>this.onDragOver(e)}>
-                                        <Paper square={true} style={{height:200}}>
-                                            {this.displayECTS(7)}
-                                            {this.displaySemesters().semester7}
+                                    {/*<Grid item onDrop={(e) => this.onDropSem7(e)}
+                                              onDragOver={(e) => this.onDragOver(e)}>
+                                            <Paper className={classes.paper}>
+                                                {this.displayECTS(7)}
+                                                {this.displaySemesters().semester7}
 
-                                        </Paper>
-                                    </Grid>
+                                            </Paper>
+                                        </Grid>
 
-                                    <Grid item onDrop={(e)=>this.onDropSem8(e)} onDragOver={(e)=>this.onDragOver(e)}>
-                                        <Paper square={true} style={{height:200}}>
-                                            {this.displayECTS(8)}
-                                            {this.displaySemesters().semester8}
+                                        <Grid item onDrop={(e) => this.onDropSem8(e)}
+                                              onDragOver={(e) => this.onDragOver(e)}>
+                                            <Paper className={classes.paper}>
+                                                {this.displayECTS(8)}
+                                                {this.displaySemesters().semester8}
 
-                                        </Paper>
-                                    </Grid>
+                                            </Paper>
+                                        </Grid>*/}
 
                                 </Grid>
-                            </Paper>
-                        </Grid>
-                        </div>
-                        <Grid item >
-                            <Grid container direction="column" style={{maxHeight: 600,maxWidth:350, overflow: 'auto'}} onDragOver={(e)=>this.onDragOver(e)} onDrop={(e)=>this.onDropAvailable(e)}>
-                               <Grid item>
-                                   <FilterComponents areas={this.props.areas} onSelection={this.filter}/>
-                               </Grid>
-                                <Grid item>
-                                    Select
-                                </Grid>
-
-                                    {this.displaySemesters().available}
 
                             </Grid>
+                        </div>
+                        <Grid container
+                              style={{minWidth: 200, maxHeight: 650, overflow: 'auto', marginTop: 60, marginBottom: 50}}
+                              xs={3}
+                              onDragOver={(e) => this.onDragOver(e)} onDrop={(e) => this.onDropAvailable(e)}>
+                            <Grid item>
+                                <FilterComponents areas={this.props.areas} onSelection={this.filter}/>
+                            </Grid>
+                            {this.displaySemesters().available}
                         </Grid>
-
                     </Grid>
-                    <Button onClick={this.handleSubmit}>
+                    <Button onClick={this.handleSubmit} variant="contained" color="primary"
+                            className={classes.button}>
                         SAVE STUDYPLAN
                     </Button>
-                    <Button href={"/#/profile/studyplans"} >
+                    <Button href={"/#/profile/studyplans"} variant="contained"
+                            className={classes.button}>
                         CANCEL
                     </Button>
-                    <Button onClick={this.createPDF} >
-                        PDF
+                    <Button onClick={this.createPDF} variant="contained"
+                            className={classes.button}>
+                        SAVE AS PDF
                     </Button>
 
 
@@ -818,3 +821,5 @@ export default class StudyplanEdit extends React.Component {
 
     }
 }
+
+export default withRouter(withStyles(styles)(StudyplanEdit));
