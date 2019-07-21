@@ -21,11 +21,9 @@ export class CourseStatistics extends React.Component {
     fillAttendees(c){
         let result = [];
         for(let i=0;i<8; i++){
-            console.log("i: "+i+ c.attendees[i]);
             if(c.attendees[i] != null){}else{
 
                 c.attendees[i]=0;
-                console.log("after: "+c.attendees[i]);
             }
         }
         result=[

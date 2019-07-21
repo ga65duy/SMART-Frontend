@@ -28,7 +28,7 @@ import Box from "@material-ui/core/Box";
 /**
  *StudyplanEdit
  * Component for creating and editing a studyplan
- * Author: Gerhard,  Maria: pdf and styling
+ * Author: Gerhard,  Maria: pdf and styling, Jan: Attendee Handling
  */
 
 const styles = theme => ({
@@ -839,15 +839,27 @@ class StudyplanEdit extends React.Component {
 
 
     }
+    switchSemester(start){
+        switch(start){
+            case "2019": return 0;
+            case "2020": return 2;
+            case "2021": return 4;
+            case "2022": return 6;
+            default:  return 0;
 
+        }
+    }
     handleAttendees(sp){
+        let e= this.switchSemester(sp.startSemester);
+        console.log(e);
+        console.log(sp.startSemester);
         for(let i=0; i< sp.semester1.length; i++){
             let id = sp.semester1[i]._id;
             CourseService.getCourse(id).then(function (result) {
-                if(result.attendees[0] != null) {
-                    result.attendees[0] = result.attendees[0] + 1;
+                if(result.attendees[0+e] != null) {
+                    result.attendees[0+e] = result.attendees[0+e] + 1;
                 } else{
-                    result.attendees[0] = 1;
+                    result.attendees[0+e] = 1;
                 }
                 CourseService.updateCourse(result);
             });
@@ -855,10 +867,10 @@ class StudyplanEdit extends React.Component {
         for(let i=0; i< sp.semester2.length; i++){
             let id = sp.semester2[i]._id;
             CourseService.getCourse(id).then(function (result) {
-                if(result.attendees[1] != null) {
-                    result.attendees[1] = result.attendees[1] + 1;
+                if(result.attendees[1+e] != null) {
+                    result.attendees[1+e] = result.attendees[1+e] + 1;
                 } else{
-                    result.attendees[1] = 1;
+                    result.attendees[1+e] = 1;
                 }
                 CourseService.updateCourse(result);
             });
@@ -866,10 +878,10 @@ class StudyplanEdit extends React.Component {
         for(let i=0; i< sp.semester4.length; i++){
             let id = sp.semester4[i]._id;
             CourseService.getCourse(id).then(function (result) {
-                if(result.attendees[3] != null) {
-                    result.attendees[3] = result.attendees[3] + 1;
+                if(result.attendees[3+e] != null) {
+                    result.attendees[3+e] = result.attendees[3+e] + 1;
                 } else{
-                    result.attendees[3] = 1;
+                    result.attendees[3+e] = 1;
                 }
                 CourseService.updateCourse(result);
             });
@@ -877,10 +889,10 @@ class StudyplanEdit extends React.Component {
         for(let i=0; i< sp.semester5.length; i++){
             let id = sp.semester5[i]._id;
             CourseService.getCourse(id).then(function (result) {
-                if(result.attendees[4] != null) {
-                    result.attendees[4] = result.attendees[4] + 1;
+                if(result.attendees[4+e] != null) {
+                    result.attendees[4+e] = result.attendees[4+e] + 1;
                 } else{
-                    result.attendees[4] = 1;
+                    result.attendees[4+e] = 1;
                 }
                 CourseService.updateCourse(result);
             });
@@ -888,10 +900,10 @@ class StudyplanEdit extends React.Component {
         for(let i=0; i< sp.semester6.length; i++){
             let id = sp.semester6[i]._id;
             CourseService.getCourse(id).then(function (result) {
-                if(result.attendees[5] != null) {
-                    result.attendees[5] = result.attendees[5] + 1;
+                if(result.attendees[5+e] != null) {
+                    result.attendees[5+e] = result.attendees[5+e] + 1;
                 } else{
-                    result.attendees[5] = 1;
+                    result.attendees[5+e] = 1;
                 }
                 CourseService.updateCourse(result);
             });
@@ -899,10 +911,10 @@ class StudyplanEdit extends React.Component {
         for(let i=0; i< sp.semester7.length; i++){
             let id = sp.semester7[i]._id;
             CourseService.getCourse(id).then(function (result) {
-                if(result.attendees[6] != null) {
-                    result.attendees[6] = result.attendees[6] + 1;
+                if(result.attendees[6+e] != null) {
+                    result.attendees[6+e] = result.attendees[6+e] + 1;
                 } else{
-                    result.attendees[6] = 1;
+                    result.attendees[6+e] = 1;
                 }
                 CourseService.updateCourse(result);
             });
@@ -910,10 +922,10 @@ class StudyplanEdit extends React.Component {
         for(let i=0; i< sp.semester7.length; i++){
             let id = sp.semester7[i]._id;
             CourseService.getCourse(id).then(function (result) {
-                if(result.attendees[7] != null) {
-                    result.attendees[7] = result.attendees[7] + 1;
+                if(result.attendees[7+e] != null) {
+                    result.attendees[7+e] = result.attendees[7+e] + 1;
                 } else{
-                    result.attendees[7] = 1;
+                    result.attendees[7+e] = 1;
                 }
                 CourseService.updateCourse(result);
             });
@@ -921,10 +933,10 @@ class StudyplanEdit extends React.Component {
         for(let i=0; i< sp.semester3.length; i++){
             let id = sp.semester3[i]._id;
             CourseService.getCourse(id).then(function (result) {
-                if(result.attendees[2] != null) {
-                    result.attendees[2] = result.attendees[2] + 1;
+                if(result.attendees[2+e] != null) {
+                    result.attendees[2+e] = result.attendees[2+e] + 1;
                 } else{
-                    result.attendees[2] = 1;
+                    result.attendees[2+e] = 1;
                 }
                 CourseService.updateCourse(result);
             });
