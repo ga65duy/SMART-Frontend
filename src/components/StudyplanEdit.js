@@ -4,6 +4,8 @@ import React from 'react';
 
 import Page from './PageWithAdvertisement/Page';
 import FilterComponents from './FilterComponents'
+import Popup from './Popup';
+
 
 import Header from './Header';
 import {Footer} from './Footer';
@@ -57,6 +59,8 @@ class StudyplanEdit extends React.Component {
                 rating: "",
                 semester: ""
             },
+            displayPopup: false,
+            popupText:"",
 
 
         };
@@ -64,6 +68,7 @@ class StudyplanEdit extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.filter = this.filter.bind(this);
         this.createPDF = this.createPDF.bind(this);
+        this.closePopup=this.closePopup.bind(this);
         this.updateECTS();
 
     }
@@ -180,7 +185,6 @@ class StudyplanEdit extends React.Component {
 
     displayOverallECTS() {
         let sp = this.state.studyplan;
-        console.log(sp.fieldOfStudy.degree);
         if (sp.fieldOfStudy.degree == "Master") {
             return (
                 <Typography>
@@ -221,6 +225,8 @@ class StudyplanEdit extends React.Component {
                 >
                     <Paper className={this.props.classes.paper}>
                         {t.name}
+                        {"  "}
+                        {"ECTS: "+ t.ects}
                     </Paper>
 
                 </Grid>
@@ -236,6 +242,8 @@ class StudyplanEdit extends React.Component {
                 >
                     <Paper className={this.props.classes.paper}>
                         {t.name}
+                        {"  "}
+                        {"ECTS: "+ t.ects}
                     </Paper>
 
                 </Grid>
@@ -251,6 +259,8 @@ class StudyplanEdit extends React.Component {
                 >
                     <Paper className={this.props.classes.paper}>
                         {t.name}
+                        {"  "}
+                        {"ECTS: "+ t.ects}
                     </Paper>
 
                 </Grid>
@@ -266,6 +276,8 @@ class StudyplanEdit extends React.Component {
                 >
                     <Paper className={this.props.classes.paper}>
                         {t.name}
+                        {"  "}
+                        {"ECTS: "+ t.ects}
                     </Paper>
 
                 </Grid>
@@ -282,6 +294,8 @@ class StudyplanEdit extends React.Component {
                 >
                     <Paper className={this.props.classes.paper}>
                         {t.name}
+                        {"  "}
+                        {"ECTS: "+ t.ects}
                     </Paper>
 
                 </Grid>
@@ -298,6 +312,8 @@ class StudyplanEdit extends React.Component {
                 >
                     <Paper className={this.props.classes.paper}>
                         {t.name}
+                        {"  "}
+                        {"ECTS: "+ t.ects}
                     </Paper>
 
                 </Grid>
@@ -314,6 +330,8 @@ class StudyplanEdit extends React.Component {
                 >
                     <Paper className={this.props.classes.paper}>
                         {t.name}
+                        {"  "}
+                        {"ECTS: "+ t.ects}
                     </Paper>
 
                 </Grid>
@@ -331,6 +349,8 @@ class StudyplanEdit extends React.Component {
                 >
                     <Paper className={this.props.classes.paper}>
                         {t.name}
+                        {"  "}
+                        {"ECTS: "+ t.ects}
                     </Paper>
 
                 </Grid>
@@ -351,6 +371,8 @@ class StudyplanEdit extends React.Component {
                         >
                             <Paper className={this.props.classes.paper}>
                                 {t.name}
+                                {"  "}
+                                {"ECTS: "+ t.ects}
                             </Paper>
 
                         </Grid>
@@ -368,6 +390,7 @@ class StudyplanEdit extends React.Component {
 
     onDragOver(e) {
         e.preventDefault();
+
     }
 
 
@@ -528,104 +551,245 @@ class StudyplanEdit extends React.Component {
     }
 
     onDropSem1(e) {
+
         let id = JSON.parse(e.dataTransfer.getData("course"));
-        this.removeFromAll(id);
-        let sp = this.state.studyplan;
-        sp.semester1.push(id);
-        this.setState({
-            studyplan: sp,
-        });
+        if(this.state.studyplan.wsSs=="WS"){
+            if(id.WS){
+                this.removeFromAll(id);
+                let sp = this.state.studyplan;
+                sp.semester1.push(id);
+                this.setState({
+                    studyplan: sp,
+                });
+            }
+            else this.setState({popupText:"This Course cannot be taken in the Wintersemester",
+                displayPopup:true})
+
+        }
+        else{
+            if(id.SS){
+                this.removeFromAll(id);
+                let sp = this.state.studyplan;
+                sp.semester1.push(id);
+                this.setState({
+                    studyplan: sp,
+                });
+            }
+            else this.setState({popupText:"This Course cannot be taken in the Summersemester",
+                displayPopup:true})
+
+        }
+        console.log(this.state.displayPopup);
+
 
     }
 
     onDropSem2(e) {
         let id = JSON.parse(e.dataTransfer.getData("course"));
-        this.removeFromAll(id);
-        let sp = this.state.studyplan;
-        sp.semester2.push(id);
-        this.setState({
-            studyplan: sp,
-        });
+        if(this.state.studyplan.wsSs=="WS"){
+            if(id.SS){
+                this.removeFromAll(id);
+                let sp = this.state.studyplan;
+                sp.semester2.push(id);
+                this.setState({
+                    studyplan: sp,
+                });
+            } else this.setState({popupText:"This Course cannot be taken in the Summersemester",
+                displayPopup:true})
+        }
+        else{
+            if(id.WS){
+                this.removeFromAll(id);
+                let sp = this.state.studyplan;
+                sp.semester2.push(id);
+                this.setState({
+                    studyplan: sp,
+                });
+            }else this.setState({popupText:"This Course cannot be taken in the Wintersemester",
+                displayPopup:true})
+        }
 
     }
 
     onDropSem3(e) {
         let id = JSON.parse(e.dataTransfer.getData("course"));
-        this.removeFromAll(id);
-        let sp = this.state.studyplan;
-        sp.semester3.push(id);
-        this.setState({
-            studyplan: sp,
-        });
+        if(this.state.studyplan.wsSs=="WS"){
+            if(id.WS){
+                this.removeFromAll(id);
+                let sp = this.state.studyplan;
+                sp.semester3.push(id);
+                this.setState({
+                    studyplan: sp,
+                });
+            } else this.setState({popupText:"This Course cannot be taken in the Wintersemester",
+                displayPopup:true})
+        }
+        else{
+            if(id.SS){
+                this.removeFromAll(id);
+                let sp = this.state.studyplan;
+                sp.semester3.push(id);
+                this.setState({
+                    studyplan: sp,
+                });
+            } else this.setState({popupText:"This Course cannot be taken in the Summersemester",
+                displayPopup:true})
+        }
 
     }
 
     onDropSem4(e) {
         let id = JSON.parse(e.dataTransfer.getData("course"));
-        this.removeFromAll(id);
-        let sp = this.state.studyplan;
-        sp.semester4.push(id);
-        this.setState({
-            studyplan: sp,
-        });
+        if(this.state.studyplan.wsSs=="WS"){
+            if(id.SS){
+                this.removeFromAll(id);
+                let sp = this.state.studyplan;
+                sp.semester4.push(id);
+                this.setState({
+                    studyplan: sp,
+                });
+            } else this.setState({popupText:"This Course cannot be taken in the Summersemester",
+                displayPopup:true})
+        }
+        else{
+            if(id.WS){
+                this.removeFromAll(id);
+                let sp = this.state.studyplan;
+                sp.semester4.push(id);
+                this.setState({
+                    studyplan: sp,
+                });
+            } else this.setState({popupText:"This Course cannot be taken in the Wintersemester",
+                displayPopup:true})
+        }
 
     }
 
     onDropSem5(e) {
         let id = JSON.parse(e.dataTransfer.getData("course"));
-        this.removeFromAll(id);
-        let sp = this.state.studyplan;
-        sp.semester5.push(id);
-        this.setState({
-            studyplan: sp,
-        });
+        if(this.state.studyplan.wsSs=="WS"){
+            if(id.WS){
+                this.removeFromAll(id);
+                let sp = this.state.studyplan;
+                sp.semester5.push(id);
+                this.setState({
+                    studyplan: sp,
+                });
+            }else this.setState({popupText:"This Course cannot be taken in the Wintersemester",
+                displayPopup:true})
+        }
+        else{
+            if(id.SS){
+                this.removeFromAll(id);
+                let sp = this.state.studyplan;
+                sp.semester5.push(id);
+                this.setState({
+                    studyplan: sp,
+                });
+            } else this.setState({popupText:"This Course cannot be taken in the Summersemester",
+                displayPopup:true})
+        }
 
     }
 
     onDropSem6(e) {
         let id = JSON.parse(e.dataTransfer.getData("course"));
-        this.removeFromAll(id);
-        let sp = this.state.studyplan;
-        sp.semester6.push(id);
-        this.setState({
-            studyplan: sp,
-        });
+        if(this.state.studyplan.wsSs=="WS"){
+            if(id.SS){
+                this.removeFromAll(id);
+                let sp = this.state.studyplan;
+                sp.semester6.push(id);
+                this.setState({
+                    studyplan: sp,
+                });
+            }else this.setState({popupText:"This Course cannot be taken in the Summersemester",
+                displayPopup:true})
+        }
+        else{
+            if(id.WS){
+                this.removeFromAll(id);
+                let sp = this.state.studyplan;
+                sp.semester6.push(id);
+                this.setState({
+                    studyplan: sp,
+                });
+            } else this.setState({popupText:"This Course cannot be taken in the Wintersemester",
+                displayPopup:true})
+        }
 
     }
 
     onDropSem7(e) {
         let id = JSON.parse(e.dataTransfer.getData("course"));
-        this.removeFromAll(id);
-        let sp = this.state.studyplan;
-        sp.semester7.push(id);
-        this.setState({
-            studyplan: sp,
-        });
+        if(this.state.studyplan.wsSs=="WS"){
+            if(id.WS){
+                this.removeFromAll(id);
+                let sp = this.state.studyplan;
+                sp.semester7.push(id);
+                this.setState({
+                    studyplan: sp,
+                });
+            } else this.setState({popupText:"This Course cannot be taken in the Wintersemester",
+                displayPopup:true})
+        }
+        else{
+            if(id.SS){
+                this.removeFromAll(id);
+                let sp = this.state.studyplan;
+                sp.semester7.push(id);
+                this.setState({
+                    studyplan: sp,
+                });
+            } else this.setState({popupText:"This Course cannot be taken in the Summersemester",
+                displayPopup:true})
+        }
 
     }
 
     onDropSem8(e) {
         let id = JSON.parse(e.dataTransfer.getData("course"));
-        this.removeFromAll(id);
-        let sp = this.state.studyplan;
-        sp.semester8.push(id);
-        this.setState({
-            studyplan: sp,
-        });
-
+        if(this.state.studyplan.wsSs=="WS"){
+            if(id.SS){
+                this.removeFromAll(id);
+                let sp = this.state.studyplan;
+                sp.semester8.push(id);
+                this.setState({
+                    studyplan: sp,
+                });
+            } else this.setState({popupText:"This Course cannot be taken in the Summersemester",
+                displayPopup:true})
+        }
+        else{
+            if(id.WS){
+                this.removeFromAll(id);
+                let sp = this.state.studyplan;
+                sp.semester8.push(id);
+                this.setState({
+                    studyplan: sp,
+                });
+            } else this.setState({popupText:"This Course cannot be taken in the Wintersemester",
+                displayPopup:true})
+        }
     }
 
     onDropAvailable(e) {
-        let id = JSON.parse(e.dataTransfer.getData("course"));
-        this.removeFromAll(id);
-        let sp = this.state.studyplan;
-        sp.notChosenCourses.push(id);
 
-        this.setState({
-            studyplan: sp,
-        }, () => {
-            this.filter(this.state.selections);
-        });
+        let id = JSON.parse(e.dataTransfer.getData("course"));
+
+        let sp = this.state.studyplan;
+        if(!sp.fieldOfStudy.mandatory.includes(id._id)){
+            this.removeFromAll(id);
+            sp.notChosenCourses.push(id);
+
+            this.setState({
+                studyplan: sp,
+            }, () => {
+                this.filter(this.state.selections);
+            });
+        } else{
+            this.setState({popupText:"Mandatory Courses cannot be removed", displayPopup:true,})
+        }
+
     }
 
     onDragStart(e, course) {
@@ -636,14 +800,42 @@ class StudyplanEdit extends React.Component {
 
     }
 
+    closePopup(){
+        this.setState({displayPopup:false,});
+    }
+
+    showPopup(){
+        if(this.state.displayPopup){
+            return (
+                <Popup text={this.state.popupText} closePopup={this.closePopup} />
+            )
+        }
+
+    }
+
     handleSubmit() {
         //check if mandatory is in available => if yes, dont save
         // (all mandatory courses must be "zugewiesen" in the studyplan)
         //also check for ects & groups
         var sp = this.state.studyplan;
-        console.log(sp);
-        this.handleAttendees(sp);
-        this.props.updateStudyplan(sp);
+        var selectedCourses =sp.semester1+sp.semester2+sp.semester3+sp.semester4+sp.semester5+sp.semester6+sp.semester7+sp.semester8;
+        console.log(selectedCourses);
+
+
+        // check auf alle mandatory
+
+
+
+
+
+                this.handleAttendees(sp);
+                this.props.updateStudyplan(sp);
+
+
+
+
+
+
 
 
     }
@@ -822,15 +1014,22 @@ class StudyplanEdit extends React.Component {
                                         </Paper>
                                     </Grid>
 
-                                    {/*<Grid item onDrop={(e) => this.onDropSem7(e)}
+                                    {()=>{if(this.state.studyplan.fieldOfStudy.degree=="Bachelor"){
+
+                                    return(
+                                    <Grid item onDrop={(e) => this.onDropSem7(e)}
                                               onDragOver={(e) => this.onDragOver(e)}>
                                             <Paper className={classes.paper}>
                                                 {this.displayECTS(7)}
                                                 {this.displaySemesters().semester7}
 
                                             </Paper>
-                                        </Grid>
+                                        </Grid>)
+                                    }}}
 
+                                    {()=>{if(this.state.studyplan.fieldOfStudy.degree=="Bachelor"){
+
+                                        return(
                                         <Grid item onDrop={(e) => this.onDropSem8(e)}
                                               onDragOver={(e) => this.onDragOver(e)}>
                                             <Paper className={classes.paper}>
@@ -838,7 +1037,8 @@ class StudyplanEdit extends React.Component {
                                                 {this.displaySemesters().semester8}
 
                                             </Paper>
-                                        </Grid>*/}
+                                        </Grid>)
+                                    }}}
 
                                 </Grid>
 
@@ -864,11 +1064,13 @@ class StudyplanEdit extends React.Component {
                     </Button>
                     <Button onClick={this.createPDF} variant="contained"
                             className={classes.button}>
-                        SAVE AS PDF
+                        DOWNLOAD PDF
                     </Button>
 
 
                 </Paper>
+                {this.showPopup()}
+
             </Page>
         )
 

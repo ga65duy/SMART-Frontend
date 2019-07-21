@@ -138,6 +138,7 @@ class StudyplanPreQuery extends React.Component {
         studyplan.user = UserService.getCurrentUser().id;
         studyplan.name= this.state.SName;
         studyplan.fieldOfStudy=this.state.selectedFoS;
+        studyplan.wsSs=this.state.selectedFoS.startSemester;
         studyplan.startSemester=this.state.startSemester;
 
         studyplan.semester1 = this.state.selectedFoS.recommendedSemester1;
