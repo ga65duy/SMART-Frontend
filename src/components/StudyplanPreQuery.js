@@ -145,7 +145,7 @@ class StudyplanPreQuery extends React.Component {
                                     style={{minWidth: 400, maxWidth: 400}}
                                     value={this.state.university}
                                     onChange={this.handleChangeUniveristy}
-                                    helperText="Please select my university"
+                                    helperText="Please select your university"
                                     margin="normal"
                                 >
                                     {this.props.universities.map(option => (
@@ -165,7 +165,7 @@ class StudyplanPreQuery extends React.Component {
                                     style={{minWidth: 400, maxWidth: 400}}
                                     value={this.state.selectedFoS}
                                     onChange={this.handleChangeFoS}
-                                    helperText="Please select my Field of Study"
+                                    helperText="Please select your Field of Study"
                                     margin="normal"
                                 >
                                     {this.state.FoSs.map(option2 => (
@@ -188,7 +188,7 @@ class StudyplanPreQuery extends React.Component {
                                     onChange={this.handleChangeStartSemester}
 
 
-                                    helperText="My first year of study"
+                                    helperText="Select your first year of study"
                                     margin="normal"
                                 >
                                     {semester.map(option3 => (
