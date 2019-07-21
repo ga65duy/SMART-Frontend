@@ -71,10 +71,6 @@ export class Welcome extends React.Component {
     render() {
         const { classes } = this.props;
 
-        /* if (this.state.loading) {
-                return (<h2>Loading...</h2>);
-            }*/
-
         let loginModal = <Dialog open={this.state.showLogin} onClose={this.handleCloseLogin} id={"login"}>
                             <UserLoginView />
                         </Dialog>;

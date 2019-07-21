@@ -5,14 +5,18 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { Paper } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
 import "./WelcomeUniversity.css";
 import BackgroundImage from "../../Background.jpg";
-import Header from "../Header";
 import {Footer} from '../Footer';
 import Dialog from "@material-ui/core/Dialog";
 import UserLoginView from "../../views/ProfileViews/UserLoginView";
 import UserSignupView from "../../views/ProfileViews/UserSignupView";
+
+/**
+ * WelcomeUniversity
+ * Page showing to Users clicked on "for universities" from Welcome
+ * Author: Susanne
+ */
 
 export class WelcomeUniversity extends React.Component {
     constructor(props) {
@@ -67,9 +71,6 @@ export class WelcomeUniversity extends React.Component {
     render() {
         const { classes } = this.props;
 
-        /* if (this.state.loading) {
-                return (<h2>Loading...</h2>);
-            }*/
         let loginModal = <Dialog open={this.state.showLogin} onClose={this.handleCloseLogin} id={"login"}>
                             <UserLoginView />
                         </Dialog>;
@@ -140,9 +141,6 @@ export class WelcomeUniversity extends React.Component {
                                         <h1 style={{textAlign: 'center'}}>
                                             SMART for Universities
                                         </h1>
-                                        {/*<Button variant="contained" color="primary">
-                                            REGISTER NOW!
-                                        </Button>*/}
                                     </div>
                                 </Grid>
                                 <Grid item xs />
