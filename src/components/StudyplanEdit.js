@@ -69,6 +69,7 @@ class StudyplanEdit extends React.Component {
         this.filter = this.filter.bind(this);
         this.createPDF = this.createPDF.bind(this);
         this.closePopup=this.closePopup.bind(this);
+        this.displayWSSS=this.displayWSSS.bind(this);
         this.updateECTS();
 
     }
@@ -162,7 +163,7 @@ class StudyplanEdit extends React.Component {
         if (sp.fieldOfStudy.degree == "Bachelor" || semester < 5) {
             return (
                 <div>
-                    <Typography> Semester {semester}</Typography>
+                    <Typography> Semester {semester}  {" " +this.displayWSSS(semester)}</Typography>
                     <Typography style={{flex: 1}}/>
                     <Typography>
                         {this.updateECTS()[semester]}/30 ECTS
@@ -172,7 +173,7 @@ class StudyplanEdit extends React.Component {
         } else {
             return (
                 <div>
-                    <Typography> Semester {semester}</Typography>
+                    <Typography> Semester {semester} { " " +this.displayWSSS(semester)}</Typography>
                     <Typography style={{flex: 1}}/>
                     <Typography>
                         {this.updateECTS()[semester]}/0 ECTS
@@ -391,6 +392,22 @@ class StudyplanEdit extends React.Component {
     onDragOver(e) {
         e.preventDefault();
 
+    }
+
+    displayWSSS(sem){
+        if(sem==1||sem==3||sem==5||sem==7){
+            if(this.state.studyplan.wsSs=="WS"){
+                return ("WS")
+            } else {
+                return ("SS")
+            }
+        } else {
+            if(this.state.studyplan.wsSs=="SS"){
+                return ("WS")
+            } else {
+                return ("SS")
+            }
+        }
     }
 
 
@@ -814,31 +831,13 @@ class StudyplanEdit extends React.Component {
     }
 
     handleSubmit() {
-        //check if mandatory is in available => if yes, dont save
-        // (all mandatory courses must be "zugewiesen" in the studyplan)
-        //also check for ects & groups
+
         var sp = this.state.studyplan;
-        var selectedCourses =sp.semester1+sp.semester2+sp.semester3+sp.semester4+sp.semester5+sp.semester6+sp.semester7+sp.semester8;
-        console.log(selectedCourses);
-
-
-        // check auf alle mandatory
-
-
-
-
 
                 this.handleAttendees(sp);
                 this.props.updateStudyplan(sp);
-
-
-
-
-
-
-
-
     }
+
     switchSemester(start){
         switch(start){
             case "2019": return 0;
@@ -966,7 +965,7 @@ class StudyplanEdit extends React.Component {
                         <div id={"studyplanDiv"}>
                             <Grid item xs={5}>
                                 <Typography variant="h4" color={"primary"}
-                                            gutterBottom>{this.state.studyplan.name} </Typography>
+                                            gutterBottom>{this.state.studyplan.name } </Typography>
                                 {this.displayOverallECTS()}
                                 <Grid container direction="row" alignItems={"stretch"}
                                       style={{width: 700, maxHeight: 650, maxWidth: 700, overflow: 'auto'}}>
@@ -1070,7 +1069,7 @@ class StudyplanEdit extends React.Component {
                             className={classes.button}>
                         SAVE STUDYPLAN
                     </Button>
-                    <Button href={"/#/profile/studyplans"} variant="contained"
+                    <Button href={"/#/studyplans"} variant="contained"
                             className={classes.button}>
                         CANCEL
                     </Button>

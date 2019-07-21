@@ -88,7 +88,7 @@ class SideBar extends React.Component {
                /* this.setState({
                     openStudyplan: !this.state.openStudyplan
                 });*/
-                location.href="/#/profile/studyplans";
+                location.href="/#/studyplans";
                 break;
             case "My Ratings":
                 this.setState({

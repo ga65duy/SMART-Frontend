@@ -37,13 +37,10 @@ export default class App extends React.Component {
 
 
                 { component: Welcome, path: '/', exact:true},
-                { component: LoadStudyplanView, path: '/profile/studyplans'},
-                { component: CreateStudyplanQueryView, path: '/home'},
-                { component: CreateStudyplanView, path: '/studyplan/:id'},
+                { component: CreateStudyplanQueryView, path: '/studyplans/create'},
                 { component: WelcomeUniversity, path: '/welcomeUniversities'},
-                { component: ProfileView , path: '/profile'},
                 { component: CourseView, path: '/courses/:id'},
-                {component: CourseSelectionView, path: '/courses'},
+                { component: CourseSelectionView, path: '/courses'},
                 { component: UserSignupView, path: '/register'},
 
 
@@ -53,7 +50,7 @@ export default class App extends React.Component {
                         }
                         else {
                             return (<Redirect to={'/'}/>)
-                        }} , path: '/profile/studyplans'},
+                        }} , path: '/studyplans', exact:true},
 
 
                 { render: (props) => {
@@ -71,14 +68,8 @@ export default class App extends React.Component {
                         }
                         else {
                             return (<Redirect to={'/'}/>)
-                        }} , path: '/studyplan/:id'},
-                { render: (props) => {
-                        if(UserService.isAuthenticated()) {
-                            return (<CourseSelectionView {... props} />)
-                        }
-                        else {
-                            return (<Redirect to={'/'}/>)
-                        }}, path: '/courses',},
+                        }} , path: '/studyplans/:id'},
+
 
                 { render: (props) => {
                         if(UserService.isAuthenticated()) {
@@ -86,7 +77,7 @@ export default class App extends React.Component {
                         }
                         else {
                             return (<Redirect to={'/'}/>)
-                        }}, path: '/profile',},
+                        }}, path: '/profile',exact:true},
 
             ]
         };

@@ -65,7 +65,7 @@ import {withRouter} from "react-router-dom";
             if (user.isUniversityUser) {
                 this.props.history.push('/profile')
             } else {
-                this.props.history.push('/profile/studyplans')
+                this.props.history.push('/studyplans')
             }
         }).catch((e) => {
             console.error(e);

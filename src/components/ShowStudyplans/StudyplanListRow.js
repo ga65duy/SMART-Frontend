@@ -36,7 +36,7 @@ class StudyplanListRow extends React.Component{
     }
 
     studyplan(){
-        location.href = `/#/studyplan/${this.props.studyplan._id}`;
+        location.href = `/#/studyplans/${this.props.studyplan._id}`;
     }
 
     render () {

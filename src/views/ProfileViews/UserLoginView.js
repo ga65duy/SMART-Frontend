@@ -25,7 +25,7 @@ class UserLoginView extends React.Component {
                 if (user.isUniversityUser){
                     this.props.history.push('/profile');
                 } else {
-                    this.props.history.push('/profile/studyplans')
+                    this.props.history.push('/studyplans')
                 }
             }).catch((e) => {
                 console.error(e);

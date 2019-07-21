@@ -66,7 +66,7 @@ export class CreateStudyplanQueryView extends React.Component {
 
     createStudyplan(studyplan, uni){
         StudyplanService.createStudyplan(studyplan).then((studyplan) => {
-            this.props.history.push(`/studyplan/${studyplan._id}`)
+            this.props.history.push(`/studyplans/${studyplan._id}`)
 
         }).catch((e) => {
             console.error(e);

@@ -77,12 +77,12 @@ class Header extends React.Component {
 
      if(UserService.isUniversityUser()){
          return (
-             <Button color="primary" href="/#/profile/courses">My Courses </Button>
+             <Button color="primary" href="/#/courses">My Courses </Button>
          )
      }
      else{
          return (
-             <Button edge="start" color="primary" href="/#/profile/studyplans">My Studyplans</Button>
+             <Button edge="start" color="primary" href="/#/studyplans">My Studyplans</Button>
          )
      }
 
@@ -106,10 +106,10 @@ class Header extends React.Component {
                             <img href="/" src={require('../Smart.jpg')}/>
 
                             <Breadcrumbs separator="›" aria-label="Breadcrumb" color="primary">
-                                <Link color="primary" href="/" to="/">
+                                <Link color="primary" href="/#/" to="/#/">
                                     Home
                                 </Link>
-                                {pathway.map((p) => <Link key={p} color="primary" href={p}> {p}</Link>)}
+                                {pathway.map((p) => <Link key={p} color="primary" href={"/#/"+p}> {p}</Link>)}
                                 <Typography color="primary">{lastLink}</Typography>
                             </Breadcrumbs>
                             <Typography style={{flex:1}}/>

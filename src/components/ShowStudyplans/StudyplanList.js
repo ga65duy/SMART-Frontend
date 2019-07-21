@@ -38,7 +38,7 @@ class StudyplanList extends React.Component {
     }
 
     createStudyplan(){
-        location.href = `/#/home`;
+        location.href = `/#/studyplans/create`;
     }
 
     render() {
