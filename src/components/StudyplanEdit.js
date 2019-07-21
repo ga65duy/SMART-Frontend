@@ -535,11 +535,7 @@ class StudyplanEdit extends React.Component {
         this.setState({
             studyplan: sp,
         });
-        CourseService.getCourse(id._id).then(function (result) {
-            result.attendees[1] = 0;
-            result.attendees[1] = result.attendees[1] + 1;
-            CourseService.updateCourse(result);
-        });
+
     }
 
     onDropSem2(e) {
@@ -550,12 +546,7 @@ class StudyplanEdit extends React.Component {
         this.setState({
             studyplan: sp,
         });
-        CourseService.getCourse(id._id).then(function (result) {
-            result.attendees[2] = 0;
-            result.attendees[2] = result.attendees[2] + 1;
-            console.log(result);
-            CourseService.updateCourse(result);
-        });
+
     }
 
     onDropSem3(e) {
@@ -566,12 +557,7 @@ class StudyplanEdit extends React.Component {
         this.setState({
             studyplan: sp,
         });
-        CourseService.getCourse(id._id).then(function (result) {
-            result.attendees[3] = 0;
-            result.attendees[3] = result.attendees[3] + 1;
-            console.log(result);
-            CourseService.updateCourse(result);
-        });
+
     }
 
     onDropSem4(e) {
@@ -582,12 +568,7 @@ class StudyplanEdit extends React.Component {
         this.setState({
             studyplan: sp,
         });
-        CourseService.getCourse(id._id).then(function (result) {
-            result.attendees[4] = 0;
-            result.attendees[4] = result.attendees[4] + 1;
-            console.log(result);
-            CourseService.updateCourse(result);
-        });
+
     }
 
     onDropSem5(e) {
@@ -598,12 +579,7 @@ class StudyplanEdit extends React.Component {
         this.setState({
             studyplan: sp,
         });
-        CourseService.getCourse(id._id).then(function (result) {
-            result.attendees[5] = 0;
-            result.attendees[5] = result.attendees[5] + 1;
-            console.log(result);
-            CourseService.updateCourse(result);
-        });
+
     }
 
     onDropSem6(e) {
@@ -614,12 +590,7 @@ class StudyplanEdit extends React.Component {
         this.setState({
             studyplan: sp,
         });
-        CourseService.getCourse(id._id).then(function (result) {
-            result.attendees[6] = 0;
-            result.attendees[6] = result.attendees[6] + 1;
-            console.log(result);
-            CourseService.updateCourse(result);
-        });
+
     }
 
     onDropSem7(e) {
@@ -630,12 +601,7 @@ class StudyplanEdit extends React.Component {
         this.setState({
             studyplan: sp,
         });
-        CourseService.getCourse(id._id).then(function (result) {
-            result.attendees[7] = 0;
-            result.attendees[7] = result.attendees[7] + 1;
-            console.log(result);
-            CourseService.updateCourse(result);
-        });
+
     }
 
     onDropSem8(e) {
@@ -646,12 +612,7 @@ class StudyplanEdit extends React.Component {
         this.setState({
             studyplan: sp,
         });
-        CourseService.getCourse(id._id).then(function (result) {
-            result.attendees[8] = 0;
-            result.attendees[8] = result.attendees[8] + 1;
-            console.log(result);
-            CourseService.updateCourse(result);
-        });
+
     }
 
     onDropAvailable(e) {
@@ -680,10 +641,102 @@ class StudyplanEdit extends React.Component {
         // (all mandatory courses must be "zugewiesen" in the studyplan)
         //also check for ects & groups
         var sp = this.state.studyplan;
-
+        console.log(sp);
+        this.handleAttendees(sp);
         this.props.updateStudyplan(sp);
 
 
+    }
+
+    handleAttendees(sp){
+        for(let i=0; i< sp.semester1.length; i++){
+            let id = sp.semester1[i]._id;
+            CourseService.getCourse(id).then(function (result) {
+                if(result.attendees[0] != null) {
+                    result.attendees[0] = result.attendees[0] + 1;
+                } else{
+                    result.attendees[0] = 1;
+                }
+                CourseService.updateCourse(result);
+            });
+        }
+        for(let i=0; i< sp.semester2.length; i++){
+            let id = sp.semester2[i]._id;
+            CourseService.getCourse(id).then(function (result) {
+                if(result.attendees[1] != null) {
+                    result.attendees[1] = result.attendees[1] + 1;
+                } else{
+                    result.attendees[1] = 1;
+                }
+                CourseService.updateCourse(result);
+            });
+        }
+        for(let i=0; i< sp.semester4.length; i++){
+            let id = sp.semester4[i]._id;
+            CourseService.getCourse(id).then(function (result) {
+                if(result.attendees[3] != null) {
+                    result.attendees[3] = result.attendees[3] + 1;
+                } else{
+                    result.attendees[3] = 1;
+                }
+                CourseService.updateCourse(result);
+            });
+        }
+        for(let i=0; i< sp.semester5.length; i++){
+            let id = sp.semester5[i]._id;
+            CourseService.getCourse(id).then(function (result) {
+                if(result.attendees[4] != null) {
+                    result.attendees[4] = result.attendees[4] + 1;
+                } else{
+                    result.attendees[4] = 1;
+                }
+                CourseService.updateCourse(result);
+            });
+        }
+        for(let i=0; i< sp.semester6.length; i++){
+            let id = sp.semester6[i]._id;
+            CourseService.getCourse(id).then(function (result) {
+                if(result.attendees[5] != null) {
+                    result.attendees[5] = result.attendees[5] + 1;
+                } else{
+                    result.attendees[5] = 1;
+                }
+                CourseService.updateCourse(result);
+            });
+        }
+        for(let i=0; i< sp.semester7.length; i++){
+            let id = sp.semester7[i]._id;
+            CourseService.getCourse(id).then(function (result) {
+                if(result.attendees[6] != null) {
+                    result.attendees[6] = result.attendees[6] + 1;
+                } else{
+                    result.attendees[6] = 1;
+                }
+                CourseService.updateCourse(result);
+            });
+        }
+        for(let i=0; i< sp.semester7.length; i++){
+            let id = sp.semester7[i]._id;
+            CourseService.getCourse(id).then(function (result) {
+                if(result.attendees[7] != null) {
+                    result.attendees[7] = result.attendees[7] + 1;
+                } else{
+                    result.attendees[7] = 1;
+                }
+                CourseService.updateCourse(result);
+            });
+        }
+        for(let i=0; i< sp.semester3.length; i++){
+            let id = sp.semester3[i]._id;
+            CourseService.getCourse(id).then(function (result) {
+                if(result.attendees[2] != null) {
+                    result.attendees[2] = result.attendees[2] + 1;
+                } else{
+                    result.attendees[2] = 1;
+                }
+                CourseService.updateCourse(result);
+            });
+        }
     }
 
 

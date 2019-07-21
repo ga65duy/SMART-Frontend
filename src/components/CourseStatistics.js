@@ -18,6 +18,29 @@ export class CourseStatistics extends React.Component {
         super(props);
     }
 
+    fillAttendees(c){
+        let result = [];
+        for(let i=0;i<8; i++){
+            console.log("i: "+i+ c.attendees[i]);
+            if(c.attendees[i] != null){}else{
+
+                c.attendees[i]=0;
+                console.log("after: "+c.attendees[i]);
+            }
+        }
+        result=[
+            {x: 1, y: c.attendees[0]},
+            {x: 2, y: c.attendees[1]},
+            {x: 3, y: c.attendees[2]},
+            {x: 4, y: c.attendees[3]},
+            {x: 5, y: c.attendees[4]},
+            {x: 6, y: c.attendees[5]},
+            {x: 7, y: c.attendees[6]},
+            {x: 8, y: c.attendees[7]}
+        ]
+        return result;
+    }
+
 
     render(){
         return (
@@ -39,17 +62,10 @@ export class CourseStatistics extends React.Component {
                                         <HorizontalGridLines />
                                         <XAxis />
                                         <YAxis />
+
                                         <VerticalBarSeries
-                                            data={[
-                                                {x: 1, y: this.props.course.attendees[1]},
-                                                {x: 2, y: this.props.course.attendees[2]},
-                                                {x: 3, y: this.props.course.attendees[3]},
-                                                {x: 4, y: this.props.course.attendees[4]},
-                                                {x: 5, y: this.props.course.attendees[5]},
-                                                {x: 6, y: this.props.course.attendees[6]},
-                                                {x: 7, y: this.props.course.attendees[7]},
-                                                {x: 8, y: this.props.course.attendees[8]}
-                                            ]}/>
+                                            data={this.fillAttendees(this.props.course)}
+                                        />
                                     </XYPlot>
                                 </Grid>
 
