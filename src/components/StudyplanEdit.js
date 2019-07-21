@@ -6,10 +6,6 @@ import Page from './PageWithAdvertisement/Page';
 import FilterComponents from './FilterComponents'
 import Popup from './Popup';
 
-
-import Header from './Header';
-import {Footer} from './Footer';
-
 import {withStyles} from "@material-ui/core/styles";
 
 import Grid from '@material-ui/core/Grid';
@@ -17,13 +13,10 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-import StudyplanService from "../services/StudyplanService";
 import CourseService from "../services/CourseService";
-import UserService from "../services/UserService";
 import html2canvas from "html2canvas";
 import jsPDF from 'jspdf';
 import {withRouter} from "react-router-dom";
-import Box from "@material-ui/core/Box";
 import ReactStars from "react-stars";
 
 /**
@@ -885,14 +878,6 @@ class StudyplanEdit extends React.Component {
         this.setState({displayPopup:false,});
     }
 
-    showPopup(){
-        if(this.state.displayPopup){
-            return (
-                <Popup text={this.state.popupText} closePopup={this.closePopup} />
-            )
-        }
-
-    }
 
     handleSubmit() {
 
@@ -1144,7 +1129,7 @@ class StudyplanEdit extends React.Component {
 
 
                 </Paper>
-                {this.showPopup()}
+                <Popup text={this.state.popupText} closePopup={this.closePopup} showPopup={this.state.displayPopup}/>
 
             </Page>
         )
