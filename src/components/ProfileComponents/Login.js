@@ -100,7 +100,6 @@ class Login extends React.Component {
                             disabled={!this.state.sthTyped}
                     >Dismiss</Button>
                 </Grid>
-                <Link to={'/register'}>Not registered yet?</Link>
             </Paper>
         );
     }
