@@ -24,11 +24,12 @@ import html2canvas from "html2canvas";
 import jsPDF from 'jspdf';
 import {withRouter} from "react-router-dom";
 import Box from "@material-ui/core/Box";
+import ReactStars from "react-stars";
 
 /**
  *StudyplanEdit
  * Component for creating and editing a studyplan
- * Author: Gerhard,  Maria: pdf and styling, Jan: Attendee Handling
+ * Author: Gerhard,  Maria: pdf and styling,rating stars Jan: Attendee Handling
  */
 
 const styles = theme => ({
@@ -228,6 +229,13 @@ class StudyplanEdit extends React.Component {
                         {t.name}
                         {"  "}
                         {"ECTS: "+ t.ects}
+                        <ReactStars
+                            value={t.avgRatingOverall}
+                            size={20}
+                            color1={"#BDBDBD"}
+                            color2={"#FFB90F"}
+                            edit={false}
+                        />
                     </Paper>
 
                 </Grid>
@@ -245,6 +253,13 @@ class StudyplanEdit extends React.Component {
                         {t.name}
                         {"  "}
                         {"ECTS: "+ t.ects}
+                        <ReactStars
+                            value={t.avgRatingOverall}
+                            size={20}
+                            color1={"#BDBDBD"}
+                            color2={"#FFB90F"}
+                            edit={false}
+                        />
                     </Paper>
 
                 </Grid>
@@ -262,6 +277,13 @@ class StudyplanEdit extends React.Component {
                         {t.name}
                         {"  "}
                         {"ECTS: "+ t.ects}
+                        <ReactStars
+                            value={t.avgRatingOverall}
+                            size={20}
+                            color1={"#BDBDBD"}
+                            color2={"#FFB90F"}
+                            edit={false}
+                        />
                     </Paper>
 
                 </Grid>
@@ -279,6 +301,13 @@ class StudyplanEdit extends React.Component {
                         {t.name}
                         {"  "}
                         {"ECTS: "+ t.ects}
+                        <ReactStars
+                            value={t.avgRatingOverall}
+                            size={20}
+                            color1={"#BDBDBD"}
+                            color2={"#FFB90F"}
+                            edit={false}
+                        />
                     </Paper>
 
                 </Grid>
@@ -297,6 +326,13 @@ class StudyplanEdit extends React.Component {
                         {t.name}
                         {"  "}
                         {"ECTS: "+ t.ects}
+                        <ReactStars
+                            value={t.avgRatingOverall}
+                            size={20}
+                            color1={"#BDBDBD"}
+                            color2={"#FFB90F"}
+                            edit={false}
+                        />
                     </Paper>
 
                 </Grid>
@@ -315,6 +351,13 @@ class StudyplanEdit extends React.Component {
                         {t.name}
                         {"  "}
                         {"ECTS: "+ t.ects}
+                        <ReactStars
+                            value={t.avgRatingOverall}
+                            size={20}
+                            color1={"#BDBDBD"}
+                            color2={"#FFB90F"}
+                            edit={false}
+                        />
                     </Paper>
 
                 </Grid>
@@ -333,6 +376,13 @@ class StudyplanEdit extends React.Component {
                         {t.name}
                         {"  "}
                         {"ECTS: "+ t.ects}
+                        <ReactStars
+                            value={t.avgRatingOverall}
+                            size={20}
+                            color1={"#BDBDBD"}
+                            color2={"#FFB90F"}
+                            edit={false}
+                        />
                     </Paper>
 
                 </Grid>
@@ -352,6 +402,13 @@ class StudyplanEdit extends React.Component {
                         {t.name}
                         {"  "}
                         {"ECTS: "+ t.ects}
+                        <ReactStars
+                            value={t.avgRatingOverall}
+                            size={20}
+                            color1={"#BDBDBD"}
+                            color2={"#FFB90F"}
+                            edit={false}
+                        />
                     </Paper>
 
                 </Grid>
@@ -374,6 +431,13 @@ class StudyplanEdit extends React.Component {
                                 {t.name}
                                 {"  "}
                                 {"ECTS: "+ t.ects}
+                                <ReactStars
+                                    value={t.avgRatingOverall}
+                                    size={20}
+                                    color1={"#BDBDBD"}
+                                    color2={"#FFB90F"}
+                                    edit={false}
+                                />
                             </Paper>
 
                         </Grid>
