@@ -1,17 +1,27 @@
 "use strict";
 import React from 'react'
 import Page from "./PageWithAdvertisement/Page";
-import {Box, Grid, Typography} from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
+import {Box, Grid, Typography, withStyles} from "@material-ui/core";
 import {RatingPostList} from "./RatingComponents/RatingPostList";
 import Stars from "./RatingComponents/Stars";
 import ReactStars from "react-stars";
 import CourseService from "../services/CourseService";
-import {XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, LineSeries, VerticalBarSeries, LabelSeries} from 'react-vis';
+import {XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, ChartLabel, LineSeries, VerticalBarSeries, LabelSeries} from 'react-vis';
 /**
  * CourseStatistics
  * Component showing the course statistics, information and all ratings
  * Author: Jan
  */
+
+const styles = theme => ({
+    paper: {
+        padding: theme.spacing(2),
+        margin: "10px",
+        textAlign: "center",
+    },
+});
+
 
 export class CourseStatistics extends React.Component {
     constructor(props) {
@@ -19,7 +29,7 @@ export class CourseStatistics extends React.Component {
     }
 
     fillAttendees(c){
-        let result = [];
+        let result;
         for(let i=0;i<8; i++){
             if(c.attendees[i] != null){}else{
 
@@ -27,39 +37,45 @@ export class CourseStatistics extends React.Component {
             }
         }
         result=[
-            {x: 1, y: c.attendees[0]},
-            {x: 2, y: c.attendees[1]},
-            {x: 3, y: c.attendees[2]},
-            {x: 4, y: c.attendees[3]},
-            {x: 5, y: c.attendees[4]},
-            {x: 6, y: c.attendees[5]},
-            {x: 7, y: c.attendees[6]},
-            {x: 8, y: c.attendees[7]}
+            {x: "Next Sem.", y: c.attendees[0]},
+            {x: "2nd", y: c.attendees[1]},
+            {x: "3rd", y: c.attendees[2]},
+            {x: "4th", y: c.attendees[3]},
+            {x: "5th", y: c.attendees[4]},
+            {x: "6th", y: c.attendees[5]},
+            {x: "7th", y: c.attendees[6]},
+            {x: "8th", y: c.attendees[7]},
+            {x: "Semesters", y: 0}
         ]
         return result;
     }
 
 
     render(){
+        const {classes} = this.props;
+
+
         return (
             <Page>
-                <paper>
+                <Paper>
                     <Grid container direction="column" wrap="nowrap" align={"center"}>
                         <Grid item>
                             <Typography variant="h4" color={"primary"} gutterBottom>
                                 {this.props.course.name + " Statistics"}
                             </Typography>
                         </Grid>
+
                         <Grid item>
                             <Grid container direction="row" spacing={20}>
                                 <Grid item xs={7}>
                                     <XYPlot
-                                        width={500}
-                                        height={300}>
+                                        width={600}
+                                        height={300}
+                                        xType="ordinal">
                                         <VerticalGridLines />
                                         <HorizontalGridLines />
-                                        <XAxis />
-                                        <YAxis />
+                                        <XAxis/>
+                                        <YAxis/>
 
                                         <VerticalBarSeries
                                             data={this.fillAttendees(this.props.course)}
@@ -148,7 +164,7 @@ export class CourseStatistics extends React.Component {
                                                       loggedInUser={this.props.loggedInUser}/>
                         </Grid>
                     </Grid>
-                </paper>
+                </Paper>
             </Page>
         );
 
