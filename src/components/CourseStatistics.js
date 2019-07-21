@@ -1,7 +1,8 @@
 "use strict";
 import React from 'react'
 import Page from "./PageWithAdvertisement/Page";
-import {Box, Grid, Typography} from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
+import {Box, Grid, Typography, withStyles} from "@material-ui/core";
 import {RatingPostList} from "./RatingComponents/RatingPostList";
 import Stars from "./RatingComponents/Stars";
 import ReactStars from "react-stars";
@@ -12,6 +13,15 @@ import {XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, ChartLabel
  * Component showing the course statistics, information and all ratings
  * Author: Jan
  */
+
+const styles = theme => ({
+    paper: {
+        padding: theme.spacing(2),
+        margin: "10px",
+        textAlign: "center",
+    },
+});
+
 
 export class CourseStatistics extends React.Component {
     constructor(props) {
@@ -42,9 +52,12 @@ export class CourseStatistics extends React.Component {
 
 
     render(){
+        const {classes} = this.props;
+
+
         return (
             <Page>
-                <paper>
+                <Paper>
                     <Grid container direction="column" wrap="nowrap" align={"center"}>
                         <Grid item>
                             <Typography variant="h4" color={"primary"} gutterBottom>
@@ -151,7 +164,7 @@ export class CourseStatistics extends React.Component {
                                                       loggedInUser={this.props.loggedInUser}/>
                         </Grid>
                     </Grid>
-                </paper>
+                </Paper>
             </Page>
         );
 
