@@ -6,7 +6,7 @@ import {RatingPostList} from "./RatingComponents/RatingPostList";
 import Stars from "./RatingComponents/Stars";
 import ReactStars from "react-stars";
 import CourseService from "../services/CourseService";
-import {XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, LineSeries, VerticalBarSeries, LabelSeries} from 'react-vis';
+import {XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, ChartLabel, LineSeries, VerticalBarSeries, LabelSeries} from 'react-vis';
 /**
  * CourseStatistics
  * Component showing the course statistics, information and all ratings
@@ -19,7 +19,7 @@ export class CourseStatistics extends React.Component {
     }
 
     fillAttendees(c){
-        let result = [];
+        let result;
         for(let i=0;i<8; i++){
             if(c.attendees[i] != null){}else{
 
@@ -27,14 +27,15 @@ export class CourseStatistics extends React.Component {
             }
         }
         result=[
-            {x: 1, y: c.attendees[0]},
-            {x: 2, y: c.attendees[1]},
-            {x: 3, y: c.attendees[2]},
-            {x: 4, y: c.attendees[3]},
-            {x: 5, y: c.attendees[4]},
-            {x: 6, y: c.attendees[5]},
-            {x: 7, y: c.attendees[6]},
-            {x: 8, y: c.attendees[7]}
+            {x: "Next Sem.", y: c.attendees[0]},
+            {x: "2nd", y: c.attendees[1]},
+            {x: "3rd", y: c.attendees[2]},
+            {x: "4th", y: c.attendees[3]},
+            {x: "5th", y: c.attendees[4]},
+            {x: "6th", y: c.attendees[5]},
+            {x: "7th", y: c.attendees[6]},
+            {x: "8th", y: c.attendees[7]},
+            {x: "Semesters", y: 0}
         ]
         return result;
     }
@@ -50,16 +51,18 @@ export class CourseStatistics extends React.Component {
                                 {this.props.course.name + " Statistics"}
                             </Typography>
                         </Grid>
+
                         <Grid item>
                             <Grid container direction="row" spacing={20}>
                                 <Grid item xs={7}>
                                     <XYPlot
-                                        width={500}
-                                        height={300}>
+                                        width={600}
+                                        height={300}
+                                        xType="ordinal">
                                         <VerticalGridLines />
                                         <HorizontalGridLines />
-                                        <XAxis />
-                                        <YAxis />
+                                        <XAxis/>
+                                        <YAxis/>
 
                                         <VerticalBarSeries
                                             data={this.fillAttendees(this.props.course)}
