@@ -2,28 +2,17 @@
 import React from 'react'
 import Page from "./PageWithAdvertisement/Page";
 import Paper from "@material-ui/core/Paper";
-import {Box, Grid, Typography, withStyles} from "@material-ui/core";
+import {Box, Grid, Typography} from "@material-ui/core";
 import {RatingPostList} from "./RatingComponents/RatingPostList";
-import Stars from "./RatingComponents/Stars";
 import ReactStars from "react-stars";
-import CourseService from "../services/CourseService";
-import {XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, ChartLabel, LineSeries, VerticalBarSeries, LabelSeries} from 'react-vis';
+import {XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, VerticalBarSeries} from 'react-vis';
 /**
  * CourseStatistics
  * Component showing the course statistics, information and all ratings
  * Author: Jan
  */
 
-const styles = theme => ({
-    paper: {
-        padding: theme.spacing(2),
-        margin: "10px",
-        textAlign: "center",
-    },
-});
-
-
-export class CourseStatistics extends React.Component {
+export default class CourseStatistics extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -66,7 +55,7 @@ export class CourseStatistics extends React.Component {
                         </Grid>
 
                         <Grid item>
-                            <Grid container direction="row" spacing={20}>
+                            <Grid container direction="row">
                                 <Grid item xs={7}>
                                     <XYPlot
                                         width={600}

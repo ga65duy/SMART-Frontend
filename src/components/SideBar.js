@@ -25,10 +25,6 @@ const sideBar = theme => ({
     nested: {
         paddingLeft: theme.spacing(4),
     },
-    // nestedSecondLevel: {
-    //     paddingLeft: theme.spacing(6)
-    //
-    // }
 });
 
 
@@ -53,14 +49,6 @@ class SideBar extends React.Component {
 
     profile(){
         location.href = '/#/profile';
-    }
-
-    getStudyplanName(studyplanItems) {
-        return studyplanItems.map(item => {
-            return (<ListItem key={item["name"]} button>
-                <ListItemText primary={item["name"]} className={this.props.classes.nested}/>
-            </ListItem>);
-        })
     }
 
    getMyRatingsMyCourses(items) {

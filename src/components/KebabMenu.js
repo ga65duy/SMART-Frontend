@@ -23,13 +23,8 @@ class KebabMenu extends React.Component {
         }
     }
 
-
-
     render() {
         return (
-
-
-
             <MenuButton
                 id={this.props.id}
                 icon

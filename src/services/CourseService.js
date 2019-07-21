@@ -36,23 +36,6 @@ export default class CourseService {
         });
     }
 
-    /*static deleteCourse(id) {
-        return new Promise((resolve, reject) => {
-            HttpService.remove(`${MovieService.baseURL()}/${id}`, function(data) {
-                if(data.message != undefined) {
-                    resolve(data.message);
-                }
-                else {
-                    reject('Error while deleting');
-                }
-            }, function(textStatus) {
-                reject(textStatus);
-            });
-        });
-    }
-
-     */
-
     static updateCourse(course) {
         return new Promise((resolve, reject) => {
             HttpService.put(`${this.baseURL()}/${course._id}`, course, function (data) {
@@ -63,15 +46,6 @@ export default class CourseService {
         });
     }
 
-    static createCourse(course) {
-        return new Promise((resolve, reject) => {
-            HttpService.post(CourseService.baseURL(), course, function (data) {
-                resolve(data);
-            }, function (textStatus) {
-                reject(textStatus);
-            });
-        });
-    }
 
     /**
      * Get all rated courses of a user

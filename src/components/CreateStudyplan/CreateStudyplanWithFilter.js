@@ -9,7 +9,7 @@ import StudyplanEdit from "../StudyplanEdit";
 /**
  * Create Studyplan with filter
  * Showing the structure for studyplan with Filter for courses fitting to the university and field of study
- * Author: Maria and Gerhard
+ * Author: Maria
  */
 
 export default class CreateStudyplanWithFilter extends React.Component{

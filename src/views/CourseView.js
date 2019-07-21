@@ -5,7 +5,7 @@ import CourseWithRatings from "../components/RatingComponents/CourseWithRatings"
 import RateCourseService from "../services/RateCourseService";
 import UserService from "../services/UserService";
 import moment from "moment";
-import {CourseStatistics} from "../components/CourseStatistics";
+import CourseStatistics from "../components/CourseStatistics";
 import Page from "../components/PageWithAdvertisement/Page";
 import CircularProgress from "@material-ui/core/CircularProgress";
 

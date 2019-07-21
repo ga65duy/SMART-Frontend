@@ -1,7 +1,6 @@
 import React from "react";
 import Grid from '@material-ui/core/Grid';
 import StudyplanListRow from "./StudyplanListRow";
-import Page from "../PageWithAdvertisement/Page";
 import {Typography} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import withStyles from "@material-ui/core/styles/withStyles";

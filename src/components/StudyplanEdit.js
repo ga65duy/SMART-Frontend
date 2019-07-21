@@ -54,7 +54,7 @@ class StudyplanEdit extends React.Component {
                 semester: ""
             },
             displayPopup: false,
-            popupText:"",
+            popupText: "",
 
 
         };
@@ -62,19 +62,9 @@ class StudyplanEdit extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.filter = this.filter.bind(this);
         this.createPDF = this.createPDF.bind(this);
-        this.closePopup=this.closePopup.bind(this);
-        this.displayWSSS=this.displayWSSS.bind(this);
+        this.closePopup = this.closePopup.bind(this);
+        this.displayWSSS = this.displayWSSS.bind(this);
         this.updateECTS();
-
-    }
-
-    componentWillMount() {
-
-
-        /* let ele=this.state.studyplan.fieldOfStudy.elective;
-         this.setState({
-             filteredCourses: ele,
-         })*/
 
     }
 
@@ -157,7 +147,7 @@ class StudyplanEdit extends React.Component {
         if (sp.fieldOfStudy.degree == "Bachelor" || semester < 5) {
             return (
                 <div>
-                    <Typography> Semester {semester}  {" " +this.displayWSSS(semester)}</Typography>
+                    <Typography> Semester {semester} {" " + this.displayWSSS(semester)}</Typography>
                     <Typography style={{flex: 1}}/>
                     <Typography>
                         {this.updateECTS()[semester]}/30 ECTS
@@ -167,7 +157,7 @@ class StudyplanEdit extends React.Component {
         } else {
             return (
                 <div>
-                    <Typography> Semester {semester} { " " +this.displayWSSS(semester)}</Typography>
+                    <Typography> Semester {semester} {" " + this.displayWSSS(semester)}</Typography>
                     <Typography style={{flex: 1}}/>
                     <Typography>
                         {this.updateECTS()[semester]}/0 ECTS
@@ -195,9 +185,6 @@ class StudyplanEdit extends React.Component {
         }
     }
 
-
-    //änderungen an den Drag and Drop Cards in displaySemesters() machen
-
     displaySemesters() {
         var courses = {
             semester1: [],
@@ -221,7 +208,7 @@ class StudyplanEdit extends React.Component {
                     <Paper className={this.props.classes.paper}>
                         {t.name}
                         {"  "}
-                        {"ECTS: "+ t.ects}
+                        {"ECTS: " + t.ects}
                         <ReactStars
                             value={t.avgRatingOverall}
                             size={20}
@@ -245,7 +232,7 @@ class StudyplanEdit extends React.Component {
                     <Paper className={this.props.classes.paper}>
                         {t.name}
                         {"  "}
-                        {"ECTS: "+ t.ects}
+                        {"ECTS: " + t.ects}
                         <ReactStars
                             value={t.avgRatingOverall}
                             size={20}
@@ -269,7 +256,7 @@ class StudyplanEdit extends React.Component {
                     <Paper className={this.props.classes.paper}>
                         {t.name}
                         {"  "}
-                        {"ECTS: "+ t.ects}
+                        {"ECTS: " + t.ects}
                         <ReactStars
                             value={t.avgRatingOverall}
                             size={20}
@@ -293,7 +280,7 @@ class StudyplanEdit extends React.Component {
                     <Paper className={this.props.classes.paper}>
                         {t.name}
                         {"  "}
-                        {"ECTS: "+ t.ects}
+                        {"ECTS: " + t.ects}
                         <ReactStars
                             value={t.avgRatingOverall}
                             size={20}
@@ -318,7 +305,7 @@ class StudyplanEdit extends React.Component {
                     <Paper className={this.props.classes.paper}>
                         {t.name}
                         {"  "}
-                        {"ECTS: "+ t.ects}
+                        {"ECTS: " + t.ects}
                         <ReactStars
                             value={t.avgRatingOverall}
                             size={20}
@@ -343,7 +330,7 @@ class StudyplanEdit extends React.Component {
                     <Paper className={this.props.classes.paper}>
                         {t.name}
                         {"  "}
-                        {"ECTS: "+ t.ects}
+                        {"ECTS: " + t.ects}
                         <ReactStars
                             value={t.avgRatingOverall}
                             size={20}
@@ -368,7 +355,7 @@ class StudyplanEdit extends React.Component {
                     <Paper className={this.props.classes.paper}>
                         {t.name}
                         {"  "}
-                        {"ECTS: "+ t.ects}
+                        {"ECTS: " + t.ects}
                         <ReactStars
                             value={t.avgRatingOverall}
                             size={20}
@@ -394,7 +381,7 @@ class StudyplanEdit extends React.Component {
                     <Paper className={this.props.classes.paper}>
                         {t.name}
                         {"  "}
-                        {"ECTS: "+ t.ects}
+                        {"ECTS: " + t.ects}
                         <ReactStars
                             value={t.avgRatingOverall}
                             size={20}
@@ -423,7 +410,7 @@ class StudyplanEdit extends React.Component {
                             <Paper className={this.props.classes.paper}>
                                 {t.name}
                                 {"  "}
-                                {"ECTS: "+ t.ects}
+                                {"ECTS: " + t.ects}
                                 <ReactStars
                                     value={t.avgRatingOverall}
                                     size={20}
@@ -451,15 +438,15 @@ class StudyplanEdit extends React.Component {
 
     }
 
-    displayWSSS(sem){
-        if(sem==1||sem==3||sem==5||sem==7){
-            if(this.state.studyplan.wsSs=="WS"){
+    displayWSSS(sem) {
+        if (sem == 1 || sem == 3 || sem == 5 || sem == 7) {
+            if (this.state.studyplan.wsSs == "WS") {
                 return ("WS")
             } else {
                 return ("SS")
             }
         } else {
-            if(this.state.studyplan.wsSs=="SS"){
+            if (this.state.studyplan.wsSs == "SS") {
                 return ("WS")
             } else {
                 return ("SS")
@@ -627,30 +614,31 @@ class StudyplanEdit extends React.Component {
     onDropSem1(e) {
 
         let id = JSON.parse(e.dataTransfer.getData("course"));
-        if(this.state.studyplan.wsSs=="WS"){
-            if(id.WS){
+        if (this.state.studyplan.wsSs == "WS") {
+            if (id.WS) {
                 this.removeFromAll(id);
                 let sp = this.state.studyplan;
                 sp.semester1.push(id);
                 this.setState({
                     studyplan: sp,
                 });
-            }
-            else this.setState({popupText:"This Course cannot be taken in the Wintersemester",
-                displayPopup:true})
+            } else this.setState({
+                popupText: "This Course cannot be taken in the Wintersemester",
+                displayPopup: true
+            })
 
-        }
-        else{
-            if(id.SS){
+        } else {
+            if (id.SS) {
                 this.removeFromAll(id);
                 let sp = this.state.studyplan;
                 sp.semester1.push(id);
                 this.setState({
                     studyplan: sp,
                 });
-            }
-            else this.setState({popupText:"This Course cannot be taken in the Summersemester",
-                displayPopup:true})
+            } else this.setState({
+                popupText: "This Course cannot be taken in the Summersemester",
+                displayPopup: true
+            })
 
         }
         console.log(this.state.displayPopup);
@@ -660,189 +648,210 @@ class StudyplanEdit extends React.Component {
 
     onDropSem2(e) {
         let id = JSON.parse(e.dataTransfer.getData("course"));
-        if(this.state.studyplan.wsSs=="WS"){
-            if(id.SS){
+        if (this.state.studyplan.wsSs == "WS") {
+            if (id.SS) {
                 this.removeFromAll(id);
                 let sp = this.state.studyplan;
                 sp.semester2.push(id);
                 this.setState({
                     studyplan: sp,
                 });
-            } else this.setState({popupText:"This Course cannot be taken in the Summersemester",
-                displayPopup:true})
-        }
-        else{
-            if(id.WS){
+            } else this.setState({
+                popupText: "This Course cannot be taken in the Summersemester",
+                displayPopup: true
+            })
+        } else {
+            if (id.WS) {
                 this.removeFromAll(id);
                 let sp = this.state.studyplan;
                 sp.semester2.push(id);
                 this.setState({
                     studyplan: sp,
                 });
-            }else this.setState({popupText:"This Course cannot be taken in the Wintersemester",
-                displayPopup:true})
+            } else this.setState({
+                popupText: "This Course cannot be taken in the Wintersemester",
+                displayPopup: true
+            })
         }
 
     }
 
     onDropSem3(e) {
         let id = JSON.parse(e.dataTransfer.getData("course"));
-        if(this.state.studyplan.wsSs=="WS"){
-            if(id.WS){
+        if (this.state.studyplan.wsSs == "WS") {
+            if (id.WS) {
                 this.removeFromAll(id);
                 let sp = this.state.studyplan;
                 sp.semester3.push(id);
                 this.setState({
                     studyplan: sp,
                 });
-            } else this.setState({popupText:"This Course cannot be taken in the Wintersemester",
-                displayPopup:true})
-        }
-        else{
-            if(id.SS){
+            } else this.setState({
+                popupText: "This Course cannot be taken in the Wintersemester",
+                displayPopup: true
+            })
+        } else {
+            if (id.SS) {
                 this.removeFromAll(id);
                 let sp = this.state.studyplan;
                 sp.semester3.push(id);
                 this.setState({
                     studyplan: sp,
                 });
-            } else this.setState({popupText:"This Course cannot be taken in the Summersemester",
-                displayPopup:true})
+            } else this.setState({
+                popupText: "This Course cannot be taken in the Summersemester",
+                displayPopup: true
+            })
         }
 
     }
 
     onDropSem4(e) {
         let id = JSON.parse(e.dataTransfer.getData("course"));
-        if(this.state.studyplan.wsSs=="WS"){
-            if(id.SS){
+        if (this.state.studyplan.wsSs == "WS") {
+            if (id.SS) {
                 this.removeFromAll(id);
                 let sp = this.state.studyplan;
                 sp.semester4.push(id);
                 this.setState({
                     studyplan: sp,
                 });
-            } else this.setState({popupText:"This Course cannot be taken in the Summersemester",
-                displayPopup:true})
-        }
-        else{
-            if(id.WS){
+            } else this.setState({
+                popupText: "This Course cannot be taken in the Summersemester",
+                displayPopup: true
+            })
+        } else {
+            if (id.WS) {
                 this.removeFromAll(id);
                 let sp = this.state.studyplan;
                 sp.semester4.push(id);
                 this.setState({
                     studyplan: sp,
                 });
-            } else this.setState({popupText:"This Course cannot be taken in the Wintersemester",
-                displayPopup:true})
+            } else this.setState({
+                popupText: "This Course cannot be taken in the Wintersemester",
+                displayPopup: true
+            })
         }
 
     }
 
     onDropSem5(e) {
         let id = JSON.parse(e.dataTransfer.getData("course"));
-        if(this.state.studyplan.wsSs=="WS"){
-            if(id.WS){
+        if (this.state.studyplan.wsSs == "WS") {
+            if (id.WS) {
                 this.removeFromAll(id);
                 let sp = this.state.studyplan;
                 sp.semester5.push(id);
                 this.setState({
                     studyplan: sp,
                 });
-            }else this.setState({popupText:"This Course cannot be taken in the Wintersemester",
-                displayPopup:true})
-        }
-        else{
-            if(id.SS){
+            } else this.setState({
+                popupText: "This Course cannot be taken in the Wintersemester",
+                displayPopup: true
+            })
+        } else {
+            if (id.SS) {
                 this.removeFromAll(id);
                 let sp = this.state.studyplan;
                 sp.semester5.push(id);
                 this.setState({
                     studyplan: sp,
                 });
-            } else this.setState({popupText:"This Course cannot be taken in the Summersemester",
-                displayPopup:true})
+            } else this.setState({
+                popupText: "This Course cannot be taken in the Summersemester",
+                displayPopup: true
+            })
         }
 
     }
 
     onDropSem6(e) {
         let id = JSON.parse(e.dataTransfer.getData("course"));
-        if(this.state.studyplan.wsSs=="WS"){
-            if(id.SS){
+        if (this.state.studyplan.wsSs == "WS") {
+            if (id.SS) {
                 this.removeFromAll(id);
                 let sp = this.state.studyplan;
                 sp.semester6.push(id);
                 this.setState({
                     studyplan: sp,
                 });
-            }else this.setState({popupText:"This Course cannot be taken in the Summersemester",
-                displayPopup:true})
-        }
-        else{
-            if(id.WS){
+            } else this.setState({
+                popupText: "This Course cannot be taken in the Summersemester",
+                displayPopup: true
+            })
+        } else {
+            if (id.WS) {
                 this.removeFromAll(id);
                 let sp = this.state.studyplan;
                 sp.semester6.push(id);
                 this.setState({
                     studyplan: sp,
                 });
-            } else this.setState({popupText:"This Course cannot be taken in the Wintersemester",
-                displayPopup:true})
+            } else this.setState({
+                popupText: "This Course cannot be taken in the Wintersemester",
+                displayPopup: true
+            })
         }
 
     }
 
     onDropSem7(e) {
         let id = JSON.parse(e.dataTransfer.getData("course"));
-        if(this.state.studyplan.wsSs=="WS"){
-            if(id.WS){
+        if (this.state.studyplan.wsSs == "WS") {
+            if (id.WS) {
                 this.removeFromAll(id);
                 let sp = this.state.studyplan;
                 sp.semester7.push(id);
                 this.setState({
                     studyplan: sp,
                 });
-            } else this.setState({popupText:"This Course cannot be taken in the Wintersemester",
-                displayPopup:true})
-        }
-        else{
-            if(id.SS){
+            } else this.setState({
+                popupText: "This Course cannot be taken in the Wintersemester",
+                displayPopup: true
+            })
+        } else {
+            if (id.SS) {
                 this.removeFromAll(id);
                 let sp = this.state.studyplan;
                 sp.semester7.push(id);
                 this.setState({
                     studyplan: sp,
                 });
-            } else this.setState({popupText:"This Course cannot be taken in the Summersemester",
-                displayPopup:true})
+            } else this.setState({
+                popupText: "This Course cannot be taken in the Summersemester",
+                displayPopup: true
+            })
         }
 
     }
 
     onDropSem8(e) {
         let id = JSON.parse(e.dataTransfer.getData("course"));
-        if(this.state.studyplan.wsSs=="WS"){
-            if(id.SS){
+        if (this.state.studyplan.wsSs == "WS") {
+            if (id.SS) {
                 this.removeFromAll(id);
                 let sp = this.state.studyplan;
                 sp.semester8.push(id);
                 this.setState({
                     studyplan: sp,
                 });
-            } else this.setState({popupText:"This Course cannot be taken in the Summersemester",
-                displayPopup:true})
-        }
-        else{
-            if(id.WS){
+            } else this.setState({
+                popupText: "This Course cannot be taken in the Summersemester",
+                displayPopup: true
+            })
+        } else {
+            if (id.WS) {
                 this.removeFromAll(id);
                 let sp = this.state.studyplan;
                 sp.semester8.push(id);
                 this.setState({
                     studyplan: sp,
                 });
-            } else this.setState({popupText:"This Course cannot be taken in the Wintersemester",
-                displayPopup:true})
+            } else this.setState({
+                popupText: "This Course cannot be taken in the Wintersemester",
+                displayPopup: true
+            })
         }
     }
 
@@ -851,7 +860,7 @@ class StudyplanEdit extends React.Component {
         let id = JSON.parse(e.dataTransfer.getData("course"));
 
         let sp = this.state.studyplan;
-        if(!sp.fieldOfStudy.mandatory.includes(id._id)){
+        if (!sp.fieldOfStudy.mandatory.includes(id._id)) {
             this.removeFromAll(id);
             sp.notChosenCourses.push(id);
 
@@ -860,8 +869,8 @@ class StudyplanEdit extends React.Component {
             }, () => {
                 this.filter(this.state.selections);
             });
-        } else{
-            this.setState({popupText:"Mandatory Courses cannot be removed", displayPopup:true,})
+        } else {
+            this.setState({popupText: "Mandatory Courses cannot be removed", displayPopup: true,})
         }
 
     }
@@ -874,8 +883,8 @@ class StudyplanEdit extends React.Component {
 
     }
 
-    closePopup(){
-        this.setState({displayPopup:false,});
+    closePopup() {
+        this.setState({displayPopup: false,});
     }
 
 
@@ -883,108 +892,115 @@ class StudyplanEdit extends React.Component {
 
         var sp = this.state.studyplan;
 
-                this.handleAttendees(sp);
-                this.props.updateStudyplan(sp);
+        this.handleAttendees(sp);
+        this.props.updateStudyplan(sp);
+        location.href = `/#/studyplans`;
     }
 
-    switchSemester(start){
-        switch(start){
-            case "2019": return 0;
-            case "2020": return 2;
-            case "2021": return 4;
-            case "2022": return 6;
-            default:  return 0;
+    switchSemester(start) {
+        switch (start) {
+            case "2019":
+                return 0;
+            case "2020":
+                return 2;
+            case "2021":
+                return 4;
+            case "2022":
+                return 6;
+            default:
+                return 0;
 
         }
     }
-    handleAttendees(sp){
-        let e= this.switchSemester(sp.startSemester);
+
+    handleAttendees(sp) {
+        let e = this.switchSemester(sp.startSemester);
         console.log(e);
         console.log(sp.startSemester);
-        for(let i=0; i< sp.semester1.length; i++){
+        for (let i = 0; i < sp.semester1.length; i++) {
             let id = sp.semester1[i]._id;
             CourseService.getCourse(id).then(function (result) {
-                if(result.attendees[0+e] != null) {
-                    result.attendees[0+e] = result.attendees[0+e] + 1;
-                } else{
-                    result.attendees[0+e] = 1;
+                if (result.attendees[0 + e] != null) {
+                    result.attendees[0 + e] = result.attendees[0 + e] + 1;
+                } else {
+                    result.attendees[0 + e] = 1;
                 }
                 CourseService.updateCourse(result);
             });
         }
-        for(let i=0; i< sp.semester2.length; i++){
+        for (let i = 0; i < sp.semester2.length; i++) {
             let id = sp.semester2[i]._id;
             CourseService.getCourse(id).then(function (result) {
-                if(result.attendees[1+e] != null) {
-                    result.attendees[1+e] = result.attendees[1+e] + 1;
-                } else{
-                    result.attendees[1+e] = 1;
+                if (result.attendees[1 + e] != null) {
+                    result.attendees[1 + e] = result.attendees[1 + e] + 1;
+                } else {
+                    result.attendees[1 + e] = 1;
                 }
                 CourseService.updateCourse(result);
             });
         }
-        for(let i=0; i< sp.semester4.length; i++){
+        for (let i = 0; i < sp.semester4.length; i++) {
             let id = sp.semester4[i]._id;
             CourseService.getCourse(id).then(function (result) {
-                if(result.attendees[3+e] != null) {
-                    result.attendees[3+e] = result.attendees[3+e] + 1;
-                } else{
-                    result.attendees[3+e] = 1;
+                if (result.attendees[3 + e] != null) {
+                    result.attendees[3 + e] = result.attendees[3 + e] + 1;
+                } else {
+                    result.attendees[3 + e] = 1;
                 }
                 CourseService.updateCourse(result);
             });
         }
-        for(let i=0; i< sp.semester5.length; i++){
+        for (let i = 0; i < sp.semester5.length; i++) {
             let id = sp.semester5[i]._id;
             CourseService.getCourse(id).then(function (result) {
-                if(result.attendees[4+e] != null) {
-                    result.attendees[4+e] = result.attendees[4+e] + 1;
-                } else{
-                    result.attendees[4+e] = 1;
+                if (result.attendees[4 + e] != null) {
+                    result.attendees[4 + e] = result.attendees[4 + e] + 1;
+                } else {
+                    result.attendees[4 + e] = 1;
                 }
                 CourseService.updateCourse(result);
             });
         }
-        for(let i=0; i< sp.semester6.length; i++){
+        for (let i = 0; i < sp.semester6.length; i++) {
             let id = sp.semester6[i]._id;
             CourseService.getCourse(id).then(function (result) {
-                if(result.attendees[5+e] != null) {
-                    result.attendees[5+e] = result.attendees[5+e] + 1;
-                } else{
-                    result.attendees[5+e] = 1;
+                if (result.attendees[5 + e] != null) {
+                    result.attendees[5 + e] = result.attendees[5 + e] + 1;
+                } else {
+                    result.attendees[5 + e] = 1;
                 }
                 CourseService.updateCourse(result);
             });
         }
-        for(let i=0; i< sp.semester7.length; i++){
+        for (let i = 0; i < sp.semester7.length; i++) {
             let id = sp.semester7[i]._id;
             CourseService.getCourse(id).then(function (result) {
-                if(result.attendees[6+e] != null) {
-                    result.attendees[6+e] = result.attendees[6+e] + 1;
-                } else{
-                    result.attendees[6+e] = 1;
+                if (result.attendees[6 + e] != null) {
+                    result.attendees[6 + e] = result.attendees[6 + e] + 1;
+                } else {
+                    result.attendees[6 + e] = 1;
                 }
                 CourseService.updateCourse(result);
             });
         }
-        for(let i=0; i< sp.semester7.length; i++){
+        for (let i = 0; i < sp.semester7.length; i++) {
             let id = sp.semester7[i]._id;
             CourseService.getCourse(id).then(function (result) {
-                if(result.attendees[7+e] != null) {
-                    result.attendees[7+e] = result.attendees[7+e] + 1;
-                } else{
-                    result.attendees[7+e] = 1;
+                if (result.attendees[7 + e] != null) {
+                    result.attendees[7 + e] = result.attendees[7 + e] + 1;
+                } else {
+                    result.attendees[7 + e] = 1;
                 }
                 CourseService.updateCourse(result);
             });
         }
-        for(let i=0; i< sp.semester3.length; i++){
+        for (let i = 0; i < sp.semester3.length; i++) {
             let id = sp.semester3[i]._id;
             CourseService.getCourse(id).then(function (result) {
-                if(result.attendees[2+e] != null) {
-                    result.attendees[2+e] = result.attendees[2+e] + 1;
-                } else{
-                    result.attendees[2+e] = 1;
+                if (result.attendees[2 + e] != null) {
+                    result.attendees[2 + e] = result.attendees[2 + e] + 1;
+                } else {
+                    result.attendees[2 + e] = 1;
                 }
                 CourseService.updateCourse(result);
             });
@@ -996,8 +1012,8 @@ class StudyplanEdit extends React.Component {
         const input = document.getElementById("studyplanDiv");
         html2canvas(input).then((canvas) => {
             const imgData = canvas.toDataURL(`${this.state.studyplan.name}.png`);
-            const pdf = new jsPDF({orientation: "l"});
-            pdf.addImage(imgData, "PNG", 0, 0);
+            const pdf = new jsPDF({orientation: "p"});
+            pdf.addImage(imgData, "PNG", 0, -65);
             pdf.save(`${this.state.studyplan.name}.pdf`)
         })
     }
@@ -1014,7 +1030,7 @@ class StudyplanEdit extends React.Component {
                         <div id={"studyplanDiv"}>
                             <Grid item xs={5}>
                                 <Typography variant="h4" color={"primary"}
-                                            gutterBottom>{this.state.studyplan.name } </Typography>
+                                            gutterBottom>{this.state.studyplan.name} </Typography>
                                 {this.displayOverallECTS()}
                                 <Grid container direction="row" alignItems={"stretch"}
                                       style={{width: 700, maxHeight: 650, maxWidth: 700, overflow: 'auto'}}>
@@ -1074,31 +1090,35 @@ class StudyplanEdit extends React.Component {
                                         </Paper>
                                     </Grid>
 
-                                    {()=>{if(this.state.studyplan.fieldOfStudy.degree=="Bachelor"){
+                                    {() => {
+                                        if (this.state.studyplan.fieldOfStudy.degree == "Bachelor") {
 
-                                    return(
-                                    <Grid item onDrop={(e) => this.onDropSem7(e)}
-                                              onDragOver={(e) => this.onDragOver(e)}>
-                                            <Paper className={classes.paper}>
-                                                {this.displayECTS(7)}
-                                                {this.displaySemesters().semester7}
+                                            return (
+                                                <Grid item onDrop={(e) => this.onDropSem7(e)}
+                                                      onDragOver={(e) => this.onDragOver(e)}>
+                                                    <Paper className={classes.paper}>
+                                                        {this.displayECTS(7)}
+                                                        {this.displaySemesters().semester7}
 
-                                            </Paper>
-                                        </Grid>)
-                                    }}}
+                                                    </Paper>
+                                                </Grid>)
+                                        }
+                                    }}
 
-                                    {()=>{if(this.state.studyplan.fieldOfStudy.degree=="Bachelor"){
+                                    {() => {
+                                        if (this.state.studyplan.fieldOfStudy.degree == "Bachelor") {
 
-                                        return(
-                                        <Grid item onDrop={(e) => this.onDropSem8(e)}
-                                              onDragOver={(e) => this.onDragOver(e)}>
-                                            <Paper className={classes.paper}>
-                                                {this.displayECTS(8)}
-                                                {this.displaySemesters().semester8}
+                                            return (
+                                                <Grid item onDrop={(e) => this.onDropSem8(e)}
+                                                      onDragOver={(e) => this.onDragOver(e)}>
+                                                    <Paper className={classes.paper}>
+                                                        {this.displayECTS(8)}
+                                                        {this.displaySemesters().semester8}
 
-                                            </Paper>
-                                        </Grid>)
-                                    }}}
+                                                    </Paper>
+                                                </Grid>)
+                                        }
+                                    }}
 
                                 </Grid>
 
@@ -1126,8 +1146,6 @@ class StudyplanEdit extends React.Component {
                             className={classes.button}>
                         DOWNLOAD PDF
                     </Button>
-
-
                 </Paper>
                 <Popup text={this.state.popupText} closePopup={this.closePopup} showPopup={this.state.displayPopup}/>
 
